@@ -1,3 +1,4 @@
+import {debug} from './log';
 /**
 Methods for the client to speak with the workspace
 **/
@@ -8,6 +9,7 @@ Methods for the client to speak with the workspace
 */
 const messageQueue = {}
 const messageHandler = (ev) => {
+  debug("message received", ev);
   const { data } = ev;
 
   messageQueue[data.id](data.payload)
@@ -17,12 +19,21 @@ const messageHandler = (ev) => {
 /*
   Registers listener for incoming messages
 */
-export function registerExtension() {
+export function registerMessageListener() {
+  debug("registering message handler");
   window.addEventListener('message', messageHandler)
 
   return () => {
+    debug("deregistering message handler");
     window.removeEventListener('message', messageHandler);
   }
+}
+
+export async function handshake(permissions) {
+  debug('🤝')
+  const res = await request({ type: 'handshake', permissions })
+
+  return res;
 }
 
 /*

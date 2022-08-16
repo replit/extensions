@@ -1,8 +1,13 @@
-import { request } from './talk';
+import { registerMessageListener, handshake } from './talk';
+import {debug} from './log'
 export * from './api'
+export * from './log'
 
-export async function handshake(permissions) {
-  const res = await request({ type: 'handshake', permissions })
+export async function init({permissions}) {
+  const disposeMessageListener = registerMessageListener()
+  await handshake(permissions)
 
-  return res;
+  return () => {
+    disposeMessageListener();
+  }
 }

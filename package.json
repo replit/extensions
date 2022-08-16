@@ -1,12 +1,12 @@
 {
   "name": "@replit/extensions",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "main": "build/index.js",
   "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx esbuild --bundle src/index.js --outfile=build/index.js  --platform=browser --sourcemap --format=iife --global-name=replit",
+    "build": "npx esbuild --bundle src/index.js --outfile=build/index.js  --platform=browser --sourcemap --format=iife --global-name=replit && cp build/index.js example/replit.js && cp build/index.js.map example/index.js.map",
     "dev": "npm run build && npx vite ./example" 
   },
   "files": [

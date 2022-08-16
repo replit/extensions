@@ -21,7 +21,8 @@ var replit = (() => {
   var src_exports = {};
   __export(src_exports, {
     createDirectory: () => createDirectory,
-    handshake: () => handshake,
+    debug: () => debug,
+    init: () => init,
     readDirectory: () => readDirectory,
     readFile: () => readFile,
     readReplInfo: () => readReplInfo,
@@ -29,8 +30,32 @@ var replit = (() => {
     writeFile: () => writeFile
   });
 
+  // src/log.js
+  function debug(msg) {
+    console.log(msg);
+  }
+
   // src/talk.js
   var messageQueue = {};
+  var messageHandler = (ev) => {
+    debug("message received", ev);
+    const { data } = ev;
+    messageQueue[data.id](data.payload);
+    delete messageQueue[data.id];
+  };
+  function registerMessageListener() {
+    debug("registering message handler");
+    window.addEventListener("message", messageHandler);
+    return () => {
+      debug("deregistering message handler");
+      window.removeEventListener("message", messageHandler);
+    };
+  }
+  async function handshake(permissions) {
+    debug("\u{1F91D}");
+    const res = await request({ type: "handshake", permissions });
+    return res;
+  }
   async function request(payload) {
     const id = Math.random();
     return new Promise((resolve) => {
@@ -80,9 +105,12 @@ var replit = (() => {
   }
 
   // src/index.js
-  async function handshake(permissions) {
-    const res = await request({ type: "handshake", permissions });
-    return res;
+  async function init({ permissions }) {
+    const disposeMessageListener = registerMessageListener();
+    await handshake(permissions);
+    return () => {
+      disposeMessageListener();
+    };
   }
   return __toCommonJS(src_exports);
 })();

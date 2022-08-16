@@ -3,14 +3,20 @@ import './App.css'
 
 
 export default function App() {
+  const [connected, setConnected] = 
+    React.useState(false);
   React.useEffect(() => {
     const replit = window.replit;
-    console.log(replit);
+    (async () => {
+      await replit.init({permissions: []});
+      setConnected(true);
+    })()
   }, []);
   
   return (
     <main>
-      Replit Extensions
+      <div>Example extension</div>
+      <div>{connected ? 'connected' : 'connecting...'}</div>
     </main>
   )
 }
