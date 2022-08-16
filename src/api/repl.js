@@ -1,4 +1,4 @@
-import {request} from '../talk';
+import { request } from "../talk";
 export async function readReplInfo() {
-  return request({ type: 'readReplInfo' })
+  return request({ type: "readReplInfo" });
 }

@@ -1,30 +1,30 @@
-import {request} from '../talk';
+import { request } from "../talk";
 
 export async function readFile(path) {
   return request({
-    type: 'readFile',
+    type: "readFile",
     path,
-  })
+  });
 }
 
 export async function writeFile(path, content) {
   return request({
-    type: 'writeFile',
+    type: "writeFile",
     path,
     content,
-  })
+  });
 }
 
 export async function readDirectory(path) {
   return request({
-    type: 'readDirectory',
+    type: "readDirectory",
     path,
-  })
+  });
 }
 
 export async function createDirectory(path) {
   return request({
-    type: 'createDirectory',
+    type: "createDirectory",
     path,
-  })
+  });
 }
