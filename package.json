@@ -6,7 +6,7 @@
   "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx esbuild --bundle src/index.js --outfile=build/index.js  --platform=browser --sourcemap --format=iife --global-name=replit && cp build/index.js example/replit.js && cp build/replit.js.map example/index.js.map",
+    "build": "npx esbuild --bundle src/index.js --outfile=build/index.js  --platform=browser --sourcemap --format=iife --global-name=replit && cp build/index.js example/replit.js && cp build/index.js.map example/replit.js.map",
     "lint": "npx prettier --write src/*",
     "dev": "npm run build && npx vite ./example"
   },
