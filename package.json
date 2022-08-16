@@ -3,10 +3,11 @@
   "version": "0.0.2",
   "description": "",
   "main": "build/index.js",
-  "module": "index.js",
+  "module": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx esbuild index.js --outfile=build/index.js --minify"
+    "build": "npx esbuild --bundle src/index.js --outfile=build/index.js  --platform=browser --sourcemap --format=iife --global-name=replit",
+    "dev": "npm run build && npx vite ./example" 
   },
   "files": [
     "index.js",
@@ -17,5 +18,11 @@
   "license": "ISC",
   "dependencies": {
     "esbuild": "^0.14.49"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vite": "^3.0.8"
   }
 }
