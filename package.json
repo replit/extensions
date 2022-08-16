@@ -1,12 +1,17 @@
 {
   "name": "@replit/extensions",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "build/index.js",
   "module": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx esbuild index.js --outfile=build/index.js --minify"
   },
+  "files": [
+    "index.js",
+    "build/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
