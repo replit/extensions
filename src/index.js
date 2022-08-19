@@ -1,6 +1,7 @@
 import { registerMessageListener, handshake } from "./talk";
 import { debug } from "./log";
 export * from "./api";
+export * from "./jets"
 export * from "./log";
 
 export async function init({ permissions = [], timeout = 1000 }) {
@@ -10,6 +11,8 @@ export async function init({ permissions = [], timeout = 1000 }) {
     await handshake({permissions, timeout})
   } catch (e) {
     console.error(e);
+    disposeMessageListener();
+    throw e;
   }
 
   return () => {

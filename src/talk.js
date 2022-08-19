@@ -39,11 +39,22 @@ export async function handshake({ permissions, timeout }) {
 
     return request({ type: "handshake", permissions })
       .then((res) => {
+        if (res.error) {
+          throw res.error;
+        }
+        
+        if (res.success !== true) {
+          throw "handshake not successful"
+        }
+        
         debug("handshake succeeded");
         clearTimeout(timeoutId);
         resolve(res);
       })
-      .catch(reject);
+      .catch((err) => {
+        clearTimeout(timeoutId);
+        reject(err)
+      });
   });
 
   return res;

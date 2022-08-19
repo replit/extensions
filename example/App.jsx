@@ -5,18 +5,29 @@ import './App.css'
 export default function App() {
   const [connected, setConnected] = 
     React.useState(false);
+  const [error, setError] = 
+    React.useState(null);
+  
   React.useEffect(() => {
     const replit = window.replit;
     (async () => {
-      await replit.init({permissions: []});
-      setConnected(true);
+      try {
+        await replit.init({permissions: []});
+        setConnected(true);
+      } catch (e) {
+        setError(e);
+      }
     })()
   }, []);
   
   return (
     <main>
       <div>Example extension</div>
-      <div>{connected ? 'connected' : 'connecting...'}</div>
+      {error ? (
+        <div>error: {error.message ?? error}</div>
+      ) : (
+        <div>{connected ? 'connected' : 'connecting...'}</div>
+      )}
     </main>
   )
 }

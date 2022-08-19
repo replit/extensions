@@ -15,16 +15,16 @@ export async function writeFile(path, content) {
   });
 }
 
-export async function readDirectory(path) {
+export async function readDir(path) {
   return request({
-    type: "readDirectory",
+    type: "readDir",
     path,
   });
 }
 
-export async function createDirectory(path) {
+export async function createDir(path) {
   return request({
-    type: "createDirectory",
+    type: "createDir",
     path,
   });
 }
