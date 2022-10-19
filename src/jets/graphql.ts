@@ -1,4 +1,4 @@
-import { request } from "../talk";
+import { request } from "src/util/talk";
 
 export async function queryGraphql({query, variables}) {
   return request({

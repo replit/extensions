@@ -1,4 +1,6 @@
+// @ts-nocheck temporary (@lunaroyster)
 import { debug } from "./log";
+
 /**
 Methods for the client to speak with the workspace
 **/

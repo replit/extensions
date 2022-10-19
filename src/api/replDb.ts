@@ -1,4 +1,4 @@
-import { request } from "../talk";
+import { request } from "src/util/talk";
 
 async function set({key, value}) {
   return request({

@@ -1,8 +1,8 @@
-import { registerMessageListener, handshake } from "./talk";
-import { debug } from "./log";
+import { registerMessageListener, handshake } from "src/util/talk";
+import { debug } from "src/util/log";
 export * from "./api";
 export * from "./jets"
-export * from "./log";
+export * from "./util/log";
 
 export async function init({ permissions = [], timeout = 1000 }) {
   const disposeMessageListener = registerMessageListener();
