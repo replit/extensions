@@ -65,7 +65,7 @@ export async function handshake({ permissions, timeout }) {
 /*
   Send a message, expect a response
 */
-export async function request(payload) {
+export async function request(payload): Promise<{id: string, payload: any, error: any, success: boolean}> {
   const id = Math.random();
 
   return new Promise((resolve) => {
