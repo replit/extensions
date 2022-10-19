@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "comlink": "^4.3.1",
     "esbuild": "^0.14.49"
   },
   "devDependencies": {
