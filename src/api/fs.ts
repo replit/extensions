@@ -1,10 +1,10 @@
+import { extensionPort } from "src/util/comlink";
 import { request } from "src/util/talk";
 
 export async function readFile(path: string) {
-  return request({
-    type: "readFile",
-    path,
-  });
+  const fileContent = await extensionPort.readFile(path);
+  
+  return fileContent;
 }
 
 export async function writeFile(path: string, content: string|Blob) {
