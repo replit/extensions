@@ -16,7 +16,7 @@ const messageHandler = (ev) => {
   if (!messageQueue[data?.id]) {
     return;
   }
-  
+
   messageQueue[data.id](data.payload);
   delete messageQueue[data.id];
 };
@@ -48,18 +48,18 @@ export async function handshake({ permissions, timeout }) {
         if (res.error) {
           throw res.error;
         }
-        
+
         if (res.success !== true) {
-          throw "handshake not successful"
+          throw "handshake not successful";
         }
-        
+
         debug("handshake succeeded");
         clearTimeout(timeoutId);
         resolve(res);
       })
       .catch((err) => {
         clearTimeout(timeoutId);
-        reject(err)
+        reject(err);
       });
   });
 
@@ -69,7 +69,9 @@ export async function handshake({ permissions, timeout }) {
 /*
   Send a message, expect a response
 */
-export async function request(payload): Promise<{id: string, payload: any, error: any, success: boolean}> {
+export async function request(
+  payload
+): Promise<{ id: string; payload: any; error: any; success: boolean }> {
   const id = Math.random();
 
   return new Promise((resolve) => {

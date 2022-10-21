@@ -1,6 +1,6 @@
 import { request } from "src/util/talk";
 
-async function set({key, value}) {
+async function set({ key, value }) {
   return request({
     type: "setReplDbValue",
     key,
@@ -8,14 +8,14 @@ async function set({key, value}) {
   });
 }
 
-async function get({key}) {
+async function get({ key }) {
   return request({
     type: "getReplDbValue",
     key,
   });
 }
 
-async function list({prefix}) {
+async function list({ prefix }) {
   return request({
     type: "listReplDbKeys",
     prefix,
