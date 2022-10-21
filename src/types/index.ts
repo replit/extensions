@@ -9,4 +9,8 @@ export type ExtensionPortAPI = {
     error: string;
   }>;
   createDir: (path: string) => Promise<{} | { error: string }>;
+  deleteFile: (path: string) => Promise<{} | { error: string }>;
+  deleteDir: (path: string) => Promise<{} | { error: string }>;
+  move: (path: string, to: string) => Promise<{ error: string | null }>;
+  copyFile: (path: string, to: string) => Promise<{ error: string | null }>;
 };

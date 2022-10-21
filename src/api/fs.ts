@@ -16,3 +16,19 @@ export async function readDir(path: string) {
 export async function createDir(path: string) {
   return extensionPort.createDir(path);
 }
+
+export async function deleteFile(path: string) {
+  return extensionPort.deleteFile(path);
+}
+
+export async function deleteDir(path: string) {
+  return extensionPort.deleteDir(path);
+}
+
+export async function move(path: string, to: string) {
+  return extensionPort.move(path, to);
+}
+
+export async function copyFile(path: string, to: string) {
+  return extensionPort.copyFile(path, to);
+}
