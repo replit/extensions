@@ -13,6 +13,10 @@ const messageHandler = (ev) => {
   debug("message received", ev);
   const { data } = ev;
 
+  if (!messageQueue[data?.id]) {
+    return;
+  }
+  
   messageQueue[data.id](data.payload);
   delete messageQueue[data.id];
 };
