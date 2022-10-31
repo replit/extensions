@@ -1,12 +1,21 @@
 import { registerMessageListener, handshake } from "src/util/talk";
-import { debug } from "src/util/log";
+import { debug, setDebugMode } from "src/util/log";
 import { extensionPort } from "./util/comlink";
 export * from "./api";
 export * from "./jets";
 export * from "./util/log";
 export { extensionPort };
 
-export async function init({ permissions = [], timeout = 1000 }) {
+export async function init({
+  permissions = [],
+  timeout = 1000,
+  debug = false,
+}: {
+  permissions?: string[];
+  timeout?: number;
+  debug?: boolean;
+}) {
+  setDebugMode(debug);
   const disposeMessageListener = registerMessageListener();
 
   try {
