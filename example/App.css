@@ -4,3 +4,24 @@ main {
   align-items: center;
   flex-direction: column;
 }
+
+body {
+	background-color: #1C2333;
+	color: white;
+	font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	width: 80%;
+	height: 100vh;
+}
+
+.error {
+	color: #E52222
+}
+
+.heading {
+	font-size: 1.5em;
+}

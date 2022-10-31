@@ -31,12 +31,21 @@ export default function App() {
   
   return (
     <main>
-      <div>Example extension</div>
-      {error ? (
-        <div>error: {error.message ?? error}</div>
-      ) : (
-        <div>{connected ? 'connected' : 'connecting...'}</div>
-      )}
+			<div className="center">
+				<div>
+      		<div className="heading">Example extension</div>
+		      {error ? (
+						<>
+		        	<div className="error">error: {error.message ?? error}</div>
+							{error.message === "timeout" ? (
+								<div>Note: Make sure to open this URL as an extension, not a webview</div>
+							) : null}
+						</>
+		      ) : (
+		        <div>{connected ? 'connected' : 'connecting...'}</div>
+		      )}
+				</div>
+			</div>
     </main>
   )
 }
