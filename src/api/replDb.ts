@@ -1,25 +1,15 @@
-import { request } from "src/util/talk";
+import { extensionPort } from "src/util/comlink";
 
-async function set({key, value}) {
-  return request({
-    type: "setReplDbValue",
-    key,
-    value,
-  });
+async function set({ key, value }) {
+  return extensionPort.setReplDbValue(key, value);
 }
 
-async function get({key}) {
-  return request({
-    type: "getReplDbValue",
-    key,
-  });
+async function get({ key }) {
+  return extensionPort.getReplDbValue(key);
 }
 
-async function list({prefix}) {
-  return request({
-    type: "listReplDbKeys",
-    prefix,
-  });
+async function list({ prefix }) {
+  return extensionPort.listReplDbKeys(prefix);
 }
 
 const replDb = {
