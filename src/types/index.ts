@@ -1,3 +1,8 @@
+export type Pane = {
+  type: string;
+  id: string;
+}
+
 export type ExtensionPortAPI = {
   // fs
   readFile: (path: string) => Promise<{ content: string } | { error: string }>;
@@ -15,10 +20,17 @@ export type ExtensionPortAPI = {
   move: (path: string, to: string) => Promise<{ error: string | null }>;
   copyFile: (path: string, to: string) => Promise<{ error: string | null }>;
 
-  //
+  // replDb
   setReplDbValue: (key: string, value: string) => Promise<void>;
   getReplDbValue: (key: string) => Promise<string | null>;
   listReplDbKeys: (
     prefix: string
   ) => Promise<{ keys: string[] } | { error: string }>;
+
+  // layout
+  isPaneTypeVisible: (paneType: string) => Promise<boolean>;
+  findPaneByType: (paneType: string) => Promise<{ paneId: string, isHidden: boolean, isDialog: boolean, type: "tile" | "floating", data: any } | null>;
+  selectTab: (paneId: string) => Promise<void>;
+  insertFloatingPaneIfNotExist(pane: Pane): Promise<void>;
+  removeFloatingPanesByType(paneType: string): Promise<void>;
 };
