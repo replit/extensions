@@ -1,3 +1,8 @@
+## 0.5.0
+
+- added layout
+- fixed exports
+
 ## 0.4.0
 
 - migrated to use comlink
