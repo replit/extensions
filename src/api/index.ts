@@ -1,7 +1,8 @@
-export * as fs from './fs';
-export * as layout from './layout';
+import * as fs from "./fs";
+import * as layout from "./layout";
+import { default as replDb } from "./replDb";
 
-export { default as replDb } from "./replDb";
+export { layout, fs, replDb };
 
-// TODO: deprecate
+// deprecate this after migrating existing extensions
 export * from "./fs";

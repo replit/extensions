@@ -1,7 +1,7 @@
 export type Pane = {
   type: string;
   id: string;
-}
+};
 
 export type ExtensionPortAPI = {
   // fs
@@ -29,7 +29,15 @@ export type ExtensionPortAPI = {
 
   // layout
   isPaneTypeVisible: (paneType: string) => Promise<boolean>;
-  findPaneByType: (paneType: string) => Promise<{ paneId: string, isHidden: boolean, isDialog: boolean, type: "tile" | "floating", data: any } | null>;
+  findPaneByType: (
+    paneType: string
+  ) => Promise<{
+    paneId: string;
+    isHidden: boolean;
+    isDialog: boolean;
+    type: "tile" | "floating";
+    data: any;
+  } | null>;
   selectTab: (paneId: string) => Promise<void>;
   insertFloatingPaneIfNotExist(pane: Pane): Promise<void>;
   removeFloatingPanesByType(paneType: string): Promise<void>;
