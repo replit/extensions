@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "",
   "main": "build/index.js",
   "module": "src/index.js",
