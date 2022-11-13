@@ -1,4 +1,5 @@
-import { extensionPort } from "src/util/comlink";
+import { extensionPort, proxy } from "src/util/comlink";
+import { WatchFileWatchers } from "src/types";
 
 export async function readFile(path: string) {
   return extensionPort.readFile(path);
@@ -30,4 +31,8 @@ export async function move(path: string, to: string) {
 
 export async function copyFile(path: string, to: string) {
   return extensionPort.copyFile(path, to);
+}
+
+export async function watchFile(path: string, watchers: WatchFileWatchers) {
+  return extensionPort.watchFile(path, proxy(watchers));
 }
