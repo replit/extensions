@@ -3,6 +3,10 @@ export type Pane = {
   id: string;
 };
 
+export interface WatchFileWatchers {
+  onChange: (newContent: string) => void;
+}
+
 export type ExtensionPortAPI = {
   // fs
   readFile: (path: string) => Promise<{ content: string } | { error: string }>;
@@ -19,6 +23,7 @@ export type ExtensionPortAPI = {
   deleteDir: (path: string) => Promise<{} | { error: string }>;
   move: (path: string, to: string) => Promise<{ error: string | null }>;
   copyFile: (path: string, to: string) => Promise<{ error: string | null }>;
+  watchFile: (path: string, watcher: WatchFileWatchers) => (() => void);
 
   // replDb
   setReplDbValue: (key: string, value: string) => Promise<void>;

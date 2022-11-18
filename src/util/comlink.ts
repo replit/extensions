@@ -4,3 +4,5 @@ import { ExtensionPortAPI } from "src/types";
 export const extensionPort = Comlink.wrap<ExtensionPortAPI>(
   Comlink.windowEndpoint(self.parent, self, "*")
 );
+
+export const proxy = Comlink.proxy;
