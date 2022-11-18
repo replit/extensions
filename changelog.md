@@ -1,3 +1,7 @@
+## 0.6.0
+
+- added watchFile
+
 ## 0.5.0
 
 - added layout
