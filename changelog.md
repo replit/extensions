@@ -1,3 +1,7 @@
+## 0.7.0
+
+- added ESM support in addition to the current IIFE support
+
 ## 0.6.0
 
 - added watchFile
