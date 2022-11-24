@@ -10,7 +10,7 @@
     "build": "npm run build:iife && npm run build:esm && npm run build:types && npm run populate_replitjs",
     "build:iife": "npx esbuild --bundle src/index.js --outfile=build/index.iife.js  --platform=browser --sourcemap --format=iife --global-name=replit",
     "build:esm": "npx esbuild --bundle src/index.js --outfile=build/index.esm.js  --platform=browser --sourcemap --format=esm --global-name=replit",
-		"build:types": "npx tsc -d --emitDeclarationOnly --outFile build/index.d.ts",
+    "build:types": "npx tsc -d --emitDeclarationOnly --outDir build/types",
     "populate_replitjs": "cp build/index.iife.js example/replit.js && cp build/index.iife.js.map example/replit.js.map",
     "lint": "npx prettier --write src/*",
     "dev": "npm run build && npx vite ./example"
