@@ -1,3 +1,7 @@
+## 0.7.4
+
+- added some warnings for temporary APIs
+
 ## 0.7.3
 
 - added typings
