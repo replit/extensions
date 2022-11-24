@@ -1,16 +1,17 @@
 {
   "name": "@replit/extensions",
-  "version": "0.7.0",
+  "version": "0.7.2",
   "description": "",
   "main": "build/index.esm.js",
-	"unpkg": "build/index.iife.js",
-  "module": "src/index.js",
+  "unpkg": "build/index.iife.js",
+  "module": "build/index.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"build": "npm run build:iife && npm run build:esm && npm run populate_replitjs",
+    "build": "npm run build:iife && npm run build:esm && npm run build:types && npm run populate_replitjs",
     "build:iife": "npx esbuild --bundle src/index.js --outfile=build/index.iife.js  --platform=browser --sourcemap --format=iife --global-name=replit",
     "build:esm": "npx esbuild --bundle src/index.js --outfile=build/index.esm.js  --platform=browser --sourcemap --format=esm --global-name=replit",
-		"populate_replitjs": "cp build/index.iife.js example/replit.js && cp build/index.iife.js.map example/replit.js.map",
+		"build:types": "npx tsc -d --emitDeclarationOnly --outFile build/index.d.ts",
+    "populate_replitjs": "cp build/index.iife.js example/replit.js && cp build/index.iife.js.map example/replit.js.map",
     "lint": "npx prettier --write src/*",
     "dev": "npm run build && npx vite ./example"
   },
@@ -30,6 +31,7 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "typescript": "^4.9.3",
     "vite": "^3.0.8"
   }
 }
