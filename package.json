@@ -15,7 +15,8 @@
     "populate_replitjs": "cp build/index.iife.js example/replit.js && cp build/index.iife.js.map example/replit.js.map",
     "lint": "npx prettier --write src/*",
     "dev": "npm run build && npx vite ./example",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "generate:docs": "npx typedoc src/index.ts --json docs/main.json"
   },
   "files": [
     "index.js",
@@ -33,6 +34,7 @@
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "typedoc": "^0.23.21",
     "typescript": "^4.9.3",
     "vite": "^3.0.8"
   }
