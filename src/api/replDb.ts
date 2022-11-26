@@ -1,21 +1,22 @@
 import { extensionPort } from "src/util/comlink";
 
-async function set({ key, value }) {
-  return extensionPort.setReplDbValue(key, value);
+/**
+ * Sets the value for a given key
+ */
+export async function set(args: { key: string, value: any }) {
+  return extensionPort.setReplDbValue(args.key, args.value);
 }
 
-async function get({ key }) {
-  return extensionPort.getReplDbValue(key);
+/**
+ * Returns a value associated with the given key
+ */
+export async function get(args: { key: string }) {
+  return extensionPort.getReplDbValue(args.key);
 }
 
-async function list({ prefix }) {
-  return extensionPort.listReplDbKeys(prefix);
+/**
+ * Lists keys in the replDb. Accepts an optional `prefix`, which filters for keys beginning with the given prefix.
+ */
+export async function list(args: { prefix: string }) {
+  return extensionPort.listReplDbKeys(args.prefix);
 }
-
-const replDb = {
-  set,
-  get,
-  list,
-};
-
-export default replDb;

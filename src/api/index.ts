@@ -1,6 +1,6 @@
 import * as fs from "./fs";
 import * as layout from "./layout";
-import { default as replDb } from "./replDb";
+import * as replDb from "./replDb";
 
 export { layout, fs, replDb };
 
