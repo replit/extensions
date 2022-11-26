@@ -24,7 +24,7 @@
   ],
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "comlink": "^4.3.1"
   },
