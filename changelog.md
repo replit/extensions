@@ -1,3 +1,7 @@
+## 0.8.0
+
+- addded typedocs, and reorganized replDb
+
 ## 0.7.4
 
 - added some warnings for temporary APIs
