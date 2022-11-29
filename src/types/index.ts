@@ -83,6 +83,7 @@ export type ExtensionPortAPI = {
   listReplDbKeys: (
     prefix: string
   ) => Promise<{ keys: string[] } | { error: string }>;
+  deleteReplDbKey: (key: string) => Promise<void>;
 
   // layout
   isPaneTypeVisible: (paneType: string) => Promise<boolean>;

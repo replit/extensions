@@ -20,3 +20,10 @@ export async function get(args: { key: string }) {
 export async function list(args: { prefix: string }) {
   return extensionPort.listReplDbKeys(args.prefix);
 }
+
+/**
+ * Deletes a key in the replDb.
+ */
+export async function del(args: { key: string }) {
+  return extensionPort.deleteReplDbKey(args.key);
+}

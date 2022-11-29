@@ -1,3 +1,7 @@
+## 0.10.0
+
+- added replDb.delete API
+
 ## 0.9.0
 
 - added fs.watchTextFile API
