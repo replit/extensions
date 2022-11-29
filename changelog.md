@@ -1,3 +1,7 @@
+## 0.11.0
+
+- MIT license
+
 ## 0.10.0
 
 - added replDb.delete API
