@@ -1,3 +1,7 @@
+## 0.9.0
+
+- added fs.watchTextFile API
+
 ## 0.8.0
 
 - addded typedocs, and reorganized replDb
