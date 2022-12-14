@@ -58,6 +58,15 @@ export interface WatchTextFileWatchers {
   }) => void;
 }
 
+export interface LayoutData {
+  layout: {
+    floating: any
+    tiling: any;
+  },
+  data: Record<string, any>,
+  sidebarPercent: number;
+}
+
 export type ExtensionPortAPI = {
   // fs
   readFile: (path: string) => Promise<{ content: string } | { error: string }>;
@@ -97,4 +106,6 @@ export type ExtensionPortAPI = {
   selectTab: (paneId: string) => Promise<void>;
   insertFloatingPaneIfNotExist(pane: Pane): Promise<void>;
   removeFloatingPanesByType(paneType: string): Promise<void>;
+  getLayoutState(): Promise<LayoutData>;
+  setLayoutState(state: LayoutData): Promise<void>;
 };

@@ -1,4 +1,4 @@
-import { Pane } from "src/types";
+import { LayoutData, Pane } from "src/types";
 import { extensionPort } from "src/util/comlink";
 
 /** 
@@ -36,4 +36,18 @@ export async function insertFloatingPaneIfNotExist(pane: Pane) {
  */
 export async function removeFloatingPanesByType(paneType: string) {
   return extensionPort.removeFloatingPanesByType(paneType);
+}
+
+/**
+ * Gets the entire layout tree, with pane data
+ */
+export async function getLayoutState() {
+  return extensionPort.getLayoutState();
+}
+
+/**
+ * Sets the layout tree and pane data
+ */
+export async function setLayoutState(state: LayoutData) {
+  return extensionPort.setLayoutState(state);
 }
