@@ -58,13 +58,58 @@ export interface WatchTextFileWatchers {
   }) => void;
 }
 
+/**
+ * A unique id for a pane in the layout
+ */
+export type PaneId = string;
+
+/**
+ * A unique id for a pane group in the layout
+ */
+export type PaneGroupId = string;
+
+/**
+ * Represents the Repl's layout and pane data in a serializable manner
+ */
 export interface LayoutData {
   layout: {
-    floating: any
+    floating: Array<FloatingPaneGroup>
     tiling: any;
   },
   data: Record<string, any>,
   sidebarPercent: number;
+}
+
+/**
+ * The size in pixles within the layout
+ */
+export interface Size {
+  width: number;
+  height: number;
+}
+
+/**
+ * The position in pixles within the layout
+ */
+export interface Point {
+  x: number;
+  y: number;
+}
+
+/**
+ * Size and position in pixles within the layout
+ */
+export interface Rect extends Point, Size {}
+
+/**
+ * A floating group of panes
+ */
+export interface FloatingPaneGroup {
+  id: string;
+  type: 'floatingPaneGroup';
+  panes: Array<PaneId>;
+  activeIndex: number;
+  rect: Rect;
 }
 
 export type ExtensionPortAPI = {

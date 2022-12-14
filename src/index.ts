@@ -5,6 +5,7 @@ export * from "./api";
 export * from "./jets";
 export * from "./util/log";
 export { extensionPort };
+export * from './types'
 
 export async function init({
   permissions = [],
