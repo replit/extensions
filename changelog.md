@@ -1,3 +1,8 @@
+## 0.12.0
+
+- Added layout.getLayoutState, layout.setLayoutState
+- Exported all types
+
 ## 0.11.0
 
 - MIT license
