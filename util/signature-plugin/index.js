@@ -84,7 +84,7 @@ exports.load = function(app) {
         },
         priority: 0,
         toObject: (x, obj) => {
-            obj.stringifiedInterface = `interface ${x.name} {\n${x.children.map(c => `  ${c.name}: ${c.type.toString()},`).join('\n')}\n}`
+            obj.stringifiedInterface = `interface ${x.name} {\n${x.children.map(c => `    ${c.name}: ${c.type.toString()},`).join('\n')}\n}`
             return obj;
         }
     });
