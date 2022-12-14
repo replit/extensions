@@ -2,6 +2,7 @@ const { SignatureReflection, ReflectionKind, ReflectionType } = require("typedoc
 
 // from https://github.com/TypeStrong/typedoc/issues/1662#issuecomment-907717438
 exports.load = function(app) {
+    // This adds a string representation for function call signatures directly to the JSON output
     app.serializer.addSerializer({
         supports(x) {
             return x instanceof SignatureReflection;
@@ -53,7 +54,7 @@ exports.load = function(app) {
         }
     });
 
-    // This is so we can stringify objects
+    // This adds a stringified representation of object types to the JSON output
     app.serializer.addSerializer({
         supports(x) {
             return x instanceof ReflectionType;
@@ -74,5 +75,17 @@ exports.load = function(app) {
             }
             return obj
         }
-    })
+    });
+
+    // This adds a stringified representation of interface types to the JSON output
+    app.serializer.addSerializer({
+        supports(x) {
+            return (x.kind === ReflectionKind.Interface)
+        },
+        priority: 0,
+        toObject: (x, obj) => {
+            obj.stringifiedInterface = `interface ${x.name} {\n${x.children.map(c => `  ${c.name}: ${c.type.toString()},`).join('\n')}\n}`
+            return obj;
+        }
+    });
 }
