@@ -1,4 +1,4 @@
-import { request } from "src/util/talk";
+import { extensionPort } from "src";
 
 let queryWarned = false;
 export async function queryGraphql({ query, variables }) {
@@ -7,11 +7,7 @@ export async function queryGraphql({ query, variables }) {
     queryWarned = true;
   }
 
-  return request({
-    type: "queryGraphql",
-    query,
-    variables,
-  });
+  return extensionPort.queryGraphql({ query, variables })
 }
 
 let mutateWarned = false;
@@ -21,9 +17,5 @@ export async function mutateGraphql({ mutation, variables }) {
     mutateWarned = true;
   }
 
-  return request({
-    type: "mutateGraphql",
-    mutation,
-    variables,
-  });
+  return extensionPort.mutateGraphql({ mutation, variables })
 }
