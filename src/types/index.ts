@@ -99,7 +99,7 @@ export interface Point {
 /**
  * Size and position in pixles within the layout
  */
-export interface Rect extends Point, Size {}
+export interface Rect extends Point, Size { }
 
 /**
  * A floating group of panes
@@ -113,6 +113,8 @@ export interface FloatingPaneGroup {
 }
 
 export type ExtensionPortAPI = {
+  // misc
+  handshake: (args: { permissions: Array<string> }) => void;
   // fs
   readFile: (path: string) => Promise<{ content: string } | { error: string }>;
   writeFile: (
@@ -153,4 +155,13 @@ export type ExtensionPortAPI = {
   removeFloatingPanesByType(paneType: string): Promise<void>;
   getLayoutState(): Promise<LayoutData>;
   setLayoutState(state: LayoutData): Promise<void>;
+
+  // jets (will be deprecated)
+
+  // graphql
+  queryGraphql(args: { query: string, variables?: Record<string, any> }): any;
+  mutateGraphql(args: { mutation: string, variables?: Record<string, any> }): any;
+
+  // eval
+  eval(code: string): any;
 };

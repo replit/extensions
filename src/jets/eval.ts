@@ -1,4 +1,4 @@
-import { request } from "src/util/talk";
+import { extensionPort } from "src";
 
 let warned = false;
 
@@ -8,8 +8,5 @@ export async function evalCode({ code }) {
     warned = true;
   }
 
-  return request({
-    type: "eval",
-    code,
-  });
+  return await extensionPort.eval(code);
 }
