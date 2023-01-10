@@ -1,3 +1,7 @@
+## 0.13.0
+
+- removed old postMessage code
+
 ## 0.12.0
 
 - Added layout.getLayoutState, layout.setLayoutState
