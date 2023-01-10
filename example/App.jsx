@@ -44,6 +44,8 @@ export default function App() {
 		      ) : (
 		        <div>{connected ? 'connected' : 'connecting...'}</div>
 		      )}
+          
+          <replit.rui.Button text="hi" />
 				</div>
 			</div>
     </main>
