@@ -29,7 +29,15 @@
     "comlink": "^4.3.1"
   },
   "devDependencies": {
+    "@emotion/react": "^11.10.5",
+    "@react-aria/button": "^3.6.4",
+    "@react-aria/focus": "^3.10.1",
+    "@react-aria/menu": "^3.7.1",
+    "@react-aria/overlays": "^3.12.1",
+    "@react-aria/utils": "^3.14.2",
+    "@react-aria/visually-hidden": "^3.6.1",
     "@vitejs/plugin-react": "^2.0.1",
+    "chroma-js": "^2.4.2",
     "esbuild": "^0.15.12",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
