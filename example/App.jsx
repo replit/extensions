@@ -19,6 +19,7 @@ export default function App() {
     window.replit = replit;
   }, [connected, error, replit]);
 
+
   return (
     <main>
       <div className="center">
