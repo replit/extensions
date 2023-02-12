@@ -17,15 +17,26 @@ export async function init({
 }) {
   setDebugMode(debug);
 
+  const onExtensionClick = () => {
+    extensionPort.activate();
+  }
+
+  const windDown = () => {
+    window.document.removeEventListener('click', onExtensionClick)
+  }
+
   try {
     await extensionPort.handshake({ permissions });
+
+    if (window) {
+      window.document.addEventListener('click', onExtensionClick)
+    }
+
   } catch (e) {
     console.error(e);
-    // wind down
+    windDown();
     throw e;
   }
 
-  return () => {
-    // wind down
-  };
+  return windDown
 }
