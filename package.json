@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions",
-  "version": "0.13.0",
+  "version": "0.15.0",
   "description": "",
   "main": "build/index.esm.js",
   "unpkg": "build/index.iife.js",

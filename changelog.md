@@ -1,3 +1,7 @@
+## 0.15.0
+
+- Added activatePane call
+
 ## 0.13.0
 
 - removed old postMessage code
