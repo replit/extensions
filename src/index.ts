@@ -18,7 +18,7 @@ export async function init({
   setDebugMode(debug);
 
   const onExtensionClick = () => {
-    extensionPort.activate();
+    extensionPort.activatePane();
   }
 
   const windDown = () => {
