@@ -156,6 +156,8 @@ export type ExtensionPortAPI = {
   getLayoutState(): Promise<LayoutData>;
   setLayoutState(state: LayoutData): Promise<void>;
 
+  activatePane: () => Promise<void>
+
   // jets (will be deprecated)
 
   // graphql
