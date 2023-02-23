@@ -1,0 +1,16 @@
+{
+  "name": "Example extension",
+  "description": "An example extension",
+  "version": "0",
+  "tags": ["editor"],
+  "supportEmail": "arnav@replit.com",
+  "website": "https://replit.com",
+  "longDescription": "The example editor extension lets you test the extension system",
+  "coverImages": [],
+  "fileHandlers": [
+    {
+      "glob": "*.json",
+      "handler": "/"
+    }
+  ]
+}
