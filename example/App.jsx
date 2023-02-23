@@ -3,24 +3,26 @@ import './App.css'
 
 
 export default function App() {
-  const [connected, setConnected] = 
+  const [connected, setConnected] =
     React.useState(false);
-  const [error, setError] = 
+  const [error, setError] =
     React.useState(null);
+  const [filePath, setFilePath] = React.useState(null);
 
   const runRef = React.useRef(0);
-  
+
   React.useEffect(() => {
     // this effect runs twice by default
     runRef.current += 1;
     if (runRef.current === 1) {
       return;
     }
-    
+
     const replit = window.replit;
     (async () => {
       try {
-        await replit.init({permissions: []});
+        await replit.init({ permissions: [] });
+        setFilePath(await replit.extensionPort.filePath);
         setConnected(true);
         // use replit API here to do something
       } catch (e) {
@@ -28,24 +30,24 @@ export default function App() {
       }
     })()
   }, []);
-  
+
   return (
     <main>
-			<div className="center">
-				<div>
-      		<div className="heading">Example extension</div>
-		      {error ? (
-						<>
-		        	<div className="error">error: {error.message ?? error}</div>
-							{error.message === "timeout" ? (
-								<div>Note: Make sure to open this URL as an extension, not a webview</div>
-							) : null}
-						</>
-		      ) : (
-		        <div>{connected ? 'connected' : 'connecting...'}</div>
-		      )}
-				</div>
-			</div>
+      <div className="center">
+        <div>
+          <div className="heading">Example extension</div>
+          {error ? (
+            <>
+              <div className="error">error: {error.message ?? error}</div>
+              {error.message === "timeout" ? (
+                <div>Note: Make sure to open this URL as an extension, not a webview</div>
+              ) : null}
+            </>
+          ) : (
+            <div>{connected ? (filePath ? `connected to ${filePath}`: 'connected') : 'connecting...'}</div>
+          )}
+        </div>
+      </div>
     </main>
   )
 }
