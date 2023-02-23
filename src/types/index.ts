@@ -164,4 +164,6 @@ export type ExtensionPortAPI = {
 
   // eval
   eval(code: string): any;
+
+  filePath: string;
 };
