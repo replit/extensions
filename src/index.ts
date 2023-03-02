@@ -6,9 +6,18 @@ export * from "./util/log";
 export { extensionPort };
 export * from './types'
 
+function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
+  return Promise.race([
+    promise,
+    new Promise((_resolve, reject) =>
+      setTimeout(() => reject(new Error('timeout')), timeout)
+    )
+  ]);
+}
+
 export async function init({
   permissions = [],
-  timeout = 1000,
+  timeout = 2000,
   debug = false,
 }: {
   permissions?: string[];
@@ -26,7 +35,7 @@ export async function init({
   }
 
   try {
-    await extensionPort.handshake({ permissions });
+    await promiseWithTimeout(extensionPort.handshake({ permissions }), timeout)
 
     if (window) {
       window.document.addEventListener('click', onExtensionClick)

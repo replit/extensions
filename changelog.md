@@ -1,3 +1,8 @@
+## 0.17.0
+
+- fixed timeout
+- bumped default timeout to 2000
+
 ## 0.16.0
 
 - added `me` API
