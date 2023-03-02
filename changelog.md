@@ -1,3 +1,8 @@
+## 0.16.0
+
+- added `me` API
+- added `me.filePath()` to get the current filePath
+
 ## 0.15.0
 
 - Added activatePane call

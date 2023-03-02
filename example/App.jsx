@@ -22,7 +22,7 @@ export default function App() {
     (async () => {
       try {
         await replit.init({ permissions: [] });
-        setFilePath(await replit.extensionPort.filePath);
+        setFilePath(await replit.me.filePath());
         setConnected(true);
         // use replit API here to do something
       } catch (e) {
