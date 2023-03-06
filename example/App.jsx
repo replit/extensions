@@ -1,6 +1,6 @@
 import * as React from 'react';
+import * as replit from '@replit/extensions';
 import './App.css'
-
 
 export default function App() {
   const [connected, setConnected] =
@@ -8,17 +8,18 @@ export default function App() {
   const [error, setError] =
     React.useState(null);
   const [filePath, setFilePath] = React.useState(null);
-
+  
   const runRef = React.useRef(0);
 
   React.useEffect(() => {
+    window.replit = replit;
+
     // this effect runs twice by default
     runRef.current += 1;
     if (runRef.current === 1) {
       return;
     }
 
-    const replit = window.replit;
     (async () => {
       try {
         await replit.init({ permissions: [] });
