@@ -1,3 +1,7 @@
+## 0.17.1
+
+- upgraded json5
+
 ## 0.17.0
 
 - fixed timeout
