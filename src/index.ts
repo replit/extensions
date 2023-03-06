@@ -4,14 +4,14 @@ export * from "./api";
 export * from "./jets";
 export * from "./util/log";
 export { extensionPort };
-export * from './types'
+export * from "./types";
 
 function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   return Promise.race([
     promise,
     new Promise((_resolve, reject) =>
-      setTimeout(() => reject(new Error('timeout')), timeout)
-    )
+      setTimeout(() => reject(new Error("timeout")), timeout)
+    ),
   ]);
 }
 
@@ -28,24 +28,23 @@ export async function init({
 
   const onExtensionClick = () => {
     extensionPort.activatePane();
-  }
+  };
 
   const windDown = () => {
-    window.document.removeEventListener('click', onExtensionClick)
-  }
+    window.document.removeEventListener("click", onExtensionClick);
+  };
 
   try {
-    await promiseWithTimeout(extensionPort.handshake({ permissions }), timeout)
+    await promiseWithTimeout(extensionPort.handshake({ permissions }), timeout);
 
     if (window) {
-      window.document.addEventListener('click', onExtensionClick)
+      window.document.addEventListener("click", onExtensionClick);
     }
-
   } catch (e) {
     console.error(e);
     windDown();
     throw e;
   }
 
-  return windDown
+  return windDown;
 }

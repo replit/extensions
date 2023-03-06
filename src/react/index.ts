@@ -1,5 +1,3 @@
-import useReplit from './useReplit';
+import useReplit from "./useReplit";
 
-export {
-  useReplit
-}
+export { useReplit };
