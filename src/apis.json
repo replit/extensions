@@ -1,7 +1,8 @@
 [
   {
     "name": "fs",
-    "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.","typeNames": ["WatchFileWatchers", "WatchTextFileWatchers"],
+    "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.",
+    "typeNames": ["WatchFileWatchers", "WatchTextFileWatchers"],
     "isActive": true
   },
   {
