@@ -3,7 +3,7 @@ import { useReplit } from '@replit/extensions/react';
 import './App.css'
 
 export default function App() {
-  const {connected, error, filePath, replit} = useReplit();
+  const { connected, error, filePath, replit } = useReplit()
 
   React.useEffect(() => {
     if (!connected) {
@@ -26,7 +26,7 @@ export default function App() {
               ) : null}
             </>
           ) : (
-            <div>{connected ? (filePath ? `connected to ${filePath}`: 'connected') : 'connecting...'}</div>
+            <div>{connected ? (filePath ? `connected to ${filePath}` : 'connected') : 'connecting...'}</div>
           )}
         </div>
       </div>

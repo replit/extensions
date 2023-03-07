@@ -1,3 +1,12 @@
+## 0.18.0
+
+- Switched to tsup bundler
+- made /example its own package, and improved how linking works
+  - got rid of janky copy based linking
+- improved devex for the replit/extensions package as a whole
+- added @replit/extensions/react as an export
+- added a useReplit hook
+
 ## 0.17.1
 
 - upgraded json5

@@ -8,18 +8,17 @@ export default function useReplit() {
   const runRef = React.useRef(0);
 
   React.useEffect(() => {
-    runRef.current += 1;
+    // Avoids duplicate runs of init
     if (runRef.current === 1) {
       return;
     }
+    runRef.current += 1;
 
     if (connected) {
       return;
     }
 
-    let dispose = () => {
-      console.log("old dispose");
-    };
+    let dispose = () => {};
 
     (async () => {
       try {
