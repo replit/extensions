@@ -1,3 +1,7 @@
+## 0.19.0
+
+- removed deprecated APIs
+
 ## 0.18.0
 
 - Switched to tsup bundler
