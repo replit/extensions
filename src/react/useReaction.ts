@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import * as replit from "../index";
 import useReplit from "./useReplit";
 
@@ -8,11 +8,9 @@ export default function useReaction(
 ) {
   const { replit, connected } = useReplit();
 
-  if (replit && connected) {
-    return useEffect(() => {
+  return useLayoutEffect(() => {
+    if (replit && connected) {
       callback(replit);
-    }, [dependencies, replit]);
-  }
-
-  return useEffect(() => {}, [dependencies, replit]);
+    }
+  }, [...dependencies, replit, connected]);
 }
