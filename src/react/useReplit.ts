@@ -35,5 +35,8 @@ export default function useReplit() {
     };
   }, []);
 
-  return { connected, error, filePath, replit };
+  return React.useMemo(
+    () => ({ connected, error, filePath, replit }),
+    [connected, error, filePath, replit]
+  );
 }
