@@ -1,3 +1,7 @@
+## 0.20.0
+
+- fixed global name bug for iife
+
 ## 0.19.0
 
 - removed deprecated APIs
