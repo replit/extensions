@@ -73,10 +73,10 @@ export type PaneGroupId = string;
  */
 export interface LayoutData {
   layout: {
-    floating: Array<FloatingPaneGroup>
+    floating: Array<FloatingPaneGroup>;
     tiling: any;
-  },
-  data: Record<string, any>,
+  };
+  data: Record<string, any>;
   sidebarPercent: number;
 }
 
@@ -99,14 +99,14 @@ export interface Point {
 /**
  * Size and position in pixles within the layout
  */
-export interface Rect extends Point, Size { }
+export interface Rect extends Point, Size {}
 
 /**
  * A floating group of panes
  */
 export interface FloatingPaneGroup {
   id: string;
-  type: 'floatingPaneGroup';
+  type: "floatingPaneGroup";
   panes: Array<PaneId>;
   activeIndex: number;
   rect: Rect;
@@ -156,13 +156,16 @@ export type ExtensionPortAPI = {
   getLayoutState(): Promise<LayoutData>;
   setLayoutState(state: LayoutData): Promise<void>;
 
-  activatePane: () => Promise<void>
+  activatePane: () => Promise<void>;
 
   // jets (will be deprecated)
 
   // graphql
-  queryGraphql(args: { query: string, variables?: Record<string, any> }): any;
-  mutateGraphql(args: { mutation: string, variables?: Record<string, any> }): any;
+  queryGraphql(args: { query: string; variables?: Record<string, any> }): any;
+  mutateGraphql(args: {
+    mutation: string;
+    variables?: Record<string, any>;
+  }): any;
 
   // eval
   eval(code: string): any;

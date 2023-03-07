@@ -3,7 +3,7 @@ import { extensionPort } from "src/util/comlink";
 /**
  * Sets the value for a given key
  */
-export async function set(args: { key: string, value: any }) {
+export async function set(args: { key: string; value: any }) {
   return extensionPort.setReplDbValue(args.key, args.value);
 }
 

@@ -50,7 +50,7 @@ export async function move(path: string, to: string) {
   return extensionPort.move(path, to);
 }
 
-/** 
+/**
  * Copies the file at `from` to `to`
  */
 export async function copyFile(path: string, to: string) {
@@ -62,26 +62,35 @@ export async function copyFile(path: string, to: string) {
  */
 export async function watchFile(path: string, watchers: WatchFileWatchers) {
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
-  return extensionPort.watchFile(path, proxy({
-    onChange: () => { },
-    onMoveOrDelete: () => { },
-    onError: () => { },
-    ...watchers
-  }));
+  return extensionPort.watchFile(
+    path,
+    proxy({
+      onChange: () => {},
+      onMoveOrDelete: () => {},
+      onError: () => {},
+      ...watchers,
+    })
+  );
 }
 
 /**
  * Watches a text file at `path` for changes with the provided `watchers`. Returns a dispose method which cleans up the watchers.
- *  
+ *
  * Use this for watching text files, and receive changes as versioned operational transform (OT) operations annotated with their source.
  */
-export async function watchTextFile(path: string, watchers: WatchTextFileWatchers) {
+export async function watchTextFile(
+  path: string,
+  watchers: WatchTextFileWatchers
+) {
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
-  return extensionPort.watchTextFile(path, proxy({
-    onReady: () => { },
-    onChange: () => { },
-    onMoveOrDelete: () => { },
-    onError: () => { },
-    ...watchers
-  }));
+  return extensionPort.watchTextFile(
+    path,
+    proxy({
+      onReady: () => {},
+      onChange: () => {},
+      onMoveOrDelete: () => {},
+      onError: () => {},
+      ...watchers,
+    })
+  );
 }

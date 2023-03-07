@@ -1,35 +1,17 @@
 import * as React from 'react';
+import { useReplit } from '@replit/extensions/react';
 import './App.css'
 
-
 export default function App() {
-  const [connected, setConnected] =
-    React.useState(false);
-  const [error, setError] =
-    React.useState(null);
-  const [filePath, setFilePath] = React.useState(null);
-
-  const runRef = React.useRef(0);
+  const { connected, error, filePath, replit } = useReplit()
 
   React.useEffect(() => {
-    // this effect runs twice by default
-    runRef.current += 1;
-    if (runRef.current === 1) {
+    if (!connected) {
       return;
     }
 
-    const replit = window.replit;
-    (async () => {
-      try {
-        await replit.init({ permissions: [] });
-        setFilePath(await replit.me.filePath());
-        setConnected(true);
-        // use replit API here to do something
-      } catch (e) {
-        setError(e);
-      }
-    })()
-  }, []);
+    console.log(replit);
+  }, [connected, error, replit])
 
   return (
     <main>
@@ -44,7 +26,7 @@ export default function App() {
               ) : null}
             </>
           ) : (
-            <div>{connected ? (filePath ? `connected to ${filePath}`: 'connected') : 'connecting...'}</div>
+            <div>{connected ? (filePath ? `connected to ${filePath}` : 'connected') : 'connecting...'}</div>
           )}
         </div>
       </div>

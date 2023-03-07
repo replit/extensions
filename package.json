@@ -1,26 +1,37 @@
 {
   "name": "@replit/extensions",
-  "version": "0.17.1",
+  "version": "0.18.0",
   "description": "",
-  "main": "build/index.esm.js",
-  "unpkg": "build/index.iife.js",
-  "module": "build/index.esm.js",
-  "types": "build/types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "default": "./dist/index.js"
+      },
+      "default": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "default": "./dist/react/index.cjs"
+    }
+  },
+  "type": "module",
+  "unpkg": "dist/index.global.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build:iife && npm run build:esm && npm run build:types && npm run populate_replitjs",
-    "build:iife": "npx esbuild --bundle src/index.js --outfile=build/index.iife.js  --platform=browser --sourcemap --format=iife --global-name=replit",
-    "build:esm": "npx esbuild --bundle src/index.js --outfile=build/index.esm.js  --platform=browser --sourcemap --format=esm --global-name=replit",
-    "build:types": "npx tsc -d --emitDeclarationOnly --outDir build/types",
-    "populate_replitjs": "cp build/index.iife.js example/replit.js && cp build/index.iife.js.map example/replit.js.map",
+    "build": "rm -rf dist && tsup src/index.ts src/react/index.ts  --sourcemap --dts --format esm,cjs,iife",
     "lint": "npx prettier --write src/*",
     "dev": "npm run build && npx vite ./example",
     "prepublishOnly": "npm run build",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin"
   },
   "files": [
-    "index.js",
-    "build/*"
+    "dist/*"
   ],
   "keywords": [],
   "author": "",
@@ -32,10 +43,17 @@
     "@vitejs/plugin-react": "^2.0.1",
     "esbuild": "^0.15.18",
     "prettier": "^2.7.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "tsup": "^6.6.3",
     "typedoc": "^0.23.21",
     "typescript": "^4.9.3",
-    "vite": "^3.0.8"
+    "react": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   }
 }

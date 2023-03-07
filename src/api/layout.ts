@@ -1,7 +1,7 @@
 import { LayoutData, Pane } from "src/types";
 import { extensionPort } from "src/util/comlink";
 
-/** 
+/**
  * Returns whether a certain pane type is visible within the layout.
  * Example use case: check if the version control pane is visible
  * before doing something.
