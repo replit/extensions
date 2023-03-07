@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx prettier --write . "
   },
   "author": "lunaroyster",
   "license": "MIT",
@@ -14,6 +15,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "vite": "^3.0.8"
+    "vite": "^3.0.8",
+    "prettier": "^2.7.1"
   }
 }

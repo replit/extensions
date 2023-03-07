@@ -1,9 +1,14 @@
-import * as React from 'react';
-import { useReplit } from '@replit/extensions/react';
-import './App.css'
+import * as React from "react";
+import { useReplit, useWatchTextFile } from "@replit/extensions/react";
+import "./App.css";
 
 export default function App() {
-  const { connected, error, filePath, replit } = useReplit()
+  const { connected, error, filePath, replit } = useReplit();
+
+  const { content, watching, watchError } = useWatchTextFile({
+    connected,
+    filePath,
+  });
 
   React.useEffect(() => {
     if (!connected) {
@@ -11,7 +16,8 @@ export default function App() {
     }
 
     console.log(replit);
-  }, [connected, error, replit])
+    window.replit = replit;
+  }, [connected, error, replit]);
 
   return (
     <main>
@@ -22,14 +28,23 @@ export default function App() {
             <>
               <div className="error">error: {error.message ?? error}</div>
               {error.message === "timeout" ? (
-                <div>Note: Make sure to open this URL as an extension, not a webview</div>
+                <div>
+                  Note: Make sure to open this URL as an extension, not a
+                  webview
+                </div>
               ) : null}
             </>
           ) : (
-            <div>{connected ? (filePath ? `connected to ${filePath}` : 'connected') : 'connecting...'}</div>
+            <div>
+              {connected
+                ? filePath
+                  ? `connected to ${filePath}`
+                  : "connected"
+                : "connecting..."}
+            </div>
           )}
         </div>
       </div>
     </main>
-  )
+  );
 }
