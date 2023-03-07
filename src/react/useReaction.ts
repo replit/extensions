@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import * as replit from "../index";
-import useReplit from './useReplit';
+import useReplit from "./useReplit";
 
 export default function useReaction(
   callback: (r: typeof replit) => void | Promise<void>,

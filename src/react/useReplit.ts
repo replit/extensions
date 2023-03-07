@@ -6,6 +6,7 @@ interface UseReplitInitialized {
   error: null;
   filePath: string;
   replit: typeof replit;
+  loading: boolean;
 }
 
 interface UseReplitPreInitialization {
@@ -13,6 +14,7 @@ interface UseReplitPreInitialization {
   error: null;
   filePath: null;
   replit: null;
+  loading: boolean;
 }
 
 interface UseReplitFailure {
@@ -20,12 +22,14 @@ interface UseReplitFailure {
   error: string;
   filePath: null;
   replit: null;
+  loading: boolean;
 }
 
 export default function useReplit(init?: { permissions: Array<string> }) {
   const [connected, setConnected] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const runRef = useRef(0);
 
   useEffect(() => {
@@ -49,6 +53,7 @@ export default function useReplit(init?: { permissions: Array<string> }) {
       } catch (e) {
         setError(e.toString());
       }
+      setLoading(false);
     })();
 
     return () => {
@@ -56,7 +61,7 @@ export default function useReplit(init?: { permissions: Array<string> }) {
     };
   }, []);
 
-  const output = { connected, error, filePath, replit };
+  const output = { connected, error, filePath, replit, loading };
 
   if (connected) {
     return output as UseReplitInitialized;
