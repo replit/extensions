@@ -1,3 +1,7 @@
+## 0.21.0
+
+- added useWatchTextFile() hook to @replit/extensions/react
+
 ## 0.20.0
 
 - fixed global name bug for iife
