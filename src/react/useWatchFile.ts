@@ -46,7 +46,7 @@ export default function useTextFileWatcher(
         watchers?.onMoveOrDelete?.(data);
       },
     });
-  }, []);
+  }, [filename]);
 
   return { initial, latest, error };
 }
