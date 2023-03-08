@@ -1,4 +1,4 @@
 import useReplit from "./useReplit";
-import useReaction from "./useReaction";
+import useReaction from "./useReplitCallback";
 
 export { useReplit, useReaction };

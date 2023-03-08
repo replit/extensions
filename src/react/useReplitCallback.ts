@@ -2,7 +2,11 @@ import { useLayoutEffect } from "react";
 import * as replit from "../index";
 import useReplit from "./useReplit";
 
-export default function useReaction(
+/**
+ * Fires a callback with the Replit API wrapper when its dependency array changes.
+ * Similar in functionality to the React useEffect hook.
+ */
+export default function useReplitCallback(
   callback: (r: typeof replit) => void | Promise<void>,
   dependencies: Array<any>
 ) {
