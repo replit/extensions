@@ -1,5 +1,10 @@
 [
   {
+    "name": "init",
+    "description": "The `init()` method initializes the Extension, establishes a handshake with the Repl, and adds an event listener to the window object. It takes as an argument an object containing optional parameters for the initialization process. It returns a function that removes the event listener added to the window object.",
+    "isActive": true
+  },
+  {
     "name": "fs",
     "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.",
     "typeNames": ["WatchFileWatchers", "WatchTextFileWatchers"],
