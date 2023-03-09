@@ -99,7 +99,7 @@ export interface Point {
 /**
  * Size and position in pixles within the layout
  */
-export interface Rect extends Point, Size {}
+export interface Rect extends Point, Size { }
 
 /**
  * A floating group of panes
@@ -110,6 +110,126 @@ export interface FloatingPaneGroup {
   panes: Array<PaneId>;
   activeIndex: number;
   rect: Rect;
+}
+
+export type CssColor = string;
+
+export interface ThemeValues {
+  global: {
+    backgroundRoot: CssColor;
+    backgroundDefault: CssColor;
+    backgroundHigher: CssColor;
+    backgroundHighest: CssColor;
+    backgroundOverlay: CssColor;
+    foregroundDefault: CssColor;
+    foregroundDimmer: CssColor;
+    foregroundDimmest: CssColor;
+    outlineDimmest: CssColor;
+    outlineDimmer: CssColor;
+    outlineDefault: CssColor;
+    outlineStronger: CssColor;
+    outlineStrongest: CssColor;
+    accentPrimaryDimmest: CssColor;
+    accentPrimaryDimmer: CssColor;
+    accentPrimaryDefault: CssColor;
+    accentPrimaryStronger: CssColor;
+    accentPrimaryStrongest: CssColor;
+    accentPositiveDimmest: CssColor;
+    accentPositiveDimmer: CssColor;
+    accentPositiveDefault: CssColor;
+    accentPositiveStronger: CssColor;
+    accentPositiveStrongest: CssColor;
+    accentNegativeDimmest: CssColor;
+    accentNegativeDimmer: CssColor;
+    accentNegativeDefault: CssColor;
+    accentNegativeStronger: CssColor;
+    accentNegativeStrongest: CssColor;
+    redDimmest: CssColor;
+    redDimmer: CssColor;
+    redDefault: CssColor;
+    redStronger: CssColor;
+    redStrongest: CssColor;
+    orangeDimmest: CssColor;
+    orangeDimmer: CssColor;
+    orangeDefault: CssColor;
+    orangeStronger: CssColor;
+    orangeStrongest: CssColor;
+    yellowDimmest: CssColor;
+    yellowDimmer: CssColor;
+    yellowDefault: CssColor;
+    yellowStronger: CssColor;
+    yellowStrongest: CssColor;
+    limeDimmest: CssColor;
+    limeDimmer: CssColor;
+    limeDefault: CssColor;
+    limeStronger: CssColor;
+    limeStrongest: CssColor;
+    greenDimmest: CssColor;
+    greenDimmer: CssColor;
+    greenDefault: CssColor;
+    greenStronger: CssColor;
+    greenStrongest: CssColor;
+    tealDimmest: CssColor;
+    tealDimmer: CssColor;
+    tealDefault: CssColor;
+    tealStronger: CssColor;
+    tealStrongest: CssColor;
+    blueDimmest: CssColor;
+    blueDimmer: CssColor;
+    blueDefault: CssColor;
+    blueStronger: CssColor;
+    blueStrongest: CssColor;
+    blurpleDimmest: CssColor;
+    blurpleDimmer: CssColor;
+    blurpleDefault: CssColor;
+    blurpleStronger: CssColor;
+    blurpleStrongest: CssColor;
+    purpleDimmest: CssColor;
+    purpleDimmer: CssColor;
+    purpleDefault: CssColor;
+    purpleStronger: CssColor;
+    purpleStrongest: CssColor;
+    magentaDimmest: CssColor;
+    magentaDimmer: CssColor;
+    magentaDefault: CssColor;
+    magentaStronger: CssColor;
+    magentaStrongest: CssColor;
+    pinkDimmest: CssColor;
+    pinkDimmer: CssColor;
+    pinkDefault: CssColor;
+    pinkStronger: CssColor;
+    pinkStrongest: CssColor;
+    greyDimmest: CssColor;
+    greyDimmer: CssColor;
+    greyDefault: CssColor;
+    greyStronger: CssColor;
+    greyStrongest: CssColor;
+    brownDimmest: CssColor;
+    brownDimmer: CssColor;
+    brownDefault: CssColor;
+    brownStronger: CssColor;
+    brownStrongest: CssColor;
+    black: CssColor;
+    white: CssColor;
+  };
+  editor: {
+    //   syntaxHighlighting: Array<SyntaxHighlightingSpec>;
+    syntaxHighlighting: any;
+  };
+}
+
+export enum ColorScheme {
+  Light = 'light',
+  Dark = 'dark',
+}
+
+export interface Theme {
+  id: string;
+  description: string;
+  values: ThemeValues;
+  colorScheme: ColorScheme;
+  name: string;
+  isOfficial: boolean;
 }
 
 export type ExtensionPortAPI = {
@@ -157,6 +277,9 @@ export type ExtensionPortAPI = {
   setLayoutState(state: LayoutData): Promise<void>;
 
   activatePane: () => Promise<void>;
+  // theme
+  getCurrentTheme: () => Promise<Theme>;
+  onThemeChange: (callback: (theme: Theme) => void) => Promise<() => void>;
 
   // jets (will be deprecated)
 
