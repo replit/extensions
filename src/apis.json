@@ -1,0 +1,32 @@
+[
+  {
+    "name": "fs",
+    "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.",
+    "typeNames": ["WatchFileWatchers", "WatchTextFileWatchers"],
+    "isActive": true
+  },
+  {
+    "name": "layout",
+    "description": "The layout API lets you manage Replit's visual layout. This includes opening, closing, and rearranging panes and tabs",
+    "typeNames": ["LayoutData", "FloatingPaneGroup", "Rect"],
+    "isActive": true
+  },
+  {
+    "name": "replDb",
+    "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data",
+    "typeNames": [],
+    "isActive": true
+  },
+  {
+    "name": "rui",
+    "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
+    "typeNames": [],
+    "isActive": false
+  },
+  {
+    "name": "themes",
+    "description": "The themes api allows you to access the current user's theme and utilize the color tokens accordingly.",
+    "typeNames": [],
+    "isActive": false
+  }
+]

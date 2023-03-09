@@ -29,7 +29,7 @@
     "lint": "npx prettier --write src/* && cd example && npx prettier --write .",
     "dev": "npm run build && cd ./example && npx vite",
     "prepublishOnly": "npm run build",
-    "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin"
+    "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"
   },
   "files": [
     "dist/*"
