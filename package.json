@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions",
-  "version": "0.21.0",
+  "version": "0.22.0-test",
   "description": "",
   "exports": {
     "./package.json": "./package.json",
@@ -20,6 +20,7 @@
       "default": "./dist/react/index.cjs"
     }
   },
+  "types": "./dist/index.d.ts",
   "type": "module",
   "unpkg": "dist/index.global.js",
   "scripts": {
