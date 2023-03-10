@@ -2,34 +2,32 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import * as replit from "../index";
 
 interface UseReplitInitialized {
-  connected: true;
+  status: "ready";
   error: null;
   filePath: string;
   replit: typeof replit;
-  loading: boolean;
 }
 
 interface UseReplitPreInitialization {
-  connected: false;
+  status: "loading";
   error: null;
   filePath: null;
   replit: null;
-  loading: boolean;
 }
 
 interface UseReplitFailure {
-  connected: false;
+  status: "error";
   error: string;
   filePath: null;
   replit: null;
-  loading: boolean;
 }
 
 export default function useReplit(init?: { permissions: Array<string> }) {
-  const [connected, setConnected] = useState<boolean>(false);
+  const [status, setStatus] = useState<"loading" | "error" | "ready">(
+    "loading"
+  );
   const [error, setError] = useState<string | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
   const runRef = useRef(0);
 
   useEffect(() => {
@@ -39,7 +37,7 @@ export default function useReplit(init?: { permissions: Array<string> }) {
     }
     runRef.current += 1;
 
-    if (connected) {
+    if (status === "ready") {
       return;
     }
 
@@ -49,11 +47,11 @@ export default function useReplit(init?: { permissions: Array<string> }) {
       try {
         dispose = await replit.init(init || { permissions: [] });
         setFilePath(await replit.me.filePath());
-        setConnected(true);
+        setStatus("ready");
       } catch (e) {
         setError(e.toString());
+        setStatus("error");
       }
-      setLoading(false);
     })();
 
     return () => {
@@ -61,16 +59,14 @@ export default function useReplit(init?: { permissions: Array<string> }) {
     };
   }, []);
 
-  const output = useMemo(
-    () => ({ connected, error, filePath, replit }),
-    [connected, error, filePath, replit]
-  );
-
-  if (connected) {
-    return output as UseReplitInitialized;
-  } else if (error) {
-    return output as UseReplitFailure;
-  } else {
-    return output as UseReplitPreInitialization;
-  }
+  return useMemo(() => {
+    const output = { status, error, filePath, replit };
+    if (status === "ready") {
+      return output as UseReplitInitialized;
+    } else if (status === "error") {
+      return output as UseReplitFailure;
+    } else {
+      return output as UseReplitPreInitialization;
+    }
+  }, [status, error, filePath, replit]);
 }
