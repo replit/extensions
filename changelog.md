@@ -1,3 +1,7 @@
+## 0.23.0
+
+- added themes API
+
 ## 0.21.0
 
 - added useWatchTextFile() hook to @replit/extensions/react
