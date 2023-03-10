@@ -1,13 +1,34 @@
-import React from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import * as replit from "../index";
 
-export default function useReplit() {
-  const [connected, setConnected] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [filePath, setFilePath] = React.useState(null);
-  const runRef = React.useRef(0);
+interface UseReplitInitialized {
+  connected: true;
+  error: null;
+  filePath: string;
+  replit: typeof replit;
+}
 
-  React.useEffect(() => {
+interface UseReplitPreInitialization {
+  connected: false;
+  error: null;
+  filePath: null;
+  replit: null;
+}
+
+interface UseReplitFailure {
+  connected: false;
+  error: string;
+  filePath: null;
+  replit: null;
+}
+
+export default function useReplit(init?: { permissions: Array<string> }) {
+  const [connected, setConnected] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [filePath, setFilePath] = useState<string | null>(null);
+  const runRef = useRef(0);
+
+  useEffect(() => {
     // Avoids duplicate runs of init
     if (runRef.current === 1) {
       return;
@@ -22,11 +43,11 @@ export default function useReplit() {
 
     (async () => {
       try {
-        dispose = await replit.init({ permissions: [] });
+        dispose = await replit.init(init || { permissions: [] });
         setFilePath(await replit.me.filePath());
         setConnected(true);
       } catch (e) {
-        setError(e);
+        setError(e.toString());
       }
     })();
 
@@ -35,8 +56,16 @@ export default function useReplit() {
     };
   }, []);
 
-  return React.useMemo(
+  const output = useMemo(
     () => ({ connected, error, filePath, replit }),
     [connected, error, filePath, replit]
   );
+
+  if (connected) {
+    return output as UseReplitInitialized;
+  } else if (error) {
+    return output as UseReplitFailure;
+  } else {
+    return output as UseReplitPreInitialization;
+  }
 }
