@@ -99,7 +99,7 @@ export interface Point {
 /**
  * Size and position in pixles within the layout
  */
-export interface Rect extends Point, Size { }
+export interface Rect extends Point, Size {}
 
 /**
  * A floating group of panes
@@ -219,8 +219,8 @@ export interface ThemeValues {
 }
 
 export enum ColorScheme {
-  Light = 'light',
-  Dark = 'dark',
+  Light = "light",
+  Dark = "dark",
 }
 
 export interface Theme {

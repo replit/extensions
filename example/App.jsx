@@ -1,5 +1,9 @@
 import * as React from "react";
-import { useReplit, useWatchTextFile } from "@replit/extensions/react";
+import {
+  useReplit,
+  useWatchTextFile,
+  useTheme,
+} from "@replit/extensions/react";
 import "./App.css";
 
 export default function App() {
@@ -10,6 +14,8 @@ export default function App() {
     filePath,
   });
 
+  const theme = useTheme({ connected });
+
   React.useEffect(() => {
     if (!connected) {
       return;
@@ -18,7 +24,6 @@ export default function App() {
     console.log(replit);
     window.replit = replit;
   }, [connected, error, replit]);
-
 
   return (
     <main>
@@ -46,6 +51,14 @@ export default function App() {
           )}
         </div>
       </div>
+      {theme && (
+        <style global jsx>{`
+          body {
+            background-color: ${theme.values.global.backgroundDefault};
+            color: ${theme.values.global.foregroundDefault};
+          }
+        `}</style>
+      )}
     </main>
   );
 }
