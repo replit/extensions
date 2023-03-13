@@ -8,9 +8,7 @@ import {
 import useReplit from "./useReplit";
 
 interface UseThemeOutput {
-  global: {
-    __typename: string;
-  } & ThemeGlobalTokens;
+  global: ThemeGlobalTokens;
   editor: Array<ThemeEditorSyntaxHighlighting>;
   timeUpdated: string;
   description: string;
