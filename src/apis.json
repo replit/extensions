@@ -24,7 +24,7 @@
   },
   {
     "name": "me",
-    "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data",
+    "description": "Data on the current Repl and User.  This is still a work in progress.",
     "typeNames": [],
     "isActive": true
   },

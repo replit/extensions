@@ -1,9 +1,10 @@
 import React from "react";
 import * as replit from "../index";
+import { CustomThemeGraphqlType } from "../index";
 import useReplit from "./useReplit";
 
 export default function useTheme() {
-  const [theme, setTheme] = React.useState(null);
+  const [theme, setTheme] = React.useState<CustomThemeGraphqlType | null>(null);
   const { status } = useReplit();
 
   React.useEffect(() => {
@@ -34,5 +35,15 @@ export default function useTheme() {
     return dispose;
   }, [status]);
 
-  return theme;
+  const currentTheme =
+    status === "ready" ? (theme as CustomThemeGraphqlType) : null;
+
+  return {
+    global: currentTheme.values.global,
+    editor: currentTheme.values.editor.syntaxHighlighting,
+    timeUpdated: currentTheme.timeUpdated,
+    description: currentTheme.description,
+    id: currentTheme.id,
+    hsl: [currentTheme.hue, currentTheme.saturation, currentTheme.lightness]
+  };
 }
