@@ -234,13 +234,15 @@ export interface Theme {
   isOfficial: boolean;
 }
 
+interface ThemeEditorTag {
+  __typename: string;
+  name: string;
+  modifiers: null | Array<string>;
+}
+
 export interface ThemeEditorSyntaxHighlighting {
   __typename: string;
-  tags: Array<{
-    __typename: string;
-    name: string;
-    modifiers: null | Array<string>;
-  }>;
+  tags: Array<ThemeEditorTag>;
   values: {
     textDecoration?: string;
     fontSize?: string;
