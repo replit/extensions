@@ -1,13 +1,13 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import * as replit from "../index";
 import { CustomThemeGraphqlType } from "../index";
 import useReplit from "./useReplit";
 
 export default function useTheme() {
-  const [theme, setTheme] = React.useState<CustomThemeGraphqlType | null>(null);
+  const [theme, setTheme] = useState<CustomThemeGraphqlType | null>(null);
   const { status } = useReplit();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (status !== "ready") {
       return;
     }
