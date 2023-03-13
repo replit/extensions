@@ -48,7 +48,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
 
     (async () => {
       try {
-        dispose = await replit.init(init || { permissions: [] });
+        dispose = await replit.init(args || { permissions: [] });
         setFilePath(await replit.me.filePath());
         setStatus("ready");
       } catch (e) {
