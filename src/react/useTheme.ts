@@ -1,9 +1,27 @@
 import { useState, useEffect } from "react";
 import * as replit from "../index";
-import { CustomThemeGraphqlType } from "../index";
+import {
+  CustomThemeGraphqlType,
+  ThemeEditorSyntaxHighlighting,
+  ThemeGlobalTokens,
+} from "../index";
 import useReplit from "./useReplit";
 
-export default function useTheme() {
+interface UseThemeOutput {
+  global: {
+    __typename: string;
+  } & ThemeGlobalTokens;
+  editor: Array<ThemeEditorSyntaxHighlighting>;
+  timeUpdated: string;
+  description: string;
+  id: number;
+  hsl: [number, number, number];
+}
+
+/**
+ * Returns the tokens and metadata for the current active theme.
+ */
+export default function useTheme(): UseThemeOutput {
   const [theme, setTheme] = useState<CustomThemeGraphqlType | null>(null);
   const { status } = useReplit();
 
@@ -44,6 +62,6 @@ export default function useTheme() {
     timeUpdated: currentTheme.timeUpdated,
     description: currentTheme.description,
     id: currentTheme.id,
-    hsl: [currentTheme.hue, currentTheme.saturation, currentTheme.lightness]
+    hsl: [currentTheme.hue, currentTheme.saturation, currentTheme.lightness],
   };
 }
