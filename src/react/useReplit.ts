@@ -25,7 +25,7 @@ interface UseReplitFailure {
 /**
  * A React hook that initializes and passes the Replit API wrapper to a component.
  */
-export default function useReplit(init?: { permissions: Array<string> }) {
+export default function useReplit(args?: { permissions: Array<string> }) {
   const [status, setStatus] = useState<"loading" | "error" | "ready">(
     "loading"
   );
