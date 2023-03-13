@@ -7,23 +7,18 @@ import {
 import "./App.css";
 
 export default function App() {
-  const { connected, error, filePath, replit } = useReplit();
+  const { status, error, filePath, replit } = useReplit();
 
-  const { content, watching, watchError } = useWatchTextFile({
-    connected,
-    filePath,
-  });
-
-  const theme = useTheme({ connected });
+  const theme = useTheme();
 
   React.useEffect(() => {
-    if (!connected) {
+    if (status !== "ready") {
       return;
     }
 
     console.log(replit);
     window.replit = replit;
-  }, [connected, error, replit]);
+  }, [status, error, replit]);
 
   return (
     <main>
@@ -42,11 +37,13 @@ export default function App() {
             </>
           ) : (
             <div>
-              {connected
+              {status === "ready"
                 ? filePath
                   ? `connected to ${filePath}`
                   : "connected"
                 : "connecting..."}
+              <hr />
+              {filePath}
             </div>
           )}
         </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import * as replit from "../index";
 
-interface UseReplitInitialized {
+interface UseReplitReady {
   status: "ready";
   error: null;
   filePath: string;
@@ -65,7 +65,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
   return useMemo(() => {
     const output = { status, error, filePath, replit };
     if (status === "ready") {
-      return output as UseReplitInitialized;
+      return output as UseReplitReady;
     } else if (status === "error") {
       return output as UseReplitFailure;
     } else {

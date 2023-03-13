@@ -1,11 +1,13 @@
 import React from "react";
 import * as replit from "../index";
+import useReplit from "./useReplit";
 
-export default function useTheme({ connected }: { connected: boolean }) {
+export default function useTheme() {
   const [theme, setTheme] = React.useState(null);
+  const { status } = useReplit();
 
   React.useEffect(() => {
-    if (!connected) {
+    if (status !== "ready") {
       return;
     }
 
@@ -18,7 +20,7 @@ export default function useTheme({ connected }: { connected: boolean }) {
     };
 
     (async () => {
-      if (!connected) {
+      if (status !== "ready") {
         return;
       }
 
@@ -30,7 +32,7 @@ export default function useTheme({ connected }: { connected: boolean }) {
     })();
 
     return dispose;
-  }, [connected]);
+  }, [status]);
 
   return theme;
 }
