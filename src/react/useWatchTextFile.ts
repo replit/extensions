@@ -2,6 +2,24 @@ import React from "react";
 import * as replit from "../index";
 import useReplit from "./useReplit";
 
+interface UseWatchTextFileLoading {
+  content: null;
+  watching: false;
+  watchError: null;
+}
+
+interface UseWatchTextFileError {
+  content: null;
+  watching: false;
+  watchError: Error;
+}
+
+interface UseWatchTextFileWatching {
+  content: string;
+  watching: true;
+  watchError: null;
+}
+
 /**
  * Returns the contents of a text file in realtime
  */
@@ -10,9 +28,9 @@ export default function useWatchTextFile({
 }: {
   filePath: string | null | undefined;
 }) {
-  const [content, setContent] = React.useState(null);
-  const [watching, setWatching] = React.useState(false);
-  const [watchError, setWatchError] = React.useState(null);
+  const [content, setContent] = React.useState<string | null>(null);
+  const [watching, setWatching] = React.useState<boolean>(false);
+  const [watchError, setWatchError] = React.useState<Error | null>(null);
 
   const { status } = useReplit();
 
@@ -65,11 +83,23 @@ export default function useWatchTextFile({
   }, [status, filePath]);
 
   return React.useMemo(
-    () => ({
-      content,
-      watching,
-      watchError,
-    }),
+    () => {
+      const output = {
+        content,
+        watching,
+        watchError,
+      };
+
+      if(watching) {
+        return output as UseWatchTextFileWatching;
+      } else {
+        if(watchError) {
+          return output as UseWatchTextFileError;
+        } else {
+          return output as UseWatchTextFileLoading;
+        }
+      }
+    },
     [content, watching, watchError]
   );
 }
