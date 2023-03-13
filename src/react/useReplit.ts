@@ -8,7 +8,7 @@ interface UseReplitInitialized {
   replit: typeof replit;
 }
 
-interface UseReplitPreInitialization {
+interface UseReplitLoading {
   status: "loading";
   error: null;
   filePath: null;
@@ -69,7 +69,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
     } else if (status === "error") {
       return output as UseReplitFailure;
     } else {
-      return output as UseReplitPreInitialization;
+      return output as UseReplitLoading;
     }
   }, [status, error, filePath, replit]);
 }
