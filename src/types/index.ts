@@ -240,17 +240,19 @@ interface ThemeEditorTag {
   modifiers: null | Array<string>;
 }
 
+interface ThemeEditorValueModifier {
+  textDecoration?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  fontStyle?: string;
+  fontFamily?: string;
+  color?: string;
+}
+
 export interface ThemeEditorSyntaxHighlighting {
   __typename: string;
   tags: Array<ThemeEditorTag>;
-  values: {
-    textDecoration?: string;
-    fontSize?: string;
-    fontWeight?: string;
-    fontStyle?: string;
-    fontFamily?: string;
-    color?: string;
-  };
+  values: ThemeEditorValueModifier | null;
 }
 
 export interface CustomThemeGraphqlType {
