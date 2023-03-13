@@ -2,6 +2,9 @@ import React from "react";
 import * as replit from "../index";
 import useReplit from "./useReplit";
 
+/**
+ * Returns the contents of a text file in realtime
+ */
 export default function useWatchTextFile({
   filePath,
 }: {
