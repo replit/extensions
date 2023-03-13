@@ -115,6 +115,7 @@ export interface FloatingPaneGroup {
 export type CssColor = string;
 
 export interface ThemeGlobalTokens {
+  __typename?: string;
   backgroundRoot: CssColor;
   backgroundDefault: CssColor;
   backgroundHigher: CssColor;
@@ -265,9 +266,7 @@ export interface CustomThemeGraphqlType {
   timeUpdated: string;
   values: {
     __typename: string;
-    global: {
-      __typename: string;
-    } & ThemeGlobalTokens;
+    global: ThemeGlobalTokens;
     editor: {
       __typename: string;
       syntaxHighlighting: Array<ThemeEditorSyntaxHighlighting>;
