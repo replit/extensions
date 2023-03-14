@@ -14,7 +14,8 @@
     "name": "layout",
     "description": "The layout API lets you manage Replit's visual layout. This includes opening, closing, and rearranging panes and tabs",
     "typeNames": ["LayoutData", "FloatingPaneGroup", "Rect"],
-    "isActive": true
+    "isActive": true,
+    "isDeprecated": true
   },
   {
     "name": "replDb",
@@ -25,13 +26,11 @@
   {
     "name": "rui",
     "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
-    "typeNames": [],
-    "isActive": false
+    "typeNames": []
   },
   {
     "name": "themes",
     "description": "The themes api allows you to access the current user's theme and utilize the color tokens accordingly.",
-    "typeNames": [],
-    "isActive": false
+    "typeNames": []
   }
 ]
