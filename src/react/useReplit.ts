@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { getHandshakeStatus } from "src/util/talk";
 import * as replit from "../index";
+import { HandshakeStatus } from "../index";
 
-interface UseReplitInitialized {
+interface UseReplitReady {
   status: "ready";
   error: null;
   filePath: string;
@@ -17,7 +19,7 @@ interface UseReplitLoading {
 
 interface UseReplitFailure {
   status: "error";
-  error: string;
+  error: Error;
   filePath: null;
   replit: null;
 }
@@ -26,9 +28,7 @@ interface UseReplitFailure {
  * A React hook that initializes and passes the Replit API wrapper to a component.
  */
 export default function useReplit(args?: { permissions: Array<string> }) {
-  const [status, setStatus] = useState<"loading" | "error" | "ready">(
-    "loading"
-  );
+  const [status, setStatus] = useState<HandshakeStatus>(getHandshakeStatus());
   const [error, setError] = useState<string | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
   const runRef = useRef(0);
@@ -52,7 +52,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
         setFilePath(await replit.me.filePath());
         setStatus("ready");
       } catch (e) {
-        setError(e.toString());
+        setError(e);
         setStatus("error");
       }
     })();
@@ -65,7 +65,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
   return useMemo(() => {
     const output = { status, error, filePath, replit };
     if (status === "ready") {
-      return output as UseReplitInitialized;
+      return output as UseReplitReady;
     } else if (status === "error") {
       return output as UseReplitFailure;
     } else {

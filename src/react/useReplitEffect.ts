@@ -10,11 +10,11 @@ export default function useReplitEffect(
   callback: (r: typeof replit) => void | Promise<void>,
   dependencies: Array<any>
 ) {
-  const { replit, connected } = useReplit();
+  const { replit, status } = useReplit();
 
   return useLayoutEffect(() => {
-    if (replit && connected) {
+    if (replit && status === "ready") {
       callback(replit);
     }
-  }, [...dependencies, replit, connected]);
+  }, [...dependencies, replit, status]);
 }

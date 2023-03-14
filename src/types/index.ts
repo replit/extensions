@@ -295,3 +295,5 @@ export type ExtensionPortAPI = {
 
   filePath: string;
 };
+
+export type HandshakeStatus = "ready" | "error" | "loading";

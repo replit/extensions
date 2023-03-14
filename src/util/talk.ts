@@ -1,4 +1,5 @@
 // @ts-nocheck temporary (@lunaroyster)
+import { HandshakeStatus } from "src/types";
 import { debug } from "./log";
 
 /**
@@ -34,17 +35,29 @@ export function registerMessageListener() {
   };
 }
 
+let handshakeStatus: HandshakeStatus = "loading";
+
+export const setHandshakeStatus = (status: HandshakeStatus) => {
+  handshakeStatus = status;
+};
+
+export const getHandshakeStatus = () => handshakeStatus;
+
 export async function handshake({ permissions, timeout }) {
   debug("🤝");
 
-  const res = await new Promise((resolve, reject) => {
+  const response = await new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       debug("handshake timed out");
-      reject(new Error("timeout"));
+      reject(new Error("handshake timed out"));
     }, timeout);
 
     return request({ type: "handshake", permissions })
       .then((res) => {
+        if (handshakeStatus === "ready") {
+          resolve(res);
+        }
+
         if (res.error) {
           throw res.error;
         }
@@ -53,6 +66,7 @@ export async function handshake({ permissions, timeout }) {
           throw "handshake not successful";
         }
 
+        setHandshakeStatus("ready");
         debug("handshake succeeded");
         clearTimeout(timeoutId);
         resolve(res);
@@ -63,7 +77,7 @@ export async function handshake({ permissions, timeout }) {
       });
   });
 
-  return res;
+  return response;
 }
 
 /*

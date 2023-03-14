@@ -1,16 +1,18 @@
 import React from "react";
-import * as replit from "../index";
+import useReplit from "./useReplit";
 
 export default function useWatchTextFile({
-  connected,
   filePath,
 }: {
-  connected: boolean;
   filePath: string | null | undefined;
 }) {
   const [content, setContent] = React.useState(null);
   const [watching, setWatching] = React.useState(false);
   const [watchError, setWatchError] = React.useState(null);
+
+  const { status, replit } = useReplit();
+
+  const connected = status === "ready";
 
   React.useEffect(() => {
     if (!connected || !filePath) {
