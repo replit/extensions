@@ -1,4 +1,5 @@
 import React from "react";
+import { HandshakeStatus } from "src/types";
 import useReplit from "./useReplit";
 
 export default function useWatchTextFile({
@@ -12,7 +13,7 @@ export default function useWatchTextFile({
 
   const { status, replit } = useReplit();
 
-  const connected = status === "ready";
+  const connected = status === HandshakeStatus.Ready;
 
   React.useEffect(() => {
     if (!connected || !filePath) {
