@@ -2,6 +2,24 @@ import React from "react";
 import { HandshakeStatus } from "src/types";
 import useReplit from "./useReplit";
 
+interface UseWatchTextFileLoading {
+  content: null;
+  watching: false;
+  watchError: null;
+}
+
+interface UseWatchTextFileWatching {
+  content: string;
+  watching: true;
+  watchError: null;
+}
+
+interface UseWatchTextFileError {
+  content: null;
+  watching: false;
+  watchError: Error;
+}
+
 export default function useWatchTextFile({
   filePath,
 }: {
@@ -63,12 +81,18 @@ export default function useWatchTextFile({
     return dispose;
   }, [connected, filePath]);
 
-  return React.useMemo(
-    () => ({
+  return React.useMemo(() => {
+    const result = {
       content,
       watching,
       watchError,
-    }),
-    [content, watching, watchError]
-  );
+    };
+    if (watching) {
+      return result as UseWatchTextFileWatching;
+    } else if (watchError) {
+      return result as UseWatchTextFileError;
+    } else {
+      return result as UseWatchTextFileLoading;
+    }
+  }, [content, watching, watchError]);
 }
