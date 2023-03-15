@@ -26,7 +26,7 @@ export async function init({
   setDebugMode(debug);
 
   const onExtensionClick = () => {
-    extensionPort().activatePane();
+    extensionPort.activatePane();
   };
 
   const windDown = () => {
@@ -34,7 +34,7 @@ export async function init({
   };
 
   try {
-    await promiseWithTimeout(extensionPort().handshake({ permissions }), timeout);
+    await promiseWithTimeout(extensionPort.handshake({ permissions }), timeout);
 
     if (window) {
       window.document.addEventListener("click", onExtensionClick);
