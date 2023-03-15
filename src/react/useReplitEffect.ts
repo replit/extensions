@@ -1,5 +1,6 @@
 import { useLayoutEffect } from "react";
 import * as replit from "../index";
+import { HandshakeStatus } from "src/types";
 import useReplit from "./useReplit";
 
 /**
@@ -10,11 +11,11 @@ export default function useReplitEffect(
   callback: (r: typeof replit) => void | Promise<void>,
   dependencies: Array<any>
 ) {
-  const { replit, connected } = useReplit();
+  const { replit, status } = useReplit();
 
   return useLayoutEffect(() => {
-    if (replit && connected) {
+    if (replit && status === HandshakeStatus.Ready) {
       callback(replit);
     }
-  }, [...dependencies, replit, connected]);
+  }, [...dependencies, replit, status]);
 }

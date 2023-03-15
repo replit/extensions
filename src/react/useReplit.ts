@@ -1,23 +1,25 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { getHandshakeStatus } from "src/util/talk";
 import * as replit from "../index";
+import { HandshakeStatus } from "src/types";
 
-interface UseReplitInitialized {
-  status: "ready";
+interface UseReplitReady {
+  status: HandshakeStatus.Ready;
   error: null;
   filePath: string;
   replit: typeof replit;
 }
 
 interface UseReplitLoading {
-  status: "loading";
+  status: HandshakeStatus.Loading;
   error: null;
   filePath: null;
   replit: null;
 }
 
 interface UseReplitFailure {
-  status: "error";
-  error: string;
+  status: HandshakeStatus.Error;
+  error: Error;
   filePath: null;
   replit: null;
 }
@@ -26,9 +28,7 @@ interface UseReplitFailure {
  * A React hook that initializes and passes the Replit API wrapper to a component.
  */
 export default function useReplit(args?: { permissions: Array<string> }) {
-  const [status, setStatus] = useState<"loading" | "error" | "ready">(
-    "loading"
-  );
+  const [status, setStatus] = useState<HandshakeStatus>(getHandshakeStatus());
   const [error, setError] = useState<string | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
   const runRef = useRef(0);
@@ -40,7 +40,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
     }
     runRef.current += 1;
 
-    if (status === "ready") {
+    if (status === HandshakeStatus.Ready) {
       return;
     }
 
@@ -50,10 +50,10 @@ export default function useReplit(args?: { permissions: Array<string> }) {
       try {
         dispose = await replit.init(args || { permissions: [] });
         setFilePath(await replit.me.filePath());
-        setStatus("ready");
+        setStatus(HandshakeStatus.Ready);
       } catch (e) {
-        setError(e.toString());
-        setStatus("error");
+        setError(e);
+        setStatus(HandshakeStatus.Error);
       }
     })();
 
@@ -64,9 +64,9 @@ export default function useReplit(args?: { permissions: Array<string> }) {
 
   return useMemo(() => {
     const output = { status, error, filePath, replit };
-    if (status === "ready") {
-      return output as UseReplitInitialized;
-    } else if (status === "error") {
+    if (status === HandshakeStatus.Ready) {
+      return output as UseReplitReady;
+    } else if (status === HandshakeStatus.Error) {
       return output as UseReplitFailure;
     } else {
       return output as UseReplitLoading;

@@ -1,8 +1,13 @@
 import React from "react";
-import * as replit from "../index";
+import { HandshakeStatus } from "src/types";
+import useReplit from "./useReplit";
 
-export default function useTheme({ connected }: { connected: boolean }) {
+export default function useTheme() {
   const [theme, setTheme] = React.useState(null);
+
+  const { status, replit } = useReplit();
+
+  const connected = status === HandshakeStatus.Ready;
 
   React.useEffect(() => {
     if (!connected) {

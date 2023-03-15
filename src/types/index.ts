@@ -295,3 +295,9 @@ export type ExtensionPortAPI = {
 
   filePath: string;
 };
+
+export enum HandshakeStatus {
+  Ready = "ready",
+  Error = "error",
+  Loading = "loading",
+}
