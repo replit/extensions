@@ -35,7 +35,7 @@ export function registerMessageListener() {
   };
 }
 
-let handshakeStatus: HandshakeStatus = "loading";
+let handshakeStatus: HandshakeStatus = HandshakeStatus.Loading;
 
 export const setHandshakeStatus = (status: HandshakeStatus) => {
   handshakeStatus = status;
@@ -54,7 +54,7 @@ export async function handshake({ permissions, timeout }) {
 
     return request({ type: "handshake", permissions })
       .then((res) => {
-        if (handshakeStatus === "ready") {
+        if (handshakeStatus === HandshakeStatus.Ready) {
           resolve(res);
         }
 
@@ -66,7 +66,7 @@ export async function handshake({ permissions, timeout }) {
           throw "handshake not successful";
         }
 
-        setHandshakeStatus("ready");
+        setHandshakeStatus(HandshakeStatus.Ready);
         debug("handshake succeeded");
         clearTimeout(timeoutId);
         resolve(res);
