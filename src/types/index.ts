@@ -1,3 +1,5 @@
+import { CurrentUser, GraphqlQueryResult, Repl, User } from "./graphql";
+
 export type Pane = {
   type: string;
   id: string;
@@ -232,6 +234,38 @@ export interface Theme {
   isOfficial: boolean;
 }
 
+export enum HandshakeStatus {
+  Ready = "ready",
+  Error = "error",
+  Loading = "loading",
+}
+
+export enum UserGraphFragment {
+  initial = "initial",
+  social = "social",
+  roles = "roles",
+}
+
+export enum ReplGraphFragment {
+  initial = "initial",
+  spotlight = "spotlight",
+  comments = "comments",
+  database = "database",
+  owner = "owner",
+  multiplayers = "multiplayers",
+}
+
+export enum CurrentUserGraphFragment {
+  initial = "initial",
+  social = "social",
+  roles = "roles",
+  permissions = "permissions",
+}
+
+export interface ObjectAny { // TODO: Remove and use actual graphql types
+  [key: string]: any;
+}
+
 export type ExtensionPortAPI = {
   // misc
   handshake: (args: { permissions: Array<string> }) => void;
@@ -281,23 +315,36 @@ export type ExtensionPortAPI = {
   getCurrentTheme: () => Promise<Theme>;
   onThemeChange: (callback: (theme: Theme) => void) => Promise<() => void>;
 
-  // jets (will be deprecated)
-
-  // graphql
-  queryGraphql(args: { query: string; variables?: Record<string, any> }): any;
-  mutateGraphql(args: {
-    mutation: string;
-    variables?: Record<string, any>;
-  }): any;
-
-  // eval
-  eval(code: string): any;
+  // data
+  user: {
+    byId: (id: number) => ({
+      select: (
+        fragments: Array<UserGraphFragment>
+      ) => Promise<GraphqlQueryResult<User>>;
+    });
+    byUsername: (username: string) => ({
+      select: (
+        fragments: Array<UserGraphFragment>
+      ) => Promise<GraphqlQueryResult<User>>;
+    });
+    current: () => ({
+      select: (
+        fragments: Array<CurrentUserGraphFragment>
+      ) => Promise<GraphqlQueryResult<CurrentUser>>;
+    });
+  };
+  repl: {
+    byId: (id: string) => ({
+      select: (
+        fragments: Array<ReplGraphFragment>
+      ) => Promise<GraphqlQueryResult<Repl>>;
+    });
+    byUrl: (url: string) => ({
+      select: (
+        fragments: Array<ReplGraphFragment>
+      ) => Promise<GraphqlQueryResult<Repl>>;
+    });
+  };
 
   filePath: string;
 };
-
-export enum HandshakeStatus {
-  Ready = "ready",
-  Error = "error",
-  Loading = "loading",
-}
