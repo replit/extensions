@@ -26,7 +26,7 @@ interface UseWatchTextFileError {
   replaceContent: (text: string) => void;
 }
 
-interface WriteChangeArgs {
+export interface WriteChangeArgs {
   from: number;
   to: number;
   insert: string;
