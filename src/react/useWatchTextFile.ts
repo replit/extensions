@@ -64,7 +64,7 @@ export default function useWatchTextFile({
           onReady: async (args) => {
             setContent(await args.initialContent);
             setContentRef.current = async (text) => {
-              await args.writeFile({
+              await args.writeChange({
                 from: 0,
                 to: text.length,
                 insert: text
