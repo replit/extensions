@@ -6,21 +6,30 @@ interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
-  setContent: () => void;
+  writeChange: (args: WriteChangeArgs) => void;
+  replaceContent: (text: string) => void;
 }
 
 interface UseWatchTextFileWatching {
   content: string;
   watching: true;
   watchError: null;
-  setContent: (text: string) => Promise<void>;
+  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  replaceContent: (text: string) => Promise<void>;
 }
 
 interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
-  setContent: () => void;
+  writeChange: (args: WriteChangeArgs) => void;
+  replaceContent: (text: string) => void;
+}
+
+interface WriteChangeArgs {
+  from: number;
+  to: number;
+  insert: string;
 }
 
 export default function useWatchTextFile({
@@ -36,7 +45,7 @@ export default function useWatchTextFile({
 
   const connected = status === HandshakeStatus.Ready;
 
-  const setContentRef = React.useRef(() => {});
+  const writeChange = React.useRef(() => {});
 
   React.useEffect(() => {
     if (!connected || !filePath) {
@@ -63,13 +72,9 @@ export default function useWatchTextFile({
         watchFileDispose = await replit.fs.watchTextFile(filePath, {
           onReady: async (args) => {
             setContent(await args.initialContent);
-            setContentRef.current = async (text) => {
-              await args.writeChange({
-                from: 0,
-                to: text.length,
-                insert: text
-              })
-            }
+            writeChange.current = async (writeChangeArgs: WriteChangeArgs) => {
+              await args.writeChange(writeChangeArgs);
+            };
             setWatching(true);
           },
           onError(err) {
@@ -98,7 +103,12 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
-      setContent: setContentRef.current,
+      writeChange: watching ? writeChange.current : (_: WriteChangeArgs) => {},
+      replaceContent: watching ? async (text: string) => await writeChange.current({
+        from: 0,
+        to: text.length,
+        insert: text
+      }) : (_: string) => {}
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
@@ -107,5 +117,5 @@ export default function useWatchTextFile({
     } else {
       return result as UseWatchTextFileLoading;
     }
-  }, [content, watching, watchError, setContentRef]);
+  }, [content, watching, watchError, writeChange]);
 }
