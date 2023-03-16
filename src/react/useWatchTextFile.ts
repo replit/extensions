@@ -6,18 +6,21 @@ interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
+  setContent: () => void;
 }
 
 interface UseWatchTextFileWatching {
   content: string;
   watching: true;
   watchError: null;
+  setContent: (text: string) => Promise<void>;
 }
 
 interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
+  setContent: () => void;
 }
 
 export default function useWatchTextFile({
@@ -32,6 +35,8 @@ export default function useWatchTextFile({
   const { status, replit } = useReplit();
 
   const connected = status === HandshakeStatus.Ready;
+
+  const setContentRef = React.useRef(() => {});
 
   React.useEffect(() => {
     if (!connected || !filePath) {
@@ -58,6 +63,13 @@ export default function useWatchTextFile({
         watchFileDispose = await replit.fs.watchTextFile(filePath, {
           onReady: async (args) => {
             setContent(await args.initialContent);
+            setContentRef.current = async (text) => {
+              await args.writeFile({
+                from: 0,
+                to: text.length,
+                insert: text
+              })
+            }
             setWatching(true);
           },
           onError(err) {
@@ -86,6 +98,7 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
+      setContent: setContentRef.current,
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
@@ -94,5 +107,5 @@ export default function useWatchTextFile({
     } else {
       return result as UseWatchTextFileLoading;
     }
-  }, [content, watching, watchError]);
+  }, [content, watching, watchError, setContentRef]);
 }
