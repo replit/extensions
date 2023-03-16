@@ -14,7 +14,7 @@ export default function App() {
   const connected = status === "ready";
 
   const { content, watching, watchError } = useWatchTextFile({
-    filePath: "./index.html",
+    filePath: "package.json",
   });
 
   const theme = useTheme();
@@ -44,13 +44,6 @@ export default function App() {
             </>
           ) : (
             <div>
-              {Object.keys(theme || {})}
-              <hr />
-              {status}
-              {filePath || ":("}
-              <hr />
-              {`${watching} ${watchError} ${content}`}
-              <hr />
               {connected
                 ? filePath
                   ? `connected to ${filePath}`
