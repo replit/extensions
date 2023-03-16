@@ -1,3 +1,11 @@
+## 0.24.0
+
+- Add useReplitEffect
+- Fix useWatchTextFile
+- Improve useReplit hook
+- Fix issues with SSR
+- Fix typing
+
 ## 0.23.0
 
 - added themes API
