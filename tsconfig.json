@@ -11,6 +11,7 @@
       "src": ["./src/"],
     },
     "module": "commonjs",
-    "target": "ESNext"
+    "target": "ESNext",
+    "strict": true,
   },
 }

@@ -38,16 +38,17 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@codemirror/state": "^6.2.0",
     "comlink": "^4.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2.0.1",
     "esbuild": "^0.15.18",
     "prettier": "^2.7.1",
+    "react": "^18.2.0",
     "tsup": "^6.6.3",
     "typedoc": "^0.23.21",
-    "typescript": "^4.9.3",
-    "react": "^18.2.0"
+    "typescript": "^4.9.3"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
