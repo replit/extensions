@@ -44,7 +44,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
       return;
     }
 
-    let dispose: (()=>void)|null = () => {};
+    let dispose: (() => void) | null = () => {};
 
     (async () => {
       try {
@@ -66,9 +66,9 @@ export default function useReplit(args?: { permissions: Array<string> }) {
     if (status === HandshakeStatus.Ready) {
       return { status, error, filePath, replit } as UseReplitReady;
     } else if (status === HandshakeStatus.Error) {
-      return { status, error, filePath, replit:null } as UseReplitFailure;
+      return { status, error, filePath, replit: null } as UseReplitFailure;
     } else {
-      return { status, error, filePath, replit:null } as UseReplitLoading;
+      return { status, error, filePath, replit: null } as UseReplitLoading;
     }
   }, [status, error, filePath, replit]);
 }

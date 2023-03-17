@@ -25,9 +25,9 @@ export default function useWatchTextFile({
 }: {
   filePath: string | null | undefined;
 }) {
-  const [content, setContent] = React.useState<string|null>(null);
+  const [content, setContent] = React.useState<string | null>(null);
   const [watching, setWatching] = React.useState(false);
-  const [watchError, setWatchError] = React.useState<Error|null>(null);
+  const [watchError, setWatchError] = React.useState<Error | null>(null);
 
   const { status, replit } = useReplit();
 

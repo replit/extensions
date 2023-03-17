@@ -24,7 +24,7 @@ export async function init({
   debug?: boolean;
 }) {
   if (extensionPort === null) {
-    console.warn(`extensionPort is null. Was init() called in SSR?`)
+    console.warn(`extensionPort is null. Was init() called in SSR?`);
     return null;
   }
 
@@ -39,10 +39,7 @@ export async function init({
   };
 
   try {
-    await promiseWithTimeout(
-      extensionPort.handshake({ permissions }),
-      timeout
-    );
+    await promiseWithTimeout(extensionPort.handshake({ permissions }), timeout);
 
     if (window) {
       window.document.addEventListener("click", onExtensionClick);
