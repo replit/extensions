@@ -24,6 +24,8 @@ export default function App() {
       return;
     }
 
+    // @ts-ignore
+    window.replit = replit;
     console.log(replit);
   }, [connected, error, replit]);
 
