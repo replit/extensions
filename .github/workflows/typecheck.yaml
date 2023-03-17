@@ -1,4 +1,4 @@
-name: Format
+name: Typecheck
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  format:
+  typecheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,10 +17,4 @@ jobs:
         with:
           node-version: 14
       - run: npm install
-      - run: npm run lint
-      - uses: EndBug/add-and-commit@v7
-        with:
-          add: '["src", "example"]'
-          message: "Format code"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run type:check
