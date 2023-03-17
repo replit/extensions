@@ -23,6 +23,11 @@ export async function init({
   timeout?: number;
   debug?: boolean;
 }) {
+  if (extensionPort === null) {
+    console.warn(`extensionPort is null. Was init() called in SSR?`)
+    return null;
+  }
+
   setDebugMode(debug);
 
   const onExtensionClick = () => {

@@ -25,9 +25,9 @@ export default function useWatchTextFile({
 }: {
   filePath: string | null | undefined;
 }) {
-  const [content, setContent] = React.useState(null);
+  const [content, setContent] = React.useState<string|null>(null);
   const [watching, setWatching] = React.useState(false);
-  const [watchError, setWatchError] = React.useState(null);
+  const [watchError, setWatchError] = React.useState<Error|null>(null);
 
   const { status, replit } = useReplit();
 
@@ -38,7 +38,7 @@ export default function useWatchTextFile({
       return;
     }
 
-    let watchFileDispose;
+    let watchFileDispose: null | (() => void) = null;
     let dispose = () => {
       if (watchFileDispose) {
         watchFileDispose();
@@ -50,7 +50,7 @@ export default function useWatchTextFile({
     };
 
     (async () => {
-      if (!connected || !filePath) {
+      if (!replit || !filePath) {
         return;
       }
 
@@ -61,7 +61,7 @@ export default function useWatchTextFile({
             setWatching(true);
           },
           onError(err) {
-            setWatchError(err);
+            setWatchError(new Error(err));
             setWatching(false);
             dispose();
           },
@@ -73,13 +73,13 @@ export default function useWatchTextFile({
           },
         });
       } catch (e) {
-        setWatchError(e);
+        setWatchError(e as Error);
         setWatching(false);
       }
     })();
 
     return dispose;
-  }, [connected, filePath]);
+  }, [connected, filePath, replit]);
 
   return React.useMemo(() => {
     const result = {

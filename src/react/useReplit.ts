@@ -29,7 +29,7 @@ interface UseReplitFailure {
  */
 export default function useReplit(args?: { permissions: Array<string> }) {
   const [status, setStatus] = useState<HandshakeStatus>(getHandshakeStatus());
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
   const runRef = useRef(0);
 
@@ -44,7 +44,7 @@ export default function useReplit(args?: { permissions: Array<string> }) {
       return;
     }
 
-    let dispose = () => {};
+    let dispose: (()=>void)|null = () => {};
 
     (async () => {
       try {
@@ -52,24 +52,23 @@ export default function useReplit(args?: { permissions: Array<string> }) {
         setFilePath(await replit.me.filePath());
         setStatus(HandshakeStatus.Ready);
       } catch (e) {
-        setError(e);
+        setError(e as Error);
         setStatus(HandshakeStatus.Error);
       }
     })();
 
     return () => {
-      dispose();
+      dispose?.();
     };
   }, []);
 
   return useMemo(() => {
-    const output = { status, error, filePath, replit };
     if (status === HandshakeStatus.Ready) {
-      return output as UseReplitReady;
+      return { status, error, filePath, replit } as UseReplitReady;
     } else if (status === HandshakeStatus.Error) {
-      return output as UseReplitFailure;
+      return { status, error, filePath, replit:null } as UseReplitFailure;
     } else {
-      return output as UseReplitLoading;
+      return { status, error, filePath, replit:null } as UseReplitLoading;
     }
   }, [status, error, filePath, replit]);
 }

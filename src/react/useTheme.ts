@@ -14,7 +14,7 @@ export default function useTheme() {
       return;
     }
 
-    let themeDispose: () => void;
+    let themeDispose: null | (() => void) = null;
     let dispose = () => {
       if (themeDispose) {
         themeDispose();
@@ -23,7 +23,7 @@ export default function useTheme() {
     };
 
     (async () => {
-      if (!connected) {
+      if (!replit) {
         return;
       }
 
@@ -35,7 +35,7 @@ export default function useTheme() {
     })();
 
     return dispose;
-  }, [connected]);
+  }, [replit]);
 
   return theme;
 }
