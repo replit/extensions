@@ -6,6 +6,8 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "src": ["./src/"],
