@@ -5,7 +5,6 @@ import useReplitEffect from "./useReplitEffect";
 
 export { useReplit, useWatchTextFile, useTheme, useReplitEffect };
 
-const x: string = 1;
 
 
 
