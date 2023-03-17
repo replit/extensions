@@ -20,7 +20,7 @@ jobs:
       - run: npm run lint
       - uses: EndBug/add-and-commit@v7
         with:
-          add: .
+          add: '["src", "example"]'
           message: "Format code"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
