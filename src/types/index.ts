@@ -236,7 +236,10 @@ export type ExtensionPortAPI = {
   // misc
   handshake: (args: { permissions: Array<string> }) => void;
   // fs
-  readFile: (path: string) => Promise<{ content: string } | { error: string }>;
+  readFile: (
+    path: string,
+    encoding: "utf8" | "binary" | null
+  ) => Promise<{ content: string } | { error: string }>;
   writeFile: (
     path: string,
     content: string | Blob

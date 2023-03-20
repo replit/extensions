@@ -4,8 +4,11 @@ import { WatchFileWatchers, WatchTextFileWatchers } from "src/types";
 /**
  * Reads the file specified at `path` and returns an object containing the contents, or an object containing an error if there was one
  */
-export async function readFile(path: string) {
-  return extensionPort.readFile(path);
+export async function readFile(
+  path: string,
+  encoding: "utf8" | "binary" | null = "utf8"
+) {
+  return extensionPort.readFile(path, encoding);
 }
 
 /**
