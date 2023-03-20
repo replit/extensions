@@ -1,5 +1,6 @@
-## 0.24.0-test
-- Fix types
+## 0.25.0
+
+- Removed layout
 
 ## 0.24.0
 
@@ -8,6 +9,9 @@
 - Improve useReplit hook
 - Fix issues with SSR
 - Fix typing
+
+## 0.24.0-test
+- Fix types
 
 ## 0.23.0
 
