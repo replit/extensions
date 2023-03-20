@@ -6,8 +6,8 @@ interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
-  writeChange: (args: WriteChangeArgs) => void;
-  replaceContent: (text: string) => void;
+  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  replaceContent: (text: string) => Promise<void>;
 }
 
 interface UseWatchTextFileWatching {
@@ -22,8 +22,8 @@ interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
-  writeChange: (args: WriteChangeArgs) => void;
-  replaceContent: (text: string) => void;
+  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  replaceContent: (text: string) => Promise<void>;
 }
 
 export interface WriteChangeArgs {
@@ -45,7 +45,7 @@ export default function useWatchTextFile({
 
   const connected = status === HandshakeStatus.Ready;
 
-  const writeChange = React.useRef(() => {});
+  const writeChange = React.useRef<(args: WriteChangeArgs) => Promise<void>>(async (_: WriteChangeArgs) => {});
 
   React.useEffect(() => {
     if (!connected || !filePath) {
