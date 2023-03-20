@@ -1,3 +1,7 @@
+## 0.26.0
+
+- Added encoding option to readFile
+ 
 ## 0.25.0
 
 - Removed layout
