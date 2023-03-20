@@ -17,6 +17,12 @@
     "isActive": true
   },
   {
+    "name": "messages",
+    "description": "The messages api allows you to send custom notices in the Replit workspace",
+    "typeNames": [],
+    "isActive": true
+  },
+  {
     "name": "rui",
     "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
     "typeNames": []
