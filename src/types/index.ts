@@ -46,7 +46,11 @@ export interface WatchFileWatchers {
 }
 
 export interface WatchTextFileWatchers {
-  onReady: (readyArgs: { initialContent: string; version: number; writeChange: WriteChangeArgs }) => void;
+  onReady: (readyArgs: {
+    initialContent: string;
+    version: number;
+    writeChange: WriteChangeArgs;
+  }) => void;
   onChange: (changeArgs: {
     latestContent: string;
     version: number;

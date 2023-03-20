@@ -103,12 +103,17 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
-      writeChange: watching ? (args: WriteChangeArgs) => writeChange.current(args) : (_: WriteChangeArgs) => {},
-      replaceContent: watching ? async (text: string) => await writeChange.current({
-        from: 0,
-        to: text.length,
-        insert: text
-      }) : (_: string) => {}
+      writeChange: watching
+        ? (args: WriteChangeArgs) => writeChange.current(args)
+        : (_: WriteChangeArgs) => {},
+      replaceContent: watching
+        ? async (text: string) =>
+            await writeChange.current({
+              from: 0,
+              to: text.length,
+              insert: text,
+            })
+        : (_: string) => {},
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
