@@ -49,7 +49,7 @@ export interface WatchTextFileWatchers {
   onReady: (readyArgs: {
     initialContent: string;
     version: number;
-    writeChange: WriteChangeArgs;
+    writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
   }) => void;
   onChange: (changeArgs: {
     latestContent: string;

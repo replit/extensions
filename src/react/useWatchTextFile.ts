@@ -45,7 +45,7 @@ export default function useWatchTextFile({
 
   const connected = status === HandshakeStatus.Ready;
 
-  const writeChange = React.useRef<(args: WriteChangeArgs) => Promise<void>>(async (_: WriteChangeArgs) => {});
+  const writeChange = React.useRef(async (_: WriteChangeArgs) => {});
 
   React.useEffect(() => {
     if (!connected || !filePath) {
