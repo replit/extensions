@@ -4,6 +4,7 @@ import {
   useWatchTextFile,
   useTheme,
 } from "@replit/extensions/react";
+import { messages } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
@@ -29,6 +30,10 @@ export default function App() {
     console.log(replit);
   }, [connected, error, replit]);
 
+  const sendMessage = () => {
+    messages.showNotice("THIS IS A TEST");
+  };
+
   return (
     <main>
       <div className="center">
@@ -51,6 +56,8 @@ export default function App() {
                   ? `connected to ${filePath}`
                   : "connected"
                 : "connecting..."}
+
+              <button onClick={sendMessage}>Click</button>
             </div>
           )}
         </div>

@@ -1,3 +1,5 @@
+import React from "react";
+
 export type Pane = {
   type: string;
   id: string;
@@ -282,6 +284,29 @@ export type ExtensionPortAPI = {
   eval(code: string): any;
 
   filePath: string;
+
+  showConfirm: (
+    text: string,
+    length?: number,
+    style?: React.CSSProperties
+  ) => string;
+  showError: (
+    text: string,
+    length?: number,
+    style?: React.CSSProperties
+  ) => string;
+  showNotice: (
+    text: string,
+    length?: number,
+    style?: React.CSSProperties
+  ) => string;
+  showWarning: (
+    text: string,
+    length?: number,
+    style?: React.CSSProperties
+  ) => string;
+  hideMessage: (id: string) => void;
+  hideAllMessages: () => void;
 };
 
 export enum HandshakeStatus {
