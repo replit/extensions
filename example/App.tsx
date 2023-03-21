@@ -12,7 +12,7 @@ export default function App() {
     debug: true,
   });
 
-  const connected = status === "ready";
+  const connected: boolean = status === "ready";
 
   const { content, watching, watchError } = useWatchTextFile({
     filePath: "package.json",
