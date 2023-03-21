@@ -18,7 +18,7 @@
   },
   {
     "name": "messages",
-    "description": "The messages api allows you to send custom notices in the Replit workspace",
+    "description": "The messages API allows you to send custom notices in the Replit workspace",
     "typeNames": [],
     "isActive": true
   },
