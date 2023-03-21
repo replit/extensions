@@ -1,3 +1,7 @@
+## 0.27.0
+
+- Added messages API
+
 ## 0.26.0
 
 - Added encoding option to readFile
