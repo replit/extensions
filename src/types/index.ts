@@ -285,26 +285,10 @@ export type ExtensionPortAPI = {
 
   filePath: string;
 
-  showConfirm: (
-    text: string,
-    length?: number,
-    style?: React.CSSProperties
-  ) => string;
-  showError: (
-    text: string,
-    length?: number,
-    style?: React.CSSProperties
-  ) => string;
-  showNotice: (
-    text: string,
-    length?: number,
-    style?: React.CSSProperties
-  ) => string;
-  showWarning: (
-    text: string,
-    length?: number,
-    style?: React.CSSProperties
-  ) => string;
+  showConfirm: (text: string, length?: number) => string;
+  showError: (text: string, length?: number) => string;
+  showNotice: (text: string, length?: number) => string;
+  showWarning: (text: string, length?: number) => string;
   hideMessage: (id: string) => void;
   hideAllMessages: () => void;
 };

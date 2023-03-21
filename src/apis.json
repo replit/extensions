@@ -12,13 +12,13 @@
   },
   {
     "name": "replDb",
-    "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data",
+    "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data.",
     "typeNames": [],
     "isActive": true
   },
   {
     "name": "messages",
-    "description": "The messages API allows you to send custom notices in the Replit workspace",
+    "description": "The messages API allows you to send custom notices in the Replit workspace.",
     "typeNames": [],
     "isActive": true
   },
