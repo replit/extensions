@@ -1,25 +1,59 @@
 import { extensionPort } from "src";
 
-export const showConfirm = async (str: string) => {
-  return extensionPort.showConfirm(str);
+/**
+ * Shows a confirmation toast message within the Replit workspace for `length` milliseconds.  Returns the ID of the message as a UUID.
+ */
+export const showConfirm = async (
+  str: string,
+  length: number = 4000,
+  style?: React.CSSProperties
+) => {
+  return extensionPort.showConfirm(str, length, style);
 };
 
-export const showError = async (str: string) => {
-  return extensionPort.showError(str);
+/**
+ * Shows an error toast message within the Replit workspace for `length` milliseconds.  Returns the ID of the message as a UUID.
+ */
+export const showError = async (
+  str: string,
+  length: number = 4000,
+  style?: React.CSSProperties
+) => {
+  return extensionPort.showError(str, length, style);
 };
 
-export const showNotice = async (str: string) => {
-  return extensionPort.showNotice(str);
+/**
+ * Shows a notice toast message within the Replit workspace for `length` milliseconds.  Returns the ID of the message as a UUID.
+ */
+export const showNotice = async (
+  str: string,
+  length: number = 4000,
+  style?: React.CSSProperties
+) => {
+  return extensionPort.showNotice(str, length, style);
 };
 
-export const showWarning = async (str: string) => {
-  return extensionPort.showWarning(str);
+/**
+ * Shows a warning toast message within the Replit workspace for `length` milliseconds.  Returns the ID of the message as a UUID.
+ */
+export const showWarning = async (
+  str: string,
+  length: number = 4000,
+  style?: React.CSSProperties
+) => {
+  return extensionPort.showWarning(str, length, style);
 };
 
+/**
+ * Hides a message by its ID
+ */
 export const hideMessage = async (id: string) => {
   return extensionPort.hideMessage(id);
 };
 
+/**
+ * Hides all toast messages visible on the screen
+ */
 export const hideAllMessages = async () => {
   return extensionPort.hideAllMessages();
 };
