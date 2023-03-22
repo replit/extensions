@@ -1,4 +1,4 @@
-import React from "react";
+import { WriteChangeArgs } from "src/react/useWatchTextFile";
 
 export type Pane = {
   type: string;
@@ -46,7 +46,11 @@ export interface WatchFileWatchers {
 }
 
 export interface WatchTextFileWatchers {
-  onReady: (readyArgs: { initialContent: string; version: number }) => void;
+  onReady: (readyArgs: {
+    initialContent: string;
+    version: number;
+    writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
+  }) => void;
   onChange: (changeArgs: {
     latestContent: string;
     version: number;

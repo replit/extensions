@@ -6,18 +6,30 @@ interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
+  writeChange: (args: WriteChangeArgs) => Promise<never>;
+  replaceContent: (text: string) => Promise<void>;
 }
 
 interface UseWatchTextFileWatching {
   content: string;
   watching: true;
   watchError: null;
+  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  replaceContent: (text: string) => Promise<void>;
 }
 
 interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
+  writeChange: (args: WriteChangeArgs) => Promise<never>;
+  replaceContent: (text: string) => Promise<void>;
+}
+
+export interface WriteChangeArgs {
+  from: number;
+  to: number;
+  insert: string;
 }
 
 export default function useWatchTextFile({
@@ -32,6 +44,12 @@ export default function useWatchTextFile({
   const { status, replit } = useReplit();
 
   const connected = status === HandshakeStatus.Ready;
+
+  const writeChange = React.useRef<
+    (args: WriteChangeArgs) => Promise<void | never>
+  >(async (_: WriteChangeArgs) => {
+    throw new Error("writeChange is called before onReady");
+  });
 
   React.useEffect(() => {
     if (!connected || !filePath) {
@@ -58,6 +76,9 @@ export default function useWatchTextFile({
         watchFileDispose = await replit.fs.watchTextFile(filePath, {
           onReady: async (args) => {
             setContent(await args.initialContent);
+            writeChange.current = async (writeChangeArgs: WriteChangeArgs) => {
+              await args.writeChange(writeChangeArgs);
+            };
             setWatching(true);
           },
           onError(err) {
@@ -86,6 +107,15 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
+      writeChange: (args: WriteChangeArgs) => writeChange.current(args),
+      replaceContent: watching
+        ? async (text: string) =>
+            await writeChange.current({
+              from: 0,
+              to: text.length,
+              insert: text,
+            })
+        : (_: string) => {},
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
@@ -94,5 +124,5 @@ export default function useWatchTextFile({
     } else {
       return result as UseWatchTextFileLoading;
     }
-  }, [content, watching, watchError]);
+  }, [content, watching, watchError, writeChange]);
 }
