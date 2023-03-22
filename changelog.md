@@ -1,3 +1,7 @@
+## 0.28.0
+
+ - Updated the `useWatchTextFile` React hook
+
 ## 0.27.0
 
 - Added messages API
