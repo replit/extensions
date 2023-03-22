@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions",
-  "version": "0.28.1",
+  "version": "0.28.2",
   "description": "",
   "exports": {
     "./package.json": "./package.json",
