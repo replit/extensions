@@ -108,16 +108,17 @@ export default function useWatchTextFile({
       watching,
       watchError,
       writeChange: (args: WriteChangeArgs) => writeChange.current(args),
-      replaceContent: watching
-        ? async (text: string) =>
-            await writeChange.current({
-              from: 0,
-              to: text.length,
-              insert: text,
-            })
-        : async (_: string) => {
-            throw new Error("setContent is called before onReady");
-          },
+      replaceContent:
+        watching && content
+          ? async (text: string) =>
+              await writeChange.current({
+                from: 0,
+                to: content.length,
+                insert: text,
+              })
+          : async (_: string) => {
+              throw new Error("setContent is called before onReady");
+            },
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
