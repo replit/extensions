@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   useReplit,
   useWatchTextFile,
-  useTheme
+  useTheme,
 } from "@replit/extensions/react";
 import { messages } from "@replit/extensions";
 import "./App.css";
@@ -65,14 +65,12 @@ export default function App() {
                   ? `connected to ${filePath}`
                   : "connected"
                 : "connecting..."}
-
               <button onClick={sendMessage}>Click</button>
               <button onClick={randomizeJson}>Randomize JSON</button>
-
               <hr />
-              {watching ? "watching" : "not watching " + watchError} | {filePath}
+              {watching ? "watching" : "not watching " + watchError} |{" "}
+              {filePath}
               <hr />
-
               <pre>{content}</pre>
             </div>
           )}
