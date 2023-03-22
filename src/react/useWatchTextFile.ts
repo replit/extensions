@@ -6,7 +6,7 @@ interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
-  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  writeChange: (args: WriteChangeArgs) => Promise<never>;
   replaceContent: (text: string) => Promise<void>;
 }
 
@@ -22,7 +22,7 @@ interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
-  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  writeChange: (args: WriteChangeArgs) => Promise<never>;
   replaceContent: (text: string) => Promise<void>;
 }
 
@@ -45,7 +45,11 @@ export default function useWatchTextFile({
 
   const connected = status === HandshakeStatus.Ready;
 
-  const writeChange = React.useRef(async (_: WriteChangeArgs) => {});
+  const writeChange = React.useRef<
+    (args: WriteChangeArgs) => Promise<void | never>
+  >(async (_: WriteChangeArgs) => {
+    throw new Error("writeChange is called before onReady");
+  });
 
   React.useEffect(() => {
     if (!connected || !filePath) {
@@ -103,9 +107,7 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
-      writeChange: watching
-        ? (args: WriteChangeArgs) => writeChange.current(args)
-        : (_: WriteChangeArgs) => {},
+      writeChange: (args: WriteChangeArgs) => writeChange.current(args),
       replaceContent: watching
         ? async (text: string) =>
             await writeChange.current({
