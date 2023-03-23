@@ -275,15 +275,6 @@ export type ExtensionPortAPI = {
   getCurrentTheme: () => Promise<Theme>;
   onThemeChange: (callback: (theme: Theme) => void) => Promise<() => void>;
 
-  // jets (will be deprecated)
-
-  // graphql
-  queryGraphql(args: { query: string; variables?: Record<string, any> }): any;
-  mutateGraphql(args: {
-    mutation: string;
-    variables?: Record<string, any>;
-  }): any;
-
   // eval
   eval(code: string): any;
 
@@ -295,7 +286,31 @@ export type ExtensionPortAPI = {
   showWarning: (text: string, length?: number) => string;
   hideMessage: (id: string) => void;
   hideAllMessages: () => void;
+
+  currentUser: (args: UserDataInclusion) => JsonDataReponse;
+  userById: (args: { id: string } & UserDataInclusion) => JsonDataReponse;
+  userByUsername: (
+    args: { username: string } & UserDataInclusion
+  ) => JsonDataReponse;
+
+  currentRepl: (args: ReplDataInclusion) => JsonDataReponse;
+  replById: (args: { id: string } & ReplDataInclusion) => JsonDataReponse;
+  replByUrl: (args: { url: string } & ReplDataInclusion) => JsonDataReponse;
 };
+
+export type JsonDataReponse = Promise<{ [key: string]: any } | never>;
+
+export interface UserDataInclusion {
+  includeSocialData?: boolean;
+  includeRoles?: boolean;
+}
+
+export interface ReplDataInclusion {
+  includeSocialData?: boolean;
+  includeComments?: boolean;
+  includeOwner?: boolean;
+  includeMultiplayers?: boolean;
+}
 
 export enum HandshakeStatus {
   Ready = "ready",
