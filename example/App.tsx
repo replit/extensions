@@ -8,30 +8,39 @@ import { messages } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
-  const { status, replit, error, filePath } = useReplit({
+  const { status, error, filePath } = useReplit({
     debug: true,
   });
 
   const connected: boolean = status === "ready";
 
-  const { content, watching, watchError } = useWatchTextFile({
-    filePath: "package.json",
+  const { content, watching, watchError, writeChange } = useWatchTextFile({
+    filePath: "test.json",
   });
 
   const theme = useTheme();
 
-  React.useEffect(() => {
-    if (!connected) {
-      return;
-    }
-
-    // @ts-ignore
-    window.replit = replit;
-    console.log(replit);
-  }, [connected, error, replit]);
-
   const sendMessage = () => {
     messages.showNotice("THIS IS A TEST");
+  };
+
+  const randomizeJson = async () => {
+    try {
+      const json = JSON.parse(content);
+
+      const randomKey =
+        Object.keys(json)[Math.floor(Math.random() * Object.keys(json).length)];
+
+      json[randomKey] = Math.random();
+
+      await writeChange({
+        from: 0,
+        to: content.length,
+        insert: JSON.stringify(json, null, 2),
+      });
+    } catch (e) {
+      await messages.showError("Error randomizing JSON");
+    }
   };
 
   return (
@@ -56,14 +65,19 @@ export default function App() {
                   ? `connected to ${filePath}`
                   : "connected"
                 : "connecting..."}
-
               <button onClick={sendMessage}>Click</button>
+              <button onClick={randomizeJson}>Randomize JSON</button>
+              <hr />
+              {watching ? "watching" : "not watching " + watchError} |{" "}
+              {filePath}
+              <hr />
+              <pre>{content}</pre>
             </div>
           )}
         </div>
       </div>
       {theme && (
-        <style global jsx>{`
+        <style>{`
           body {
             background-color: ${theme.values.global.backgroundDefault};
             color: ${theme.values.global.foregroundDefault};

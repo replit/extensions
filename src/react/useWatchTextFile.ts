@@ -7,7 +7,6 @@ interface UseWatchTextFileLoading {
   watching: false;
   watchError: null;
   writeChange: (args: WriteChangeArgs) => Promise<never>;
-  replaceContent: (text: string) => Promise<never>;
 }
 
 interface UseWatchTextFileWatching {
@@ -15,7 +14,6 @@ interface UseWatchTextFileWatching {
   watching: true;
   watchError: null;
   writeChange: (args: WriteChangeArgs) => Promise<void>;
-  replaceContent: (text: string) => Promise<void>;
 }
 
 interface UseWatchTextFileError {
@@ -23,7 +21,6 @@ interface UseWatchTextFileError {
   watching: false;
   watchError: Error;
   writeChange: (args: WriteChangeArgs) => Promise<never>;
-  replaceContent: (text: string) => Promise<never>;
 }
 
 export interface WriteChangeArgs {
@@ -65,6 +62,9 @@ export default function useWatchTextFile({
       setWatching(false);
       setContent(null);
       setWatchError(null);
+      writeChange.current = async (_: WriteChangeArgs) => {
+        throw new Error("writeChange is called before onReady");
+      };
     };
 
     (async () => {
@@ -107,18 +107,8 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
-      writeChange: (args: WriteChangeArgs) => writeChange.current(args),
-      replaceContent:
-        watching && content
-          ? async (text: string) =>
-              await writeChange.current({
-                from: 0,
-                to: content.length,
-                insert: text,
-              })
-          : async (_: string) => {
-              throw new Error("setContent is called before onReady");
-            },
+      writeChange: async (args: WriteChangeArgs) =>
+        await writeChange.current(args),
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
