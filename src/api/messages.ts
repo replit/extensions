@@ -11,7 +11,7 @@ export const showConfirm = async (str: string, length: number = 4000) => {
  * Shows an error toast message within the Replit workspace for `length` milliseconds.  Returns the ID of the message as a UUID
  */
 export const showError = async (str: string, length: number = 4000) => {
-  return extensionPort.showError(String(str ), length);
+  return extensionPort.showError(String(str), length);
 };
 
 /**
