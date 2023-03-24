@@ -26,7 +26,7 @@ export default function App() {
   };
 
   useReplitEffect(async ({ data }) => {
-    console.log(await data.user.current());
+    await messages.showConfirm(JSON.stringify(await data.currentUser()));
   }, []);
 
   const randomizeJson = async () => {
