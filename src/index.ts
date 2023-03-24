@@ -14,19 +14,13 @@ function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   ]);
 }
 
-export async function init({
-  timeout = 2000,
-  debug = false,
-}: {
-  timeout?: number;
-  debug?: boolean;
-}) {
+export async function init(args?: { timeout?: number; debug?: boolean }) {
   if (extensionPort === null) {
     console.warn(`extensionPort is null. Was init() called in SSR?`);
     return null;
   }
 
-  setDebugMode(debug);
+  setDebugMode(args?.debug || false);
 
   const onExtensionClick = () => {
     extensionPort.activatePane();
@@ -37,7 +31,7 @@ export async function init({
   };
 
   try {
-    await promiseWithTimeout(extensionPort.handshake(), timeout);
+    await promiseWithTimeout(extensionPort.handshake(), args?.timeout || 2000);
 
     if (window) {
       window.document.addEventListener("click", onExtensionClick);
