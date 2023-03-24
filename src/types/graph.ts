@@ -24,7 +24,7 @@ export interface UserSocial {
   type: user_socialstypeEnumType;
 }
 
-export enum user_socialstypeEnumType {
+export enum UserSocialType {
   twitter = "twitter",
   github = "github",
   linkedin = "linkedin",
