@@ -25,7 +25,15 @@
   {
     "name": "data",
     "description": "The data API allows you to get information and metadata exposed from Replit's GraphQL API.",
-    "typeNames": ["UserDataInclusion", "ReplDataInclusion", "JsonDataResponse"],
+    "typeNames": [
+      "UserDataInclusion",
+      "ReplDataInclusion",
+      "UserQueryOutput",
+      "UserByUsernameQueryOutput",
+      "ReplQueryOutput",
+      "User",
+      "Repl"
+    ],
     "isActive": true
   },
   {

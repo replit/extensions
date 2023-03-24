@@ -1,4 +1,9 @@
 import { WriteChangeArgs } from "src/react/useWatchTextFile";
+import {
+  ReplQueryOutput,
+  UserByUsernameQueryOutput,
+  UserQueryOutput,
+} from "./graph";
 
 export type Pane = {
   type: string;
@@ -239,9 +244,10 @@ export interface Theme {
 }
 
 export type ExtensionPortAPI = {
-  // misc
-  handshake: (args: { permissions: Array<string> }) => void;
-  // fs
+  // init Function
+  handshake: () => void;
+
+  // fs Module
   readFile: (
     path: string,
     encoding: "utf8" | "binary" | null
@@ -262,7 +268,7 @@ export type ExtensionPortAPI = {
   watchFile: (path: string, watcher: WatchFileWatchers) => () => void;
   watchTextFile: (path: string, watcher: WatchTextFileWatchers) => () => void;
 
-  // replDb
+  // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
   getReplDbValue: (key: string) => Promise<string | null>;
   listReplDbKeys: (
@@ -271,15 +277,14 @@ export type ExtensionPortAPI = {
   deleteReplDbKey: (key: string) => Promise<void>;
 
   activatePane: () => Promise<void>;
+
   // theme
   getCurrentTheme: () => Promise<Theme>;
   onThemeChange: (callback: (theme: Theme) => void) => Promise<() => void>;
 
-  // eval
-  eval(code: string): any;
-
   filePath: string;
 
+  // messages Module
   showConfirm: (text: string, length?: number) => string;
   showError: (text: string, length?: number) => string;
   showNotice: (text: string, length?: number) => string;
@@ -287,18 +292,16 @@ export type ExtensionPortAPI = {
   hideMessage: (id: string) => void;
   hideAllMessages: () => void;
 
-  currentUser: (args: UserDataInclusion) => JsonDataReponse;
-  userById: (args: { id: string } & UserDataInclusion) => JsonDataReponse;
+  // data Module
+  currentUser: (args: UserDataInclusion) => UserQueryOutput;
+  userById: (args: { id: string } & UserDataInclusion) => UserQueryOutput;
   userByUsername: (
     args: { username: string } & UserDataInclusion
-  ) => JsonDataReponse;
-
-  currentRepl: (args: ReplDataInclusion) => JsonDataReponse;
-  replById: (args: { id: string } & ReplDataInclusion) => JsonDataReponse;
-  replByUrl: (args: { url: string } & ReplDataInclusion) => JsonDataReponse;
+  ) => UserByUsernameQueryOutput;
+  currentRepl: (args: ReplDataInclusion) => ReplQueryOutput;
+  replById: (args: { id: string } & ReplDataInclusion) => ReplQueryOutput;
+  replByUrl: (args: { url: string } & ReplDataInclusion) => ReplQueryOutput;
 };
-
-export type JsonDataReponse = Promise<{ [key: string]: any } | never>;
 
 export interface UserDataInclusion {
   includeSocialData?: boolean;
