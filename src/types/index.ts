@@ -300,6 +300,9 @@ export type ExtensionPortAPI = {
   currentRepl: (args: ReplDataInclusion) => ReplQueryOutput;
   replById: (args: { id: string } & ReplDataInclusion) => ReplQueryOutput;
   replByUrl: (args: { url: string } & ReplDataInclusion) => ReplQueryOutput;
+
+  // session Module
+  watchActiveFile: (callback: (path: string) => void) => () => void;
 };
 
 export interface UserDataInclusion {

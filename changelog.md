@@ -1,3 +1,7 @@
+## 0.30.0
+
+- added session.onActiveFileChange
+
 ## 0.29.2
 
 - Added the data module

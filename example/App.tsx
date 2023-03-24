@@ -45,7 +45,7 @@ export default function App() {
         insert: JSON.stringify(json, null, 2),
       });
     } catch (e) {
-      console.error(e)
+      console.error(e);
       await messages.showError("Error randomizing JSON");
     }
   };
