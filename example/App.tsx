@@ -3,6 +3,7 @@ import {
   useReplit,
   useWatchTextFile,
   useTheme,
+  useReplitEffect,
 } from "@replit/extensions/react";
 import { messages } from "@replit/extensions";
 import "./App.css";
@@ -23,6 +24,10 @@ export default function App() {
   const sendMessage = () => {
     messages.showNotice("THIS IS A TEST");
   };
+
+  useReplitEffect(async ({ data }) => {
+    console.log(await data.user.current());
+  }, []);
 
   const randomizeJson = async () => {
     try {

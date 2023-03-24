@@ -1,3 +1,7 @@
+## 0.29.0
+
+- Added the data module
+
 ## 0.28.2
 
  - Updated the `useWatchTextFile` React hook

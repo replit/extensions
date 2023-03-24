@@ -23,6 +23,12 @@
     "isActive": true
   },
   {
+    "name": "data",
+    "description": "The data API allows you to get information and metadata exposed from Replit's GraphQL API.",
+    "typeNames": ["UserDataInclusion", "ReplDataInclusion", "JsonDataResponse"],
+    "isActive": true
+  },
+  {
     "name": "rui",
     "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
     "typeNames": []
