@@ -33,7 +33,9 @@
       "ReplQueryOutput",
       "GraphResponse",
       "User",
-      "Repl"
+      "Repl",
+      "Tag",
+      "ReplComment"
     ],
     "isActive": true
   },
