@@ -21,7 +21,7 @@ export interface User {
 export interface UserSocial {
   id: number;
   url: string;
-  type: user_socialstypeEnumType;
+  type: UserSocialType;
 }
 
 export enum UserSocialType {
