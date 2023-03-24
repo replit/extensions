@@ -1,4 +1,4 @@
-## 0.29.1
+## 0.29.2
 
 - Added the data module
 
