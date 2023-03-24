@@ -1,8 +1,8 @@
 import { setDebugMode } from "src/util/log";
-import { extensionPort } from "./util/comlink";
+import { extensionPort, proxy } from "./util/comlink";
 export * from "./api";
 export * from "./util/log";
-export { extensionPort };
+export { extensionPort, proxy };
 export * from "./types";
 
 function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {

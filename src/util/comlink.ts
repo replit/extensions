@@ -9,3 +9,4 @@ export const extensionPort = (() =>
     : null)() as Comlink.Remote<ExtensionPortAPI>;
 
 export const proxy = Comlink.proxy;
+export const releaseProxy = Comlink.releaseProxy;

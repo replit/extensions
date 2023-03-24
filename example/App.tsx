@@ -25,8 +25,9 @@ export default function App() {
     messages.showNotice("THIS IS A TEST");
   };
 
-  useReplitEffect(async ({ data }) => {
-    await messages.showConfirm(JSON.stringify(await data.currentUser()));
+  useReplitEffect(async (replit) => {
+    window.replit = replit;
+    await messages.showConfirm(JSON.stringify(await replit.data.currentUser()));
   }, []);
 
   const randomizeJson = async () => {
@@ -44,6 +45,7 @@ export default function App() {
         insert: JSON.stringify(json, null, 2),
       });
     } catch (e) {
+      console.error(e)
       await messages.showError("Error randomizing JSON");
     }
   };
