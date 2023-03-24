@@ -1,5 +1,5 @@
 import React from "react";
-import { HandshakeStatus } from "src/types";
+import { HandshakeStatus, WriteChangeArgs } from "src/types";
 import useReplit from "./useReplit";
 
 interface UseWatchTextFileLoading {
@@ -21,12 +21,6 @@ interface UseWatchTextFileError {
   watching: false;
   watchError: Error;
   writeChange: (args: WriteChangeArgs) => Promise<never>;
-}
-
-export interface WriteChangeArgs {
-  from: number;
-  to: number;
-  insert: string;
 }
 
 export default function useWatchTextFile({
