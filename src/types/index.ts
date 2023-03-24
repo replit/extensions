@@ -245,7 +245,7 @@ export interface Theme {
 
 export type ExtensionPortAPI = {
   // init Function
-  handshake: (args: { permissions: Array<string> }) => void;
+  handshake: () => void;
 
   // fs Module
   readFile: (

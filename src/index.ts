@@ -15,11 +15,9 @@ function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
 }
 
 export async function init({
-  permissions = [],
   timeout = 2000,
   debug = false,
 }: {
-  permissions?: string[];
   timeout?: number;
   debug?: boolean;
 }) {
@@ -39,7 +37,7 @@ export async function init({
   };
 
   try {
-    await promiseWithTimeout(extensionPort.handshake({ permissions }), timeout);
+    await promiseWithTimeout(extensionPort.handshake(), timeout);
 
     if (window) {
       window.document.addEventListener("click", onExtensionClick);
