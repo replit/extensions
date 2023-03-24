@@ -13,3 +13,7 @@ export function onActiveFileChange(callback: (file: string) => void) {
     dispose();
   };
 }
+
+export async function getActiveFile() {
+  return await extensionPort.getActiveFile();
+}

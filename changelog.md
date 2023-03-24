@@ -1,3 +1,7 @@
+## 0.30.1
+
+- added session.getActiveFile
+
 ## 0.30.0
 
 - added session.onActiveFileChange

@@ -303,6 +303,7 @@ export type ExtensionPortAPI = {
 
   // session Module
   watchActiveFile: (callback: (path: string) => void) => () => void;
+  getActiveFile: () => Promise<string | null>;
 };
 
 export interface UserDataInclusion {
