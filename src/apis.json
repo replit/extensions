@@ -35,7 +35,8 @@
       "User",
       "Repl",
       "Tag",
-      "ReplComment"
+      "ReplComment",
+      "UserSocial"
     ],
     "isActive": true
   },
