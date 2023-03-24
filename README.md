@@ -12,6 +12,8 @@ The Replit Extensions client is a module that allows you to easily interact with
  - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
  - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
+[![Run on Replit button](https://docimg.replit.com/images/run-on-replit.png)](https://replit.com/github/replit/extensions)
+
 ## Installation
 
 ```
@@ -77,6 +79,22 @@ function App() {
 
 export default App;
 ```
+
+## Developer Guide
+### Repl
+
+1. [Import this repository](https://replit.com/github/replit/extensions) onto Replit.
+2. Configure the `.replit` file ([docs](https://docs.replit.com/programming-ide/configuring-repl)) to run the `dev` script in package.json (`npm run dev`).  This will build the project with esbuild and run a dev server which opens a webview.
+3. Once built, you can publish the package with `npm publish`.  Make sure you increment the version.
+4. Update the changelog when publishing.
+5. Copy the URL from the webview and install it as an extension in your Repl.
+
+### Local Development
+1. Clone this repository with `git clone https://github.com/replit/extensions`.
+2. Navigate into the folder with `cd extensions`.
+3. Run `npm run dev` to build the package and run the development server.
+4. Expose localhost to an ngrok link with `ngrok http <port>`.
+5. Copy the https ngrok link and install that as an extension (note: some of the filesystem APIs won't behave correctly on localhost)
 
 ## Help
 If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [discord server](https://discord.gg/replit-devs).
