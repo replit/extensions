@@ -294,8 +294,6 @@ export enum HandshakeStatus {
 
 export type StrError = { error: string };
 export type NullableStrError = { error: string | null };
-export type VoidPromise = Promise<void>;
-export type VoidFunction = () => void;
 
 export interface TextFileWatcherReadyArgs {
   initialContent: string;
@@ -323,7 +321,7 @@ export type WatchTextFileWatcherOnError = (error: string) => void;
 export type WatchTextFileWatcherOnMoveOrDelete = (
   args: OnMoveOrDeleteArgs
 ) => void;
-export type HandshakeOuput = Promise<null | VoidFunction>;
+export type HandshakeOuput = Promise<null | (() => void)>;
 
 /*****************************************************************
  * * Extension Port Wrapper
@@ -350,16 +348,16 @@ export type ExtensionPortAPI = {
   deleteDir: (path: string) => Promise<{} | StrError>;
   move: (path: string, to: string) => Promise<NullableStrError>;
   copyFile: (path: string, to: string) => Promise<NullableStrError>;
-  watchFile: (path: string, watcher: WatchFileWatchers) => VoidFunction;
-  watchTextFile: (path: string, watcher: WatchTextFileWatchers) => VoidFunction;
+  watchFile: (path: string, watcher: WatchFileWatchers) => () => void;
+  watchTextFile: (path: string, watcher: WatchTextFileWatchers) => () => void;
 
   // replDb Module
-  setReplDbValue: (key: string, value: string) => VoidPromise;
+  setReplDbValue: (key: string, value: string) => Promise<void>;
   getReplDbValue: (key: string) => NullableStrError;
   listReplDbKeys: (prefix: string) => Promise<{ keys: string[] } | StrError>;
-  deleteReplDbKey: (key: string) => VoidPromise;
+  deleteReplDbKey: (key: string) => Promise<void>;
 
-  activatePane: () => VoidPromise;
+  activatePane: () => Promise<void>;
 
   // theme
   getCurrentTheme: () => Promise<Theme>;
