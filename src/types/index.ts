@@ -297,29 +297,30 @@ export type NullableStrError = { error: string | null };
 export type VoidPromise = Promise<void>;
 export type VoidFunction = () => void;
 
-export type OnActiveFileChangeCallback = (file: string) => void;
-export type WatchFileWatcherOnChange = (newContent: string) => void;
-export type WatchFileWatcherOnError = (error: string) => void;
-export type WatchFileWatcherOnMoveOrDelete = (args: {
-  eventType: "MOVE" | "DELETE";
-  node: FsNode;
-}) => void;
-export type WatchTextFileWatcherOnReady = (readyArgs: {
+export interface TextFileWatcherReadyArgs {
   initialContent: string;
   version: number;
   writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
-}) => void;
-export type WatchTextFileWatcherOnChange = (changeArgs: {
+}
+export interface TextFileWatcherOnChangeArgs {
   latestContent: string;
   version: number;
   changeSource: string;
   changes: any; // TODO fix
-}) => void;
+}
+export type OnMoveOrDeleteArgs = { eventType: "MOVE" | "DELETE"; node: FsNode }
+export type OnActiveFileChangeCallback = (file: string) => void;
+export type WatchFileWatcherOnChange = (newContent: string) => void;
+export type WatchFileWatcherOnError = (error: string) => void;
+export type WatchFileWatcherOnMoveOrDelete = (args: OnMoveOrDeleteArgs) => void;
+export type WatchTextFileWatcherOnReady = (
+  readyArgs: TextFileWatcherReadyArgs
+) => void;
+export type WatchTextFileWatcherOnChange = (
+  changeArgs: TextFileWatcherOnChangeArgs
+) => void;
 export type WatchTextFileWatcherOnError = (error: string) => void;
-export type WatchTextFileWatcherOnMoveOrDelete = (args: {
-  eventType: "MOVE" | "DELETE";
-  node: FsNode;
-}) => void;
+export type WatchTextFileWatcherOnMoveOrDelete = (args: OnMoveOrDeleteArgs) => void;
 export type HandshakeOuput = Promise<null | VoidFunction>;
 
 /*****************************************************************
