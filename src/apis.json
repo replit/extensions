@@ -42,6 +42,12 @@
     "isActive": true
   },
   {
+    "name": "session",
+    "description": "The session api provides you with information on the current user's coding session in the workspace.",
+    "typeNames": [],
+    "isActive": true
+  },
+  {
     "name": "rui",
     "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
     "typeNames": []
