@@ -308,7 +308,7 @@ export interface TextFileWatcherOnChangeArgs {
   changeSource: string;
   changes: any; // TODO fix
 }
-export type OnMoveOrDeleteArgs = { eventType: "MOVE" | "DELETE"; node: FsNode }
+export type OnMoveOrDeleteArgs = { eventType: "MOVE" | "DELETE"; node: FsNode };
 export type OnActiveFileChangeCallback = (file: string) => void;
 export type WatchFileWatcherOnChange = (newContent: string) => void;
 export type WatchFileWatcherOnError = (error: string) => void;
@@ -320,7 +320,9 @@ export type WatchTextFileWatcherOnChange = (
   changeArgs: TextFileWatcherOnChangeArgs
 ) => void;
 export type WatchTextFileWatcherOnError = (error: string) => void;
-export type WatchTextFileWatcherOnMoveOrDelete = (args: OnMoveOrDeleteArgs) => void;
+export type WatchTextFileWatcherOnMoveOrDelete = (
+  args: OnMoveOrDeleteArgs
+) => void;
 export type HandshakeOuput = Promise<null | VoidFunction>;
 
 /*****************************************************************
