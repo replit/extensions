@@ -3,9 +3,7 @@ import { extensionPort, proxy } from "src";
 /**
  * Sets up a listener to handle when the active file is changed
  */
-export function onActiveFileChange(
-  callback: (file: string) => void
-) {
+export function onActiveFileChange(callback: (file: string) => void) {
   let dispose = () => {
     console.log("disposing existing watcher");
   };
