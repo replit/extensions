@@ -1,6 +1,8 @@
 import { extensionPort, proxy } from "src";
 
-export function onActiveFileChange(callback: (file: string) => void) {
+export function onActiveFileChange(
+  callback: (file: string) => void
+): VoidFunction {
   let dispose = () => {
     console.log("disposing existing watcher");
   };

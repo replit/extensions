@@ -21,12 +21,9 @@ export interface FsNode {
 }
 
 export interface WatchFileWatchers {
-  onChange: (newContent: string) => void;
-  onError: (error: string) => void;
-  onMoveOrDelete: (args: {
-    eventType: "MOVE" | "DELETE";
-    node: FsNode;
-  }) => void;
+  onChange: WatchFileWatcherOnChange;
+  onError: WatchFileWatcherOnError;
+  onMoveOrDelete: WatchFileWatcherOnMoveOrDelete;
 }
 
 export interface WriteChangeArgs {
@@ -36,22 +33,10 @@ export interface WriteChangeArgs {
 }
 
 export interface WatchTextFileWatchers {
-  onReady: (readyArgs: {
-    initialContent: string;
-    version: number;
-    writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
-  }) => void;
-  onChange: (changeArgs: {
-    latestContent: string;
-    version: number;
-    changeSource: string;
-    changes: any; // TODO fix
-  }) => void;
-  onError: (error: string) => void;
-  onMoveOrDelete: (args: {
-    eventType: "MOVE" | "DELETE";
-    node: FsNode;
-  }) => void;
+  onReady: WatchTextFileWatcherOnReady;
+  onChange: WatchTextFileWatcherOnChange;
+  onError: WatchTextFileWatcherOnError;
+  onMoveOrDelete: WatchTextFileWatcherOnMoveOrDelete;
 }
 
 export interface DirectoryChildNode {
@@ -298,7 +283,7 @@ export interface ReplComment {
 }
 
 /*****************************************************************
- * * Miscalleneous / React Types
+ * * Miscalleneous / React Types / Function Args
  *****************************************************************/
 
 export enum HandshakeStatus {
@@ -311,6 +296,31 @@ export type StrError = { error: string };
 export type NullableStrError = { error: string | null };
 export type VoidPromise = Promise<void>;
 export type VoidFunction = () => void;
+
+export type OnActiveFileChangeCallback = (file: string) => void;
+export type WatchFileWatcherOnChange = (newContent: string) => void;
+export type WatchFileWatcherOnError = (error: string) => void;
+export type WatchFileWatcherOnMoveOrDelete = (args: {
+  eventType: "MOVE" | "DELETE";
+  node: FsNode;
+}) => void;
+export type WatchTextFileWatcherOnReady = (readyArgs: {
+  initialContent: string;
+  version: number;
+  writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
+}) => void;
+export type WatchTextFileWatcherOnChange = (changeArgs: {
+  latestContent: string;
+  version: number;
+  changeSource: string;
+  changes: any; // TODO fix
+}) => void;
+export type WatchTextFileWatcherOnError = (error: string) => void;
+export type WatchTextFileWatcherOnMoveOrDelete = (args: {
+  eventType: "MOVE" | "DELETE";
+  node: FsNode;
+}) => void;
+export type HandshakeOuput = Promise<null | VoidFunction>;
 
 /*****************************************************************
  * * Extension Port Wrapper
