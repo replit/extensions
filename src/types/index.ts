@@ -292,8 +292,12 @@ export enum HandshakeStatus {
   Loading = "loading",
 }
 
-export type StrError = { error: string };
-export type NullableStrError = { error: string | null };
+export interface StrError {
+  error: string;
+}
+export interface NullableStrError {
+  error: string | null;
+}
 
 export interface TextFileWatcherReadyArgs {
   initialContent: string;
@@ -306,7 +310,10 @@ export interface TextFileWatcherOnChangeArgs {
   changeSource: string;
   changes: any; // TODO fix
 }
-export type OnMoveOrDeleteArgs = { eventType: "MOVE" | "DELETE"; node: FsNode };
+export interface OnMoveOrDeleteArgs {
+  eventType: "MOVE" | "DELETE";
+  node: FsNode;
+}
 export type OnActiveFileChangeCallback = (file: string) => void;
 export type WatchFileWatcherOnChange = (newContent: string) => void;
 export type WatchFileWatcherOnError = (error: string) => void;
