@@ -7,13 +7,27 @@
   {
     "name": "fs",
     "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.",
-    "typeNames": ["WatchFileWatchers", "WatchTextFileWatchers"],
+    "typeNames": [
+      "WatchFileWatchers",
+      "WatchTextFileWatchers",
+      "WatchFileWatcherOnChange",
+      "WatchFileWatcherOnError",
+      "WatchFileWatcherOnMoveOrDelete",
+      "WatchTextFileWatcherOnReady",
+      "WatchTextFileWatcherOnChange",
+      "WatchTextFileWatcherOnError",
+      "WatchTextFileWatcherOnMoveOrDelete",
+      "FsNode",
+      "OnMoveOrDeleteArgs",
+      "TextFileWatcherReadyArgs",
+      "TextFileWatcherOnChangeArgs"
+    ],
     "isActive": true
   },
   {
     "name": "replDb",
     "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data.",
-    "typeNames": [],
+    "typeNames": ["NullableStrError", "StrError"],
     "isActive": true
   },
   {
@@ -37,7 +51,8 @@
       "Tag",
       "ReplComment",
       "UserSocial",
-      "UserSocialType"
+      "UserSocialType",
+      "UserRole"
     ],
     "isActive": true
   },
