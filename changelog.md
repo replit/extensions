@@ -1,4 +1,4 @@
-## 0.30.2
+## 0.30.3
 
 - added the `useActiveFile` React Hook
 
