@@ -50,6 +50,7 @@ export interface DirectoryChildNode {
 type CssColor = string;
 
 export interface ThemeValuesGlobal {
+  __typename?: string;
   backgroundRoot: CssColor;
   backgroundDefault: CssColor;
   backgroundHigher: CssColor;
