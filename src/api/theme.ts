@@ -1,11 +1,18 @@
 import { proxy } from "comlink";
-import { extensionPort } from "src";
-import { Theme } from "src/types";
+import { extensionPort, ThemeValuesGlobal } from "src";
 
-export async function getCurrentTheme() {
-  return await extensionPort.getCurrentTheme();
+/**
+ * Returns the current theme's global token values.
+ */
+export async function getCurrentThemeValues() {
+  return await extensionPort.getCurrentThemeValues();
 }
 
-export async function onThemeChange(callback: (theme: Theme) => void) {
-  return await extensionPort.onThemeChange(proxy(callback));
+/**
+ * Fires the `callback` parameter function with the updated theme values when the theme changes.
+ */
+export async function onThemeChangeValues(
+  callback: (theme: ThemeValuesGlobal) => void
+) {
+  return await extensionPort.onThemeChangeValues(proxy(callback));
 }

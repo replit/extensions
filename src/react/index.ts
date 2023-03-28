@@ -1,6 +1,6 @@
 import useReplit from "./useReplit";
 import useWatchTextFile from "./useWatchTextFile";
-import useTheme from "./useTheme";
+import useThemeValues from "./useThemeValues";
 import useReplitEffect from "./useReplitEffect";
 
-export { useReplit, useWatchTextFile, useTheme, useReplitEffect };
+export { useReplit, useWatchTextFile, useThemeValues, useReplitEffect };

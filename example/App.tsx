@@ -2,8 +2,9 @@ import * as React from "react";
 import {
   useReplit,
   useWatchTextFile,
-  useTheme,
+  useThemeValues,
   useReplitEffect,
+  //@ts-ignore
 } from "@replit/extensions/react";
 import { messages } from "@replit/extensions";
 import "./App.css";
@@ -19,14 +20,13 @@ export default function App() {
     filePath: "test.json",
   });
 
-  const theme = useTheme();
+  const theme = useThemeValues();
 
   const sendMessage = () => {
     messages.showNotice("THIS IS A TEST");
   };
 
   useReplitEffect(async (replit) => {
-    window.replit = replit;
     await messages.showConfirm(JSON.stringify(await replit.data.currentUser()));
   }, []);
 
@@ -79,18 +79,11 @@ export default function App() {
               {filePath}
               <hr />
               <pre>{content}</pre>
+              {Object.values(theme).join(", ")}
             </div>
           )}
         </div>
       </div>
-      {theme && (
-        <style>{`
-          body {
-            background-color: ${theme.values.global.backgroundDefault};
-            color: ${theme.values.global.foregroundDefault};
-          }
-        `}</style>
-      )}
     </main>
   );
 }
