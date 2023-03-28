@@ -1,3 +1,7 @@
+## 0.30.2
+
+- added the `useActiveFile` React Hook
+
 ## 0.30.1
 
 - added session.getActiveFile
