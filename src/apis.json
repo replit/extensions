@@ -63,6 +63,12 @@
     "isActive": true
   },
   {
+    "name": "theme",
+    "description": "The theme api provides you with the global token color values of the current user's theme.",
+    "typeNames": ["OnThemeChangeValuesCallback", "ThemeValuesGlobal"],
+    "isActive": true
+  },
+  {
     "name": "rui",
     "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
     "typeNames": []
