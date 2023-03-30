@@ -1,3 +1,7 @@
+## 0.31.0
+
+- added the Themes API module
+
 ## 0.30.3
 
 - added the `useActiveFile` React Hook

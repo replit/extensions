@@ -3,6 +3,7 @@ import useWatchTextFile from "./useWatchTextFile";
 import useThemeValues from "./useThemeValues";
 import useReplitEffect from "./useReplitEffect";
 import useActiveFile from "./useActiveFile";
+import useTheme from "./useTheme";
 
 export {
   useReplit,
@@ -10,4 +11,5 @@ export {
   useThemeValues,
   useReplitEffect,
   useActiveFile,
+  useTheme,
 };

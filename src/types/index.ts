@@ -153,6 +153,62 @@ export enum ColorScheme {
   Dark = "dark",
 }
 
+interface CustomTheme {
+  author: User;
+  colorScheme: ColorScheme;
+  hasUnpublishedChanges: boolean;
+  id: number;
+  isCurrentUserThemeAuthor: boolean;
+  isInstalledByCurrentUser: boolean;
+  latestThemeVersion: ThemeVersion;
+  numInstalls?: number;
+  slug?: string;
+  status?: "public" | "private";
+  title?: string;
+}
+
+interface ThemeSyntaxHighlightingTag {
+  __typename: string;
+  name: string;
+  modifiers: null | Array<string>;
+}
+
+interface ThemeSyntaxHighlightingModifier {
+  textDecoration?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  fontStyle?: string;
+  color?: string;
+}
+
+interface ThemeEditorSyntaxHighlighting {
+  __typename: string;
+  tags: Array<ThemeSyntaxHighlightingTag>;
+  values: ThemeSyntaxHighlightingModifier;
+}
+
+interface ThemeValuesEditor {
+  editor: Array<ThemeEditorSyntaxHighlighting>;
+}
+
+interface ThemeValues {
+  __typename?: string;
+  editor: ThemeValuesEditor;
+  global: ThemeValuesGlobal;
+}
+
+export interface ThemeVersion {
+  __typename?: string;
+  id: number;
+  hue: number;
+  lightness: number;
+  saturation: number;
+  timeUpdated?: string;
+  description?: string;
+  customTheme?: CustomTheme;
+  values?: ThemeValues;
+}
+
 /*****************************************************************
  * * Data Input/Output Types
  *****************************************************************/
@@ -357,6 +413,10 @@ export type ExtensionPortAPI = {
   getCurrentThemeValues: () => Promise<ThemeValuesGlobal>;
   onThemeChangeValues: (
     callback: OnThemeChangeValuesCallback
+  ) => Promise<() => void>;
+  getCurrentTheme: () => Promise<ThemeVersion>;
+  onThemeChange: (
+    callback: (theme: ThemeVersion) => void
   ) => Promise<() => void>;
 
   filePath: string;
