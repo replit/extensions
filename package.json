@@ -40,7 +40,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-<<<<<<< HEAD
     "@codemirror/state": "^6.2.0",
     "@types/react": "^18.0.28",
     "comlink": "^4.3.1"

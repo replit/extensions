@@ -20,7 +20,6 @@ export interface FsNode {
   type: FsNodeType;
 }
 
-<<<<<<< HEAD
 export interface MoveEvent {
   eventType: "MOVE";
   node: FsNode;
