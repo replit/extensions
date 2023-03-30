@@ -37,38 +37,35 @@ export interface FsNode {
   type: FileType;
 }
 
-export interface WatchFileListeners {
-  onChange: (newContent: string) => void;
+export interface MoveEvent {
+  eventType: 'MOVE';
+  node: FsNode;
+  to: string;
+}
+
+export interface DeleteEvent {
+  eventType: 'DELETE';
+  node: FsNode;
+}
+
+
+export interface WatchFileListeners<T extends string | Blob = string> {
+  onChange: (newContent: T) => void;
   onError: (error: string) => void;
-  onMoveOrDelete: (args: {
-    eventType: "MOVE" | "DELETE";
-    node: FsNode;
-  }) => void;
+  onMoveOrDelete: (event: MoveEvent | DeleteEvent) => void;
 }
 
 export interface WatchTextFileListeners {
-  onReady: ({
-    writeChange,
-    initialContent,
-  }: {
+  onReady: (readyEvent: {
     writeChange: (changes: ChangeSpec) => void;
     initialContent: string;
   }) => void;
-  onChange?: ({
-    changes,
-    latestContent,
-  }: {
+  onChange?: (changeEvent: {
     changes: ChangeSpec;
     latestContent: string;
   }) => void;
   onError?: (error: string) => void;
-  onMoveOrDelete?: ({
-    eventType,
-    node,
-  }: {
-    eventType: "MOVE" | "DELETE";
-    node: FsNode;
-  }) => void;
+  onMoveOrDelete?: (event: MoveEvent | DeleteEvent) => void;
 }
 
 

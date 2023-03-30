@@ -52,8 +52,10 @@ class TextFileWatcher {
   public dispose: () => void;
 
   constructor(private path: string, private listeners: {
-    onChange: WatchTextFileListeners['onChange'];
     onReady: () => void;
+    onChange: NonNullable<WatchTextFileListeners['onChange']>;
+    onMoveOrDelete: NonNullable<WatchTextFileListeners['onMoveOrDelete']>;
+    onError: NonNullable<WatchTextFileListeners['onError']>;
   }) {
     this.state = null;
     this.isDisposed = false;
@@ -61,13 +63,21 @@ class TextFileWatcher {
       this.isDisposed = true;
     }
 
+    if (!extensionPort) {
+      throw new Error('Expected extensionPort')
+    }
+
     extensionPort.watchTextFile(
       this.path,
       proxy({
         onReady: this.handleReady.bind(this) as any, // wrongly typed at extensionPort
         onChange: this.handleChange.bind(this),
-        onMoveOrDelete: () => { },
-        onError: () => { },
+        onMoveOrDelete: (event) => {
+          listeners.onMoveOrDelete(event);
+        },
+        onError: (error) => {
+          listeners.onError(error)
+        },
       })
     ).then((portDispose) => {
       if (this.isDisposed) {
@@ -237,6 +247,12 @@ class FileWatcherManager {
       },
       onChange: (changeEvent) => {
         this.handleChange(path, changeEvent);
+      },
+      onMoveOrDelete: (event) => {
+        this.handleMoveOrDelete(path, event);
+      },
+      onError: (error) => {
+        this.handleError(path, error);
       }
     })
 
@@ -309,6 +325,39 @@ class FileWatcherManager {
           }
         }
       });
+    }
+  }
+
+  private handleError(path: string, error: string) {
+    const file = this.files.get(path);
+
+    if (!file) {
+      throw new Error('Unexpected error on a non-watched file');
+    }
+
+    for (const { onError } of file.listeners) {
+      if (!onError) {
+        continue;
+      }
+
+      onError(error);
+    }
+  }
+
+
+  private handleMoveOrDelete(path: string, event: Parameters<NonNullable<WatchTextFileListeners['onMoveOrDelete']>>[0]) {
+    const file = this.files.get(path);
+
+    if (!file) {
+      throw new Error('Unexpected move or delete event on a non-watched file');
+    }
+
+    for (const { onMoveOrDelete } of file.listeners) {
+      if (!onMoveOrDelete) {
+        continue;
+      }
+
+      onMoveOrDelete(event);
     }
   }
 }
