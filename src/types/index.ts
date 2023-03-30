@@ -1,3 +1,6 @@
+import { ChangeSpec } from "@codemirror/state";
+
+
 export type Pane = {
   type: string;
   id: string;
@@ -34,7 +37,7 @@ export interface FsNode {
   type: FileType;
 }
 
-export interface WatchFileWatchers {
+export interface WatchFileListeners {
   onChange: (newContent: string) => void;
   onError: (error: string) => void;
   onMoveOrDelete: (args: {
@@ -43,20 +46,31 @@ export interface WatchFileWatchers {
   }) => void;
 }
 
-export interface WatchTextFileWatchers {
-  onReady: (readyArgs: { initialContent: string; version: number }) => void;
-  onChange: (changeArgs: {
-    latestContent: string;
-    version: number;
-    changeSource: string;
-    changes: any; // TODO fix
+export interface WatchTextFileListeners {
+  onReady: ({
+    writeChange,
+    initialContent,
+  }: {
+    writeChange: (changes: ChangeSpec) => void;
+    initialContent: string;
   }) => void;
-  onError: (error: string) => void;
-  onMoveOrDelete: (args: {
+  onChange?: ({
+    changes,
+    latestContent,
+  }: {
+    changes: ChangeSpec;
+    latestContent: string;
+  }) => void;
+  onError?: (error: string) => void;
+  onMoveOrDelete?: ({
+    eventType,
+    node,
+  }: {
     eventType: "MOVE" | "DELETE";
     node: FsNode;
   }) => void;
 }
+
 
 /**
  * A unique id for a pane in the layout
@@ -99,7 +113,7 @@ export interface Point {
 /**
  * Size and position in pixles within the layout
  */
-export interface Rect extends Point, Size {}
+export interface Rect extends Point, Size { }
 
 /**
  * A floating group of panes
@@ -250,8 +264,8 @@ export type ExtensionPortAPI = {
   deleteDir: (path: string) => Promise<{} | { error: string }>;
   move: (path: string, to: string) => Promise<{ error: string | null }>;
   copyFile: (path: string, to: string) => Promise<{ error: string | null }>;
-  watchFile: (path: string, watcher: WatchFileWatchers) => () => void;
-  watchTextFile: (path: string, watcher: WatchTextFileWatchers) => () => void;
+  watchFile: (path: string, watcher: WatchFileListeners) => () => void;
+  watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
 
   // replDb
   setReplDbValue: (key: string, value: string) => Promise<void>;

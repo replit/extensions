@@ -1,5 +1,36 @@
 import { ChangeSet, ChangeSpec, Text } from "@codemirror/state";
 import { extensionPort, proxy } from "src/util/comlink";
+import { WatchTextFileListeners } from "src/types";
+
+
+interface SimpleChange {
+  from: number;
+  to?: number;
+  insert?: string;
+}
+
+function toSimpleChange(
+  changes: ChangeSet,
+): Array<SimpleChange> {
+  const simpleChanges: Array<SimpleChange> = [];
+
+  changes.iterChanges((fromA, toA, _fromB, _toB, text) => {
+    const change: SimpleChange = { from: fromA };
+
+    if (toA > fromA) {
+      change.to = toA;
+    }
+
+    if (text.length) {
+      change.insert = text.sliceString(0);
+    }
+
+    simpleChanges.push(change);
+  });
+
+  return simpleChanges;
+}
+
 
 /** 
 * watches a file via comlink, notifies listeners about changes.
@@ -21,7 +52,7 @@ class TextFileWatcher {
   public dispose: () => void;
 
   constructor(private path: string, private listeners: {
-    onChange: Listeners['onChange'];
+    onChange: WatchTextFileListeners['onChange'];
     onReady: () => void;
   }) {
     this.state = null;
@@ -33,8 +64,8 @@ class TextFileWatcher {
     extensionPort.watchTextFile(
       this.path,
       proxy({
-        onReady: this.handleReady as any, // wrongly typed at extensionPort
-        onChange: this.handleChange,
+        onReady: this.handleReady.bind(this) as any, // wrongly typed at extensionPort
+        onChange: this.handleChange.bind(this),
         onMoveOrDelete: () => { },
         onError: () => { },
       })
@@ -87,18 +118,18 @@ class TextFileWatcher {
     return Boolean(this.state);
   }
 
-  private handleReady({
+  private async handleReady({
     writeChange,
     initialContent,
   }: {
     writeChange: (changes: ChangeSpec) => Promise<void>;
-    initialContent: string;
+    initialContent: Promise<string>;
   }) {
     if (this.isDisposed) {
       return;
     }
 
-    const content = Text.of(initialContent.split("\n"));
+    const content = Text.of((await initialContent).split("\n"));
     this.state = {
       requestWriteChange: writeChange,
       localText: content,
@@ -147,31 +178,14 @@ class TextFileWatcher {
     // Store in a ref since the ChangeSet is immutable, and it will change when fastfowarded
     const ref = { changes }
     this.state.unconfirmedChanges.add(ref);
+    await this.state.requestWriteChange(toSimpleChange(ref.changes));
 
-    await this.state.requestWriteChange(ref.changes);
 
     this.state.unconfirmedChanges.delete(ref);
     this.state.remoteText = ref.changes.apply(this.state.remoteText);
   }
 }
 
-
-interface Listeners {
-  onReady: ({
-    writeChange,
-    initialContent,
-  }: {
-    writeChange: (changes: ChangeSpec) => void;
-    initialContent: string;
-  }) => void;
-  onChange: ({
-    changes,
-    latestContent,
-  }: {
-    changes: ChangeSpec;
-    latestContent: string;
-  }) => void;
-}
 
 /** 
 * A class that manages multiple `TextFileWatcher` instances
@@ -185,7 +199,7 @@ interface Listeners {
 class FileWatcherManager {
   private files: Map<
     string, {
-      listeners: Set<Listeners>;
+      listeners: Set<WatchTextFileListeners>;
       watcher: TextFileWatcher;
     }
   >;
@@ -194,7 +208,7 @@ class FileWatcherManager {
     this.files = new Map();
   }
 
-  public watch(path: string, listeners: Listeners) {
+  public watch(path: string, listeners: WatchTextFileListeners) {
     if (this.files.has(path)) {
       this.watchExisting(path, listeners);
     } else {
@@ -216,7 +230,7 @@ class FileWatcherManager {
     }
   }
 
-  private watchNew(path: string, listeners: Listeners) {
+  private watchNew(path: string, listeners: WatchTextFileListeners) {
     const watcher = new TextFileWatcher(path, {
       onReady: () => {
         this.handleReady(path);
@@ -226,13 +240,14 @@ class FileWatcherManager {
       }
     })
 
+
     this.files.set(path, {
       listeners: new Set([listeners]),
       watcher,
     });
   }
 
-  private watchExisting(path: string, listeners: Listeners) {
+  private watchExisting(path: string, listeners: WatchTextFileListeners) {
     const file = this.files.get(path);
 
     if (!file) {
@@ -242,7 +257,7 @@ class FileWatcherManager {
     file.listeners.add(listeners);
   }
 
-  private handleChange(path: string, changeEvent: Parameters<Listeners['onChange']>[0]) {
+  private handleChange(path: string, changeEvent: Parameters<NonNullable<WatchTextFileListeners['onChange']>>[0]) {
     const file = this.files.get(path);
 
     if (!file) {
@@ -254,6 +269,10 @@ class FileWatcherManager {
     }
 
     for (const { onChange } of file.listeners) {
+      if (!onChange) {
+        continue;
+      }
+
       onChange(changeEvent);
     }
   }
@@ -282,6 +301,10 @@ class FileWatcherManager {
               continue;
             }
 
+            if (!otherOnChange) {
+              continue;
+            }
+
             otherOnChange({ changes, latestContent: file.watcher.getLatestContent() });
           }
         }
@@ -290,6 +313,5 @@ class FileWatcherManager {
   }
 }
 
-const watchTower = new FileWatcherManager();
+export const fileWatcherManager = new FileWatcherManager();
 
-export default watchTower;

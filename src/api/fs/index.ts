@@ -1,6 +1,6 @@
 import { extensionPort, proxy } from "src/util/comlink";
-import { WatchFileWatchers, WatchTextFileWatchers } from "src/types";
-
+import { WatchFileListeners, WatchTextFileListeners } from "src/types";
+import { fileWatcherManager } from "src/api/fs/textWatching"
 /**
  * Reads the file specified at `path` and returns an object containing the contents, or an object containing an error if there was one
  */
@@ -60,14 +60,14 @@ export async function copyFile(path: string, to: string) {
 /**
  * Watches the file at `path` for changes with the provided `watchers`. Returns a dispose method which cleans up the watchers
  */
-export async function watchFile(path: string, watchers: WatchFileWatchers) {
+export async function watchFile(path: string, watchers: WatchFileListeners) {
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
   return extensionPort.watchFile(
     path,
     proxy({
-      onChange: () => {},
-      onMoveOrDelete: () => {},
-      onError: () => {},
+      onChange: () => { },
+      onMoveOrDelete: () => { },
+      onError: () => { },
       ...watchers,
     })
   );
@@ -78,19 +78,10 @@ export async function watchFile(path: string, watchers: WatchFileWatchers) {
  *
  * Use this for watching text files, and receive changes as versioned operational transform (OT) operations annotated with their source.
  */
-export async function watchTextFile(
+export function watchTextFile(
   path: string,
-  watchers: WatchTextFileWatchers
+  watchers: WatchTextFileListeners
 ) {
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
-  return extensionPort.watchTextFile(
-    path,
-    proxy({
-      onReady: () => {},
-      onChange: () => {},
-      onMoveOrDelete: () => {},
-      onError: () => {},
-      ...watchers,
-    })
-  );
+  return fileWatcherManager.watch(path, watchers)
 }
