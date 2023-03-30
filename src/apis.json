@@ -7,25 +7,23 @@
   {
     "name": "fs",
     "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.",
-<<<<<<< HEAD
-    "typeNames": ["WatchFileListeners", "WatchTextFileListeners"],
-=======
     "typeNames": [
-      "WatchFileWatchers",
-      "WatchTextFileWatchers",
-      "WatchFileWatcherOnChange",
-      "WatchFileWatcherOnError",
-      "WatchFileWatcherOnMoveOrDelete",
-      "WatchTextFileWatcherOnReady",
-      "WatchTextFileWatcherOnChange",
-      "WatchTextFileWatcherOnError",
-      "WatchTextFileWatcherOnMoveOrDelete",
+      "WatchFileListeners",
+      "WatchTextFileListeners",
+      "WatchFileOnChangeListener",
+      "WatchFileOnErrorListener",
+      "WatchFileOnMoveOrDeleteListener",
+      "WatchTextFileOnReadyListener",
+      "WatchTextFileOnChangeListener",
+      "WatchTextFileOnErrorListener",
+      "WatchTextFileOnMoveOrDeleteListener",
       "FsNode",
-      "OnMoveOrDeleteArgs",
-      "TextFileWatcherReadyArgs",
-      "TextFileWatcherOnChangeArgs"
+      "MoveEvent",
+      "DeleteEvent",
+      "TextFileWatcherReadyEvent",
+      "TextFileWatcherOnChangeEvent",
+      "TextChange"
     ],
->>>>>>> origin/main
     "isActive": true
   },
   {

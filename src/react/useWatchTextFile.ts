@@ -1,26 +1,28 @@
 import React from "react";
-import { HandshakeStatus, WriteChangeArgs } from "src/types";
+import { HandshakeStatus, TextChange } from "src/types";
 import useReplit from "./useReplit";
+
+
 
 interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
-  writeChange: (args: WriteChangeArgs) => Promise<never>;
+  writeChange: (changes: TextChange | Array<TextChange>) => Promise<never>;
 }
 
 interface UseWatchTextFileWatching {
   content: string;
   watching: true;
   watchError: null;
-  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  writeChange: (changes: TextChange | Array<TextChange>) => Promise<void>;
 }
 
 interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
-  writeChange: (args: WriteChangeArgs) => Promise<never>;
+  writeChange: (changes: TextChange | Array<TextChange>) => Promise<never>;
 }
 
 export default function useWatchTextFile({
@@ -37,8 +39,8 @@ export default function useWatchTextFile({
   const connected = status === HandshakeStatus.Ready;
 
   const writeChange = React.useRef<
-    (args: WriteChangeArgs) => Promise<void | never>
-  >(async (_: WriteChangeArgs) => {
+    (changes: TextChange | Array<TextChange>) => Promise<void | never>
+  >(async (_: TextChange | Array<TextChange>) => {
     throw new Error("writeChange is called before onReady");
   });
 
@@ -56,7 +58,7 @@ export default function useWatchTextFile({
       setWatching(false);
       setContent(null);
       setWatchError(null);
-      writeChange.current = async (_: WriteChangeArgs) => {
+      writeChange.current = async (_: TextChange | Array<TextChange>) => {
         throw new Error("writeChange is called before onReady");
       };
     };
@@ -68,10 +70,10 @@ export default function useWatchTextFile({
 
       try {
         watchFileDispose = await replit.fs.watchTextFile(filePath, {
-          onReady: async (args) => {
-            setContent(await args.initialContent);
-            writeChange.current = async (writeChangeArgs: WriteChangeArgs) => {
-              await args.writeChange(writeChangeArgs);
+          onReady: async (event) => {
+            setContent(await event.initialContent);
+            writeChange.current = async (writeChangeArgs: TextChange | Array<TextChange>) => {
+              await event.writeChange(writeChangeArgs);
             };
             setWatching(true);
           },
@@ -80,8 +82,8 @@ export default function useWatchTextFile({
             setWatching(false);
             dispose();
           },
-          onChange: (args) => {
-            setContent(args.latestContent);
+          onChange: (changes) => {
+            setContent(changes.latestContent);
           },
           onMoveOrDelete: () => {
             setWatching(false);
@@ -101,8 +103,8 @@ export default function useWatchTextFile({
       content,
       watching,
       watchError,
-      writeChange: async (args: WriteChangeArgs) =>
-        await writeChange.current(args),
+      writeChange: async (changes: TextChange | Array<TextChange>) =>
+        await writeChange.current(changes),
     };
     if (watching) {
       return result as UseWatchTextFileWatching;

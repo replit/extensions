@@ -1,21 +1,15 @@
 import { ChangeSet, ChangeSpec, Text } from "@codemirror/state";
 import { extensionPort, proxy } from "src/util/comlink";
-import { WatchTextFileListeners } from "src/types";
+import { TextChange, WatchTextFileListeners } from "src/types";
 
-
-interface SimpleChange {
-  from: number;
-  to?: number;
-  insert?: string;
-}
-
-function toSimpleChange(
-  changes: ChangeSet,
-): Array<SimpleChange> {
-  const simpleChanges: Array<SimpleChange> = [];
+/**
+ * A helper to change a ChangeSet into a simpler serializable & human readable format
+ */
+function changeSetToSimpleTextChange(changes: ChangeSet): Array<TextChange> {
+  const simpleChanges: Array<TextChange> = [];
 
   changes.iterChanges((fromA, toA, _fromB, _toB, text) => {
-    const change: SimpleChange = { from: fromA };
+    const change: TextChange = { from: fromA };
 
     if (toA > fromA) {
       change.to = toA;
@@ -31,12 +25,11 @@ function toSimpleChange(
   return simpleChanges;
 }
 
-
-/** 
-* watches a file via comlink, notifies listeners about changes.
-* it handles synchronization between local and remote text states.
-* properly disposes resources when no longer needed.
-*/
+/**
+ * watches a file via comlink, notifies listeners about changes.
+ * it handles synchronization between local and remote text states.
+ * properly disposes resources when no longer needed.
+ */
 class TextFileWatcher {
   /*
    * TODO: what do we do with out of order messages, postMessage has no guarantees of order
@@ -51,51 +44,56 @@ class TextFileWatcher {
   private isDisposed: boolean;
   public dispose: () => void;
 
-  constructor(private path: string, private listeners: {
-    onReady: () => void;
-    onChange: NonNullable<WatchTextFileListeners['onChange']>;
-    onMoveOrDelete: NonNullable<WatchTextFileListeners['onMoveOrDelete']>;
-    onError: NonNullable<WatchTextFileListeners['onError']>;
-  }) {
+  constructor(
+    private path: string,
+    private listeners: {
+      onReady: () => void;
+      onChange: NonNullable<WatchTextFileListeners["onChange"]>;
+      onMoveOrDelete: NonNullable<WatchTextFileListeners["onMoveOrDelete"]>;
+      onError: NonNullable<WatchTextFileListeners["onError"]>;
+    }
+  ) {
     this.state = null;
     this.isDisposed = false;
     this.dispose = () => {
       this.isDisposed = true;
-    }
+    };
 
     if (!extensionPort) {
-      throw new Error('Expected extensionPort')
+      throw new Error("Expected extensionPort");
     }
 
-    extensionPort.watchTextFile(
-      this.path,
-      proxy({
-        onReady: this.handleReady.bind(this) as any, // wrongly typed at extensionPort
-        onChange: this.handleChange.bind(this),
-        onMoveOrDelete: (event) => {
-          listeners.onMoveOrDelete(event);
-        },
-        onError: (error) => {
-          listeners.onError(error)
-        },
-      })
-    ).then((portDispose) => {
-      if (this.isDisposed) {
-        portDispose();
+    extensionPort
+      .watchTextFile(
+        this.path,
+        proxy({
+          onReady: this.handleReady.bind(this) as any, // wrongly typed at extensionPort
+          onChange: this.handleChange.bind(this),
+          onMoveOrDelete: (event) => {
+            listeners.onMoveOrDelete(event);
+          },
+          onError: (error) => {
+            listeners.onError(error);
+          },
+        })
+      )
+      .then((portDispose) => {
+        if (this.isDisposed) {
+          portDispose();
 
-        return;
-      }
+          return;
+        }
 
-      this.dispose = () => {
-        this.isDisposed = true;
-        portDispose();
-      }
-    });
+        this.dispose = () => {
+          this.isDisposed = true;
+          portDispose();
+        };
+      });
   }
 
   public writeChange(changes: ChangeSpec) {
     if (this.isDisposed) {
-      throw new Error('Wrote change on a disposed TextFileWatcher');
+      throw new Error("Wrote change on a disposed TextFileWatcher");
     }
 
     if (!this.state) {
@@ -105,24 +103,24 @@ class TextFileWatcher {
     const changeSet = ChangeSet.of(changes, this.state.localText.length);
     this.state.localText = changeSet.apply(this.state.localText);
 
-    this.enqueueChangeSet(changeSet)
+    this.enqueueChangeSet(changeSet);
   }
 
   public getLatestContent() {
     if (this.isDisposed) {
-      throw new Error('Cannot get content of a disposed TextFileWatcher');
+      throw new Error("Cannot get content of a disposed TextFileWatcher");
     }
 
     if (!this.state) {
-      throw new Error('Called getLatestContent on an unready TextFileWatcher');
+      throw new Error("Called getLatestContent on an unready TextFileWatcher");
     }
 
-    return this.state.localText.sliceString(0)
+    return this.state.localText.sliceString(0);
   }
 
   public getIsReady() {
     if (this.isDisposed) {
-      throw new Error('Cannot get isReady of a disposed TextFileWatcher');
+      throw new Error("Cannot get isReady of a disposed TextFileWatcher");
     }
 
     return Boolean(this.state);
@@ -171,14 +169,14 @@ class TextFileWatcher {
     this.state.localText = changes.apply(this.state.localText);
 
     this.listeners.onChange({
-      changes,
+      changes: changeSetToSimpleTextChange(changes),
       latestContent: this.getLatestContent(),
     });
   }
 
   private async enqueueChangeSet(changes: ChangeSet) {
     if (this.isDisposed) {
-      throw new Error('Wrote change on a disposed TextFileWatcher');
+      throw new Error("Wrote change on a disposed TextFileWatcher");
     }
 
     if (!this.state) {
@@ -186,29 +184,30 @@ class TextFileWatcher {
     }
 
     // Store in a ref since the ChangeSet is immutable, and it will change when fastfowarded
-    const ref = { changes }
+    const ref = { changes };
     this.state.unconfirmedChanges.add(ref);
-    await this.state.requestWriteChange(toSimpleChange(ref.changes));
-
+    await this.state.requestWriteChange(
+      changeSetToSimpleTextChange(ref.changes)
+    );
 
     this.state.unconfirmedChanges.delete(ref);
     this.state.remoteText = ref.changes.apply(this.state.remoteText);
   }
 }
 
-
-/** 
-* A class that manages multiple `TextFileWatcher` instances
-* ensuring that there's only one watcher per file to make sure
-* we are handling synchronization properly, having multiple watchers
-* will cause issues with the `TextFileWatcher` implementation.
-* Notifies listeners when a file is ready or when there are changes.
-* Automatically disposes watchers when there are no more listeners.
-* This should be a singleton, but it's not enforced for testability.
-*/
+/**
+ * A class that manages multiple `TextFileWatcher` instances
+ * ensuring that there's only one watcher per file to make sure
+ * we are handling synchronization properly, having multiple watchers
+ * will cause issues with the `TextFileWatcher` implementation.
+ * Notifies listeners when a file is ready or when there are changes.
+ * Automatically disposes watchers when there are no more listeners.
+ * This should be a singleton, but it's not enforced for testability.
+ */
 class FileWatcherManager {
   private files: Map<
-    string, {
+    string,
+    {
       listeners: Set<WatchTextFileListeners>;
       watcher: TextFileWatcher;
     }
@@ -232,12 +231,12 @@ class FileWatcherManager {
         return;
       }
 
-      file.listeners.delete(listeners)
+      file.listeners.delete(listeners);
       if (file.listeners.size === 0) {
         file.watcher.dispose();
         this.files.delete(path);
       }
-    }
+    };
   }
 
   private watchNew(path: string, listeners: WatchTextFileListeners) {
@@ -253,9 +252,8 @@ class FileWatcherManager {
       },
       onError: (error) => {
         this.handleError(path, error);
-      }
-    })
-
+      },
+    });
 
     this.files.set(path, {
       listeners: new Set([listeners]),
@@ -267,21 +265,24 @@ class FileWatcherManager {
     const file = this.files.get(path);
 
     if (!file) {
-      throw new Error('file is not watched');
+      throw new Error("file is not watched");
     }
 
     file.listeners.add(listeners);
   }
 
-  private handleChange(path: string, changeEvent: Parameters<NonNullable<WatchTextFileListeners['onChange']>>[0]) {
+  private handleChange(
+    path: string,
+    changeEvent: Parameters<NonNullable<WatchTextFileListeners["onChange"]>>[0]
+  ) {
     const file = this.files.get(path);
 
     if (!file) {
-      throw new Error('Unexpected change on a non-watched file');
+      throw new Error("Unexpected change on a non-watched file");
     }
 
     if (!file.watcher.getIsReady()) {
-      throw new Error('Unexpected change on a non-ready file');
+      throw new Error("Unexpected change on a non-ready file");
     }
 
     for (const { onChange } of file.listeners) {
@@ -297,18 +298,18 @@ class FileWatcherManager {
     const file = this.files.get(path);
 
     if (!file) {
-      throw new Error('Unexpected change on a non-watched file');
+      throw new Error("Unexpected change on a non-watched file");
     }
 
     if (!file.watcher.getIsReady()) {
-      throw new Error('Got ready on a non-ready file :/');
+      throw new Error("Got ready on a non-ready file :/");
     }
 
     const initialContent = file.watcher.getLatestContent();
     for (const { onReady, onChange } of file.listeners) {
       onReady({
         initialContent,
-        writeChange: (changes: ChangeSpec) => {
+        writeChange: (changes: TextChange | Array<TextChange>) => {
           file.watcher.writeChange(changes);
 
           for (const { onChange: otherOnChange } of file.listeners) {
@@ -321,9 +322,12 @@ class FileWatcherManager {
               continue;
             }
 
-            otherOnChange({ changes, latestContent: file.watcher.getLatestContent() });
+            otherOnChange({
+              changes: Array.isArray(changes) ? changes : [changes],
+              latestContent: file.watcher.getLatestContent(),
+            });
           }
-        }
+        },
       });
     }
   }
@@ -332,7 +336,7 @@ class FileWatcherManager {
     const file = this.files.get(path);
 
     if (!file) {
-      throw new Error('Unexpected error on a non-watched file');
+      throw new Error("Unexpected error on a non-watched file");
     }
 
     for (const { onError } of file.listeners) {
@@ -344,12 +348,14 @@ class FileWatcherManager {
     }
   }
 
-
-  private handleMoveOrDelete(path: string, event: Parameters<NonNullable<WatchTextFileListeners['onMoveOrDelete']>>[0]) {
+  private handleMoveOrDelete(
+    path: string,
+    event: Parameters<NonNullable<WatchTextFileListeners["onMoveOrDelete"]>>[0]
+  ) {
     const file = this.files.get(path);
 
     if (!file) {
-      throw new Error('Unexpected move or delete event on a non-watched file');
+      throw new Error("Unexpected move or delete event on a non-watched file");
     }
 
     for (const { onMoveOrDelete } of file.listeners) {
@@ -363,4 +369,3 @@ class FileWatcherManager {
 }
 
 export const fileWatcherManager = new FileWatcherManager();
-

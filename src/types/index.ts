@@ -1,16 +1,6 @@
-<<<<<<< HEAD
-import { ChangeSpec } from "@codemirror/state";
-
-
-export type Pane = {
-  type: string;
-  id: string;
-};
-=======
 /*****************************************************************
  * * FS (Filesystem) Types
  *****************************************************************/
->>>>>>> origin/main
 
 /**
  * A Filesystem node type
@@ -32,113 +22,32 @@ export interface FsNode {
 
 <<<<<<< HEAD
 export interface MoveEvent {
-  eventType: 'MOVE';
+  eventType: "MOVE";
   node: FsNode;
   to: string;
 }
 
 export interface DeleteEvent {
-  eventType: 'DELETE';
+  eventType: "DELETE";
   node: FsNode;
 }
 
-
 export interface WatchFileListeners<T extends string | Blob = string> {
-  onChange: (newContent: T) => void;
-  onError: (error: string) => void;
-  onMoveOrDelete: (event: MoveEvent | DeleteEvent) => void;
+  onChange: WatchFileOnChangeListener<T>;
+  onError?: WatchFileOnErrorListener;
+  onMoveOrDelete?: WatchFileOnMoveOrDeleteListener;
 }
 
 export interface WatchTextFileListeners {
-  onReady: (readyEvent: {
-    writeChange: (changes: ChangeSpec) => void;
-    initialContent: string;
-  }) => void;
-  onChange?: (changeEvent: {
-    changes: ChangeSpec;
-    latestContent: string;
-  }) => void;
-  onError?: (error: string) => void;
-  onMoveOrDelete?: (event: MoveEvent | DeleteEvent) => void;
-}
-
-
-/**
- * A unique id for a pane in the layout
- */
-export type PaneId = string;
-
-/**
- * A unique id for a pane group in the layout
- */
-export type PaneGroupId = string;
-
-/**
- * Represents the Repl's layout and pane data in a serializable manner
- */
-export interface LayoutData {
-  layout: {
-    floating: Array<FloatingPaneGroup>;
-    tiling: any;
-  };
-  data: Record<string, any>;
-  sidebarPercent: number;
-}
-
-/**
- * The size in pixles within the layout
- */
-export interface Size {
-  width: number;
-  height: number;
-}
-
-/**
- * The position in pixles within the layout
- */
-export interface Point {
-  x: number;
-  y: number;
-}
-
-/**
- * Size and position in pixles within the layout
- */
-export interface Rect extends Point, Size { }
-
-/**
- * A floating group of panes
- */
-export interface FloatingPaneGroup {
-  id: string;
-  type: "floatingPaneGroup";
-  panes: Array<PaneId>;
-  activeIndex: number;
-  rect: Rect;
-=======
-export interface WatchFileWatchers {
-  onChange: WatchFileWatcherOnChange;
-  onError: WatchFileWatcherOnError;
-  onMoveOrDelete: WatchFileWatcherOnMoveOrDelete;
-}
-
-export interface WriteChangeArgs {
-  from: number;
-  to: number;
-  insert: string;
-}
-
-export interface WatchTextFileWatchers {
-  onReady: WatchTextFileWatcherOnReady;
-  onChange: WatchTextFileWatcherOnChange;
-  onError: WatchTextFileWatcherOnError;
-  onMoveOrDelete: WatchTextFileWatcherOnMoveOrDelete;
+  onReady: WatchTextFileOnReadyListener;
+  onChange?: WatchTextFileOnChangeListener;
+  onError?: WatchTextFileOnErrorListener;
+  onMoveOrDelete?: WatchTextFileOnMoveOrDeleteListener;
 }
 
 export interface DirectoryChildNode {
   filename: string;
   type: FsNodeType;
->>>>>>> origin/main
 }
 
 /*****************************************************************
@@ -264,34 +173,11 @@ export interface CustomTheme {
   title?: string;
 }
 
-<<<<<<< HEAD
-export type ExtensionPortAPI = {
-  // misc
-  handshake: (args: { permissions: Array<string> }) => void;
-  // fs
-  readFile: (path: string) => Promise<{ content: string } | { error: string }>;
-  writeFile: (
-    path: string,
-    content: string | Blob
-  ) => Promise<{ success: boolean } | { error: string }>;
-  readDir: (path: string) => Promise<{
-    children: Array<{ filename: string; type: "FILE" | "DIRECTORY" }>;
-    error: string;
-  }>;
-  createDir: (path: string) => Promise<{} | { error: string }>;
-  deleteFile: (path: string) => Promise<{} | { error: string }>;
-  deleteDir: (path: string) => Promise<{} | { error: string }>;
-  move: (path: string, to: string) => Promise<{ error: string | null }>;
-  copyFile: (path: string, to: string) => Promise<{ error: string | null }>;
-  watchFile: (path: string, watcher: WatchFileListeners) => () => void;
-  watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
-=======
 export interface ThemeSyntaxHighlightingTag {
   __typename: string;
   name: string;
   modifiers: null | Array<string>;
 }
->>>>>>> origin/main
 
 export interface ThemeSyntaxHighlightingModifier {
   textDecoration?: string;
@@ -461,38 +347,42 @@ export interface NullableStrError {
   error: string | null;
 }
 
-export interface TextFileWatcherReadyArgs {
+export type TextChange = {
+  from: number;
+  to?: number;
+  insert?: string;
+};
+
+export interface TextFileReadyEvent {
+  writeChange: (changes: TextChange | Array<TextChange>) => void;
   initialContent: string;
-  version: number;
-  writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
 }
-export interface TextFileWatcherOnChangeArgs {
+export interface TextFileOnChangeEvent {
+  changes: Array<TextChange>;
   latestContent: string;
-  version: number;
-  changeSource: string;
-  changes: any; // TODO fix
 }
-export interface OnMoveOrDeleteArgs {
-  eventType: "MOVE" | "DELETE";
-  node: FsNode;
-}
-export type OnActiveFileChangeCallback = (file: string) => void;
-export type WatchFileWatcherOnChange = (newContent: string) => void;
-export type WatchFileWatcherOnError = (error: string) => void;
-export type WatchFileWatcherOnMoveOrDelete = (args: OnMoveOrDeleteArgs) => void;
-export type WatchTextFileWatcherOnReady = (
-  readyArgs: TextFileWatcherReadyArgs
+
+export type OnActiveFileChangeListener = (file: string) => void;
+export type WatchFileOnChangeListener<T extends string | Blob = string> = (
+  newContent: T
 ) => void;
-export type WatchTextFileWatcherOnChange = (
-  changeArgs: TextFileWatcherOnChangeArgs
+export type WatchFileOnErrorListener = (error: string) => void;
+export type WatchFileOnMoveOrDeleteListener = (
+  moveOrDeleteEvent: MoveEvent | DeleteEvent
 ) => void;
-export type WatchTextFileWatcherOnError = (error: string) => void;
-export type WatchTextFileWatcherOnMoveOrDelete = (
-  args: OnMoveOrDeleteArgs
+export type WatchTextFileOnReadyListener = (
+  readyEvent: TextFileReadyEvent
+) => void;
+export type WatchTextFileOnChangeListener = (
+  changeEvent: TextFileOnChangeEvent
+) => void;
+export type WatchTextFileOnErrorListener = (error: string) => void;
+export type WatchTextFileOnMoveOrDeleteListener = (
+  moveOrDeleteEvent: MoveEvent | DeleteEvent
 ) => void;
 export type HandshakeOuput = Promise<null | (() => void)>;
-export type OnThemeChangeValuesCallback = (values: ThemeValuesGlobal) => void;
-export type OnThemeChangeCallback = (theme: ThemeVersion) => void;
+export type OnThemeChangeValuesListener = (values: ThemeValuesGlobal) => void;
+export type OnThemeChangeListener = (theme: ThemeVersion) => void;
 
 /*****************************************************************
  * * Extension Port Wrapper
@@ -519,8 +409,8 @@ export type ExtensionPortAPI = {
   deleteDir: (path: string) => Promise<{} | StrError>;
   move: (path: string, to: string) => Promise<NullableStrError>;
   copyFile: (path: string, to: string) => Promise<NullableStrError>;
-  watchFile: (path: string, watcher: WatchFileWatchers) => () => void;
-  watchTextFile: (path: string, watcher: WatchTextFileWatchers) => () => void;
+  watchFile: (path: string, watcher: WatchFileListeners) => () => void;
+  watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
@@ -533,7 +423,7 @@ export type ExtensionPortAPI = {
   // theme
   getCurrentThemeValues: () => Promise<ThemeValuesGlobal>;
   onThemeChangeValues: (
-    callback: OnThemeChangeValuesCallback
+    callback: OnThemeChangeValuesListener
   ) => Promise<() => void>;
   getCurrentTheme: () => Promise<ThemeVersion>;
   onThemeChange: (
