@@ -4,8 +4,11 @@ import { fileWatcherManager } from "src/api/fs/textWatching"
 /**
  * Reads the file specified at `path` and returns an object containing the contents, or an object containing an error if there was one
  */
-export async function readFile(path: string) {
-  return extensionPort.readFile(path);
+export async function readFile(
+  path: string,
+  encoding: "utf8" | "binary" | null = "utf8"
+) {
+  return extensionPort.readFile(path, encoding);
 }
 
 /**
@@ -60,7 +63,14 @@ export async function copyFile(path: string, to: string) {
 /**
  * Watches the file at `path` for changes with the provided `watchers`. Returns a dispose method which cleans up the watchers
  */
+<<<<<<< HEAD:src/api/fs/index.ts
 export async function watchFile(path: string, watchers: WatchFileListeners) {
+=======
+export async function watchFile(
+  path: string,
+  watchers: Partial<WatchFileWatchers>
+) {
+>>>>>>> origin/main:src/api/fs.ts
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
   return extensionPort.watchFile(
     path,
@@ -80,7 +90,11 @@ export async function watchFile(path: string, watchers: WatchFileListeners) {
  */
 export function watchTextFile(
   path: string,
+<<<<<<< HEAD:src/api/fs/index.ts
   watchers: WatchTextFileListeners
+=======
+  watchers: Partial<WatchTextFileWatchers>
+>>>>>>> origin/main:src/api/fs.ts
 ) {
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
   return fileWatcherManager.watch(path, watchers)

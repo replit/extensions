@@ -7,30 +7,84 @@
   {
     "name": "fs",
     "description": "The fs or filesystem API allows you to create, read, and modify files on the repl's filesystem.",
+<<<<<<< HEAD
     "typeNames": ["WatchFileListeners", "WatchTextFileListeners"],
+=======
+    "typeNames": [
+      "WatchFileWatchers",
+      "WatchTextFileWatchers",
+      "WatchFileWatcherOnChange",
+      "WatchFileWatcherOnError",
+      "WatchFileWatcherOnMoveOrDelete",
+      "WatchTextFileWatcherOnReady",
+      "WatchTextFileWatcherOnChange",
+      "WatchTextFileWatcherOnError",
+      "WatchTextFileWatcherOnMoveOrDelete",
+      "FsNode",
+      "OnMoveOrDeleteArgs",
+      "TextFileWatcherReadyArgs",
+      "TextFileWatcherOnChangeArgs"
+    ],
+>>>>>>> origin/main
     "isActive": true
   },
   {
-    "name": "layout",
-    "description": "The layout API lets you manage Replit's visual layout. This includes opening, closing, and rearranging panes and tabs",
-    "typeNames": ["LayoutData", "FloatingPaneGroup", "Rect"],
-    "isActive": true,
-    "isDeprecated": true
+    "name": "replDb",
+    "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data.",
+    "typeNames": ["NullableStrError", "StrError"],
+    "isActive": true
   },
   {
-    "name": "replDb",
-    "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data",
+    "name": "messages",
+    "description": "The messages API allows you to send custom notices in the Replit workspace.",
     "typeNames": [],
+    "isActive": true
+  },
+  {
+    "name": "data",
+    "description": "The data API allows you to get information and metadata exposed from Replit's GraphQL API.",
+    "typeNames": [
+      "UserDataInclusion",
+      "ReplDataInclusion",
+      "UserQueryOutput",
+      "UserByUsernameQueryOutput",
+      "ReplQueryOutput",
+      "GraphResponse",
+      "User",
+      "Repl",
+      "Tag",
+      "ReplComment",
+      "UserSocial",
+      "UserSocialType",
+      "UserRole"
+    ],
+    "isActive": true
+  },
+  {
+    "name": "session",
+    "description": "The session api provides you with information on the current user's coding session in the workspace.",
+    "typeNames": ["OnActiveFileChangeCallback"],
+    "isActive": true
+  },
+  {
+    "name": "themes",
+    "description": "The themes api allows you to access the current user's theme and utilize the color tokens accordingly.",
+    "typeNames": [
+      "ThemeValuesGlobal",
+      "ColorScheme",
+      "CustomTheme",
+      "ThemeSyntaxHighlightingTag",
+      "ThemeSyntaxHighlightingModifier",
+      "ThemeEditorSyntaxHighlighting",
+      "ThemeValuesEditor",
+      "ThemeValues",
+      "ThemeVersion"
+    ],
     "isActive": true
   },
   {
     "name": "rui",
     "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
-    "typeNames": []
-  },
-  {
-    "name": "themes",
-    "description": "The themes api allows you to access the current user's theme and utilize the color tokens accordingly.",
     "typeNames": []
   }
 ]

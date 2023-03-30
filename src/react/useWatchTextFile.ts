@@ -1,23 +1,26 @@
 import React from "react";
-import { HandshakeStatus } from "src/types";
+import { HandshakeStatus, WriteChangeArgs } from "src/types";
 import useReplit from "./useReplit";
 
 interface UseWatchTextFileLoading {
   content: null;
   watching: false;
   watchError: null;
+  writeChange: (args: WriteChangeArgs) => Promise<never>;
 }
 
 interface UseWatchTextFileWatching {
   content: string;
   watching: true;
   watchError: null;
+  writeChange: (args: WriteChangeArgs) => Promise<void>;
 }
 
 interface UseWatchTextFileError {
   content: null;
   watching: false;
   watchError: Error;
+  writeChange: (args: WriteChangeArgs) => Promise<never>;
 }
 
 export default function useWatchTextFile({
@@ -25,20 +28,26 @@ export default function useWatchTextFile({
 }: {
   filePath: string | null | undefined;
 }) {
-  const [content, setContent] = React.useState(null);
+  const [content, setContent] = React.useState<string | null>(null);
   const [watching, setWatching] = React.useState(false);
-  const [watchError, setWatchError] = React.useState(null);
+  const [watchError, setWatchError] = React.useState<Error | null>(null);
 
   const { status, replit } = useReplit();
 
   const connected = status === HandshakeStatus.Ready;
+
+  const writeChange = React.useRef<
+    (args: WriteChangeArgs) => Promise<void | never>
+  >(async (_: WriteChangeArgs) => {
+    throw new Error("writeChange is called before onReady");
+  });
 
   React.useEffect(() => {
     if (!connected || !filePath) {
       return;
     }
 
-    let watchFileDispose;
+    let watchFileDispose: null | (() => void) = null;
     let dispose = () => {
       if (watchFileDispose) {
         watchFileDispose();
@@ -47,10 +56,13 @@ export default function useWatchTextFile({
       setWatching(false);
       setContent(null);
       setWatchError(null);
+      writeChange.current = async (_: WriteChangeArgs) => {
+        throw new Error("writeChange is called before onReady");
+      };
     };
 
     (async () => {
-      if (!connected || !filePath) {
+      if (!replit || !filePath) {
         return;
       }
 
@@ -58,10 +70,13 @@ export default function useWatchTextFile({
         watchFileDispose = await replit.fs.watchTextFile(filePath, {
           onReady: async (args) => {
             setContent(await args.initialContent);
+            writeChange.current = async (writeChangeArgs: WriteChangeArgs) => {
+              await args.writeChange(writeChangeArgs);
+            };
             setWatching(true);
           },
           onError(err) {
-            setWatchError(err);
+            setWatchError(new Error(err));
             setWatching(false);
             dispose();
           },
@@ -73,19 +88,21 @@ export default function useWatchTextFile({
           },
         });
       } catch (e) {
-        setWatchError(e);
+        setWatchError(e as Error);
         setWatching(false);
       }
     })();
 
     return dispose;
-  }, [connected, filePath]);
+  }, [connected, filePath, replit]);
 
   return React.useMemo(() => {
     const result = {
       content,
       watching,
       watchError,
+      writeChange: async (args: WriteChangeArgs) =>
+        await writeChange.current(args),
     };
     if (watching) {
       return result as UseWatchTextFileWatching;
@@ -94,5 +111,5 @@ export default function useWatchTextFile({
     } else {
       return result as UseWatchTextFileLoading;
     }
-  }, [content, watching, watchError]);
+  }, [content, watching, watchError, writeChange]);
 }

@@ -9,7 +9,7 @@
   "coverImages": [],
   "fileHandlers": [
     {
-      "glob": "*.json",
+      "glob": "*",
       "handler": "/"
     }
   ]

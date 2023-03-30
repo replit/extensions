@@ -1,8 +1,9 @@
 import { setDebugMode } from "src/util/log";
-import { extensionPort } from "./util/comlink";
+import { HandshakeOuput } from "./types";
+import { extensionPort, proxy } from "./util/comlink";
 export * from "./api";
 export * from "./util/log";
-export { extensionPort };
+export { extensionPort, proxy };
 export * from "./types";
 
 function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
@@ -14,16 +15,16 @@ function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   ]);
 }
 
-export async function init({
-  permissions = [],
-  timeout = 2000,
-  debug = false,
-}: {
-  permissions?: string[];
+export async function init(args?: {
   timeout?: number;
   debug?: boolean;
-}) {
-  setDebugMode(debug);
+}): HandshakeOuput {
+  if (extensionPort === null) {
+    console.warn(`extensionPort is null. Was init() called in SSR?`);
+    return null;
+  }
+
+  setDebugMode(args?.debug || false);
 
   const onExtensionClick = () => {
     extensionPort.activatePane();
@@ -34,10 +35,7 @@ export async function init({
   };
 
   try {
-    await promiseWithTimeout(
-      extensionPort.handshake({ permissions }),
-      timeout
-    );
+    await promiseWithTimeout(extensionPort.handshake(), args?.timeout || 2000);
 
     if (window) {
       window.document.addEventListener("click", onExtensionClick);

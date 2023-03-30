@@ -1,3 +1,50 @@
+## 0.31.0
+
+- added the Themes API module
+
+## 0.30.3
+
+- added the `useActiveFile` React Hook
+
+## 0.30.1
+
+- added session.getActiveFile
+
+## 0.30.0
+
+- added session.onActiveFileChange
+
+## 0.29.2
+
+- Added the data module
+
+## 0.28.2
+
+ - Updated the `useWatchTextFile` React hook
+
+## 0.27.0
+
+- Added messages API
+
+## 0.26.0
+
+- Added encoding option to readFile
+ 
+## 0.25.0
+
+- Removed layout
+
+## 0.24.0
+
+- Add useReplitEffect
+- Fix useWatchTextFile
+- Improve useReplit hook
+- Fix issues with SSR
+- Fix typing
+
+## 0.24.0-test
+- Fix types
+
 ## 0.23.0
 
 - added themes API
