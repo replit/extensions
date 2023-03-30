@@ -47,7 +47,7 @@ export interface DirectoryChildNode {
 /*****************************************************************
  * * Theme Types
  *****************************************************************/
-type CssColor = string;
+export type CssColor = string;
 
 export interface ThemeValuesGlobal {
   __typename?: string;
@@ -153,7 +153,7 @@ export enum ColorScheme {
   Dark = "dark",
 }
 
-interface CustomTheme {
+export interface CustomTheme {
   author: User;
   colorScheme: ColorScheme;
   hasUnpublishedChanges: boolean;
@@ -167,13 +167,13 @@ interface CustomTheme {
   title?: string;
 }
 
-interface ThemeSyntaxHighlightingTag {
+export interface ThemeSyntaxHighlightingTag {
   __typename: string;
   name: string;
   modifiers: null | Array<string>;
 }
 
-interface ThemeSyntaxHighlightingModifier {
+export interface ThemeSyntaxHighlightingModifier {
   textDecoration?: string;
   fontSize?: string;
   fontWeight?: string;
@@ -181,17 +181,17 @@ interface ThemeSyntaxHighlightingModifier {
   color?: string;
 }
 
-interface ThemeEditorSyntaxHighlighting {
+export interface ThemeEditorSyntaxHighlighting {
   __typename: string;
   tags: Array<ThemeSyntaxHighlightingTag>;
   values: ThemeSyntaxHighlightingModifier;
 }
 
-interface ThemeValuesEditor {
+export interface ThemeValuesEditor {
   editor: Array<ThemeEditorSyntaxHighlighting>;
 }
 
-interface ThemeValues {
+export interface ThemeValues {
   __typename?: string;
   editor: ThemeValuesEditor;
   global: ThemeValuesGlobal;

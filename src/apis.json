@@ -66,16 +66,16 @@
     "name": "themes",
     "description": "The themes api allows you to access the current user's theme and utilize the color tokens accordingly.",
     "typeNames": [
-      "ThemeVersion",
-      "CustomTheme",
-      "ThemeValues",
+      "CssColor",
       "ThemeValuesGlobal",
-      "ThemeValuesEditor",
-      "ThemeEditorSyntaxHighlighting",
-      "ThemeSyntaxHighlightingModifier",
-      "ThemeSyntaxHighlightingTag",
       "ColorScheme",
-      "CssColor"
+      "CustomTheme",
+      "ThemeSyntaxHighlightingTag",
+      "ThemeSyntaxHighlightingModifier",
+      "ThemeEditorSyntaxHighlighting",
+      "ThemeValuesEditor",
+      "ThemeValues",
+      "ThemeVersion"
     ],
     "isActive": true
   },
