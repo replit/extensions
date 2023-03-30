@@ -27,9 +27,9 @@ export default function useTheme() {
         return;
       }
 
-      const th: ThemeVersion = await replit.theme.getCurrentTheme();
+      const th: ThemeVersion = await replit.themes.getCurrentTheme();
       setTheme(th);
-      themeDispose = await replit.theme.onThemeChange(
+      themeDispose = await replit.themes.onThemeChange(
         (_theme: ThemeVersion) => {
           setTheme(_theme);
         }

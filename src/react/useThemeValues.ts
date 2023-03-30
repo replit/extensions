@@ -5,12 +5,12 @@ import useReplitEffect from "./useReplitEffect";
 export default function useTheme() {
   const [values, setValues] = useState<ThemeValuesGlobal | null>(null);
 
-  useReplitEffect(async ({ theme }) => {
-    const themeValues = await theme.getCurrentThemeValues();
+  useReplitEffect(async ({ themes }) => {
+    const themeValues = await themes.getCurrentThemeValues();
 
     setValues(themeValues);
 
-    await theme.onThemeChangeValues((themeValues) => {
+    await themes.onThemeChangeValues((themeValues) => {
       setValues(themeValues);
     });
   }, []);
