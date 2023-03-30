@@ -319,6 +319,7 @@ class FileWatcherManager {
     for (const { onReady, onChange } of file.listeners) {
       onReady({
         initialContent,
+        getLatestContent: () => file.watcher.getLatestContent(),
         writeChange: (changes: TextChange | Array<TextChange>) => {
           file.watcher.writeChange(changes);
 

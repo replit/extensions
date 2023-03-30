@@ -352,8 +352,11 @@ export type TextChange = {
   insert?: string;
 };
 
+export type WriteChange = (changes: TextChange | Array<TextChange>) => void;
+
 export interface TextFileReadyEvent {
   writeChange: (changes: TextChange | Array<TextChange>) => void;
+  getLatestContent: () => string;
   initialContent: string;
 }
 export interface TextFileOnChangeEvent {
