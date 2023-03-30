@@ -1,9 +1,9 @@
 import { proxy } from "comlink";
 import {
   extensionPort,
+  OnThemeChangeCallback,
   OnThemeChangeValuesCallback,
   ThemeValuesGlobal,
-  ThemeVersion,
 } from "src";
 
 /**
@@ -23,7 +23,9 @@ export async function getCurrentThemeValues(): Promise<ThemeValuesGlobal> {
 /**
  * Fires the `callback` parameter function with the updated theme when the user's theme changes.
  */
-export async function onThemeChange(callback: (theme: ThemeVersion) => void) {
+export async function onThemeChange(
+  callback: OnThemeChangeCallback
+): Promise<() => void> {
   return await extensionPort.onThemeChange(proxy(callback));
 }
 
@@ -32,6 +34,6 @@ export async function onThemeChange(callback: (theme: ThemeVersion) => void) {
  */
 export async function onThemeChangeValues(
   callback: OnThemeChangeValuesCallback
-) {
+): Promise<() => void> {
   return await extensionPort.onThemeChangeValues(proxy(callback));
 }

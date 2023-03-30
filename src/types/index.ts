@@ -372,6 +372,7 @@ export type WatchTextFileWatcherOnMoveOrDelete = (
 ) => void;
 export type HandshakeOuput = Promise<null | (() => void)>;
 export type OnThemeChangeValuesCallback = (values: ThemeValuesGlobal) => void;
+export type OnThemeChangeCallback = (theme: ThemeVersion) => void;
 
 /*****************************************************************
  * * Extension Port Wrapper
