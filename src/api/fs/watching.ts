@@ -233,10 +233,20 @@ class FileWatcherManager {
 
       file.listeners.delete(listeners);
       if (file.listeners.size === 0) {
-        file.watcher.dispose();
-        this.files.delete(path);
+        this.dispose(path);
       }
     };
+  }
+
+  private dispose(path: string) {
+    const file = this.files.get(path);
+
+    if (!file) {
+      return;
+    }
+
+    file.watcher.dispose();
+    this.files.delete(path);
   }
 
   private watchNew(path: string, listeners: WatchTextFileListeners) {
@@ -346,6 +356,8 @@ class FileWatcherManager {
 
       onError(error);
     }
+
+    this.dispose(path);
   }
 
   private handleMoveOrDelete(
@@ -365,6 +377,8 @@ class FileWatcherManager {
 
       onMoveOrDelete(event);
     }
+
+    this.dispose(path);
   }
 }
 
