@@ -1,9 +1,9 @@
 import React from "react";
-import { HandshakeStatus, Theme } from "src/types";
+import { HandshakeStatus, ThemeVersion } from "src/types";
 import useReplit from "./useReplit";
 
 export default function useTheme() {
-  const [theme, setTheme] = React.useState<Theme | null>(null);
+  const [theme, setTheme] = React.useState<ThemeVersion | null>(null);
 
   const { status, replit } = useReplit();
 
@@ -27,11 +27,13 @@ export default function useTheme() {
         return;
       }
 
-      const th: Theme = await replit.theme.getCurrentTheme();
+      const th: ThemeVersion = await replit.theme.getCurrentTheme();
       setTheme(th);
-      themeDispose = await replit.theme.onThemeChange((_theme: Theme) => {
-        setTheme(_theme);
-      });
+      themeDispose = await replit.theme.onThemeChange(
+        (_theme: ThemeVersion) => {
+          setTheme(_theme);
+        }
+      );
     })();
 
     return dispose;
