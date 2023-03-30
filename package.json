@@ -36,7 +36,7 @@
   "files": [
     "dist/*"
   ],
-  "keywords": [],
+  "keywords": ["replit", "extensions", "api-client", "react"],
   "author": "",
   "license": "MIT",
   "dependencies": {
