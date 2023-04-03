@@ -1,7 +1,10 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import * as replit from "../index";
 import { HandshakeStatus } from "src/types";
 import useReplit from "./useReplit";
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 /**
  * Fires a callback with the Replit API wrapper when its dependency array changes.
@@ -13,7 +16,7 @@ export default function useReplitEffect(
 ) {
   const { replit, status } = useReplit();
 
-  return useLayoutEffect(() => {
+  return useIsomorphicLayoutEffect(() => {
     if (replit && status === HandshakeStatus.Ready) {
       callback(replit);
     }
