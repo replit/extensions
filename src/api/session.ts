@@ -1,14 +1,14 @@
-import { extensionPort, OnActiveFileChangeCallback, proxy } from "src";
+import { extensionPort, OnActiveFileChangeListener, proxy } from "src";
 
 /**
  * Sets up a listener to handle when the active file is changed
  */
-export function onActiveFileChange(callback: OnActiveFileChangeCallback) {
+export function onActiveFileChange(listener: OnActiveFileChangeListener) {
   let dispose = () => {
     console.log("disposing existing watcher");
   };
 
-  extensionPort.watchActiveFile(proxy(callback)).then((d: () => void) => {
+  extensionPort.watchActiveFile(proxy(listener)).then((d: () => void) => {
     dispose = d;
   });
 

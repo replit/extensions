@@ -1,115 +1,147 @@
 import React from "react";
-import { HandshakeStatus, WriteChangeArgs } from "src/types";
+import { WriteChange, UseWatchTextFileStatus } from "src/types";
 import useReplit from "./useReplit";
 
 interface UseWatchTextFileLoading {
+  status: UseWatchTextFileStatus.Loading;
   content: null;
-  watching: false;
   watchError: null;
-  writeChange: (args: WriteChangeArgs) => Promise<never>;
+  writeChange: null;
 }
 
 interface UseWatchTextFileWatching {
+  status: UseWatchTextFileStatus.Watching;
   content: string;
-  watching: true;
   watchError: null;
-  writeChange: (args: WriteChangeArgs) => Promise<void>;
+  writeChange: WriteChange;
 }
 
-interface UseWatchTextFileError {
+interface UseWatchTextFileErrorLike {
+  status:
+    | UseWatchTextFileStatus.Error
+    | UseWatchTextFileStatus.Moved
+    | UseWatchTextFileStatus.Deleted;
   content: null;
-  watching: false;
-  watchError: Error;
-  writeChange: (args: WriteChangeArgs) => Promise<never>;
+  watchError: string | null;
+  writeChange: null;
 }
 
 export default function useWatchTextFile({
   filePath,
 }: {
   filePath: string | null | undefined;
-}) {
-  const [content, setContent] = React.useState<string | null>(null);
-  const [watching, setWatching] = React.useState(false);
-  const [watchError, setWatchError] = React.useState<Error | null>(null);
-
-  const { status, replit } = useReplit();
-
-  const connected = status === HandshakeStatus.Ready;
-
-  const writeChange = React.useRef<
-    (args: WriteChangeArgs) => Promise<void | never>
-  >(async (_: WriteChangeArgs) => {
-    throw new Error("writeChange is called before onReady");
+}):
+  | UseWatchTextFileLoading
+  | UseWatchTextFileWatching
+  | UseWatchTextFileErrorLike {
+  const [state, setState] = React.useState<
+    | UseWatchTextFileLoading
+    | UseWatchTextFileWatching
+    | UseWatchTextFileErrorLike
+  >({
+    status: UseWatchTextFileStatus.Loading,
+    content: null,
+    watchError: null,
+    writeChange: null,
   });
 
+  const { replit } = useReplit();
+
   React.useEffect(() => {
-    if (!connected || !filePath) {
+    setState((prev) => {
+      if (prev.status === UseWatchTextFileStatus.Loading) {
+        return prev;
+      }
+
+      return {
+        status: UseWatchTextFileStatus.Loading,
+        content: null,
+        watchError: null,
+        writeChange: null,
+      };
+    });
+
+    if (!replit || !filePath) {
       return;
     }
 
-    let watchFileDispose: null | (() => void) = null;
-    let dispose = () => {
-      if (watchFileDispose) {
-        watchFileDispose();
-        watchFileDispose = null;
-      }
-      setWatching(false);
-      setContent(null);
-      setWatchError(null);
-      writeChange.current = async (_: WriteChangeArgs) => {
-        throw new Error("writeChange is called before onReady");
-      };
-    };
+    // keep a local redudant state so that we don't rely on state.status in the effect
+    let isWatching = false;
 
-    (async () => {
-      if (!replit || !filePath) {
-        return;
-      }
+    const dispose = replit.fs.watchTextFile(filePath, {
+      onReady: ({ initialContent, writeChange, getLatestContent }) => {
+        isWatching = true;
+        setState({
+          status: UseWatchTextFileStatus.Watching,
+          content: initialContent,
+          watchError: null,
+          writeChange: (changes) => {
+            if (!isWatching) {
+              return;
+            }
 
-      try {
-        watchFileDispose = await replit.fs.watchTextFile(filePath, {
-          onReady: async (args) => {
-            setContent(await args.initialContent);
-            writeChange.current = async (writeChangeArgs: WriteChangeArgs) => {
-              await args.writeChange(writeChangeArgs);
-            };
-            setWatching(true);
-          },
-          onError(err) {
-            setWatchError(new Error(err));
-            setWatching(false);
-            dispose();
-          },
-          onChange: (args) => {
-            setContent(args.latestContent);
-          },
-          onMoveOrDelete: () => {
-            setWatching(false);
+            writeChange(changes);
+            // We must update the state here because the file watcher
+            // doesn't loop back to us to update the state
+            setState((prev) => {
+              if (prev.status !== UseWatchTextFileStatus.Watching) {
+                throw new Error(
+                  "wrote change to file that was not being watched"
+                );
+              }
+
+              return {
+                ...prev,
+                content: getLatestContent(),
+              };
+            });
           },
         });
-      } catch (e) {
-        setWatchError(e as Error);
-        setWatching(false);
-      }
-    })();
+      },
+      onChange: (changes) => {
+        if (!isWatching) {
+          return;
+        }
 
-    return dispose;
-  }, [connected, filePath, replit]);
+        setState((prev) => {
+          if (prev.status !== UseWatchTextFileStatus.Watching) {
+            throw new Error("got update on an unwatched file");
+          }
 
-  return React.useMemo(() => {
-    const result = {
-      content,
-      watching,
-      watchError,
-      writeChange: async (args: WriteChangeArgs) =>
-        await writeChange.current(args),
+          return {
+            ...prev,
+            content: changes.latestContent,
+          };
+        });
+      },
+      onError(err) {
+        setState({
+          status: UseWatchTextFileStatus.Error,
+          content: null,
+          watchError: err,
+          writeChange: null,
+        });
+        isWatching = false;
+      },
+      onMoveOrDelete: ({ eventType }) => {
+        setState({
+          status:
+            eventType === "MOVE"
+              ? UseWatchTextFileStatus.Moved
+              : UseWatchTextFileStatus.Deleted,
+          content: null,
+          watchError: null,
+          writeChange: null,
+        });
+        isWatching = false;
+      },
+    });
+
+    return () => {
+      isWatching = false;
+      dispose();
     };
-    if (watching) {
-      return result as UseWatchTextFileWatching;
-    } else if (watchError) {
-      return result as UseWatchTextFileError;
-    } else {
-      return result as UseWatchTextFileLoading;
-    }
-  }, [content, watching, watchError, writeChange]);
+  }, [filePath, replit]);
+
+  return state;
 }

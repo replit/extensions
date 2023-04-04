@@ -61,3 +61,11 @@ support = true
       sourceMaps = true
       stopOnEntry = false
       type = "pwa-node"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+enabledForHosting = false
+packageSearch = true
+guessImports = true

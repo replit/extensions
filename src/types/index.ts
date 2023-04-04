@@ -20,23 +20,28 @@ export interface FsNode {
   type: FsNodeType;
 }
 
-export interface WatchFileWatchers {
-  onChange: WatchFileWatcherOnChange;
-  onError: WatchFileWatcherOnError;
-  onMoveOrDelete: WatchFileWatcherOnMoveOrDelete;
+export interface MoveEvent {
+  eventType: "MOVE";
+  node: FsNode;
+  to: string;
 }
 
-export interface WriteChangeArgs {
-  from: number;
-  to: number;
-  insert: string;
+export interface DeleteEvent {
+  eventType: "DELETE";
+  node: FsNode;
 }
 
-export interface WatchTextFileWatchers {
-  onReady: WatchTextFileWatcherOnReady;
-  onChange: WatchTextFileWatcherOnChange;
-  onError: WatchTextFileWatcherOnError;
-  onMoveOrDelete: WatchTextFileWatcherOnMoveOrDelete;
+export interface WatchFileListeners<T extends string | Blob = string> {
+  onChange: WatchFileOnChangeListener<T>;
+  onError?: WatchFileOnErrorListener;
+  onMoveOrDelete?: WatchFileOnMoveOrDeleteListener;
+}
+
+export interface WatchTextFileListeners {
+  onReady: WatchTextFileOnReadyListener;
+  onChange?: WatchTextFileOnChangeListener;
+  onError?: WatchTextFileOnErrorListener;
+  onMoveOrDelete?: WatchTextFileOnMoveOrDeleteListener;
 }
 
 export interface DirectoryChildNode {
@@ -328,6 +333,14 @@ export interface ReplComment {
  * * Miscalleneous / React Types / Function Args
  *****************************************************************/
 
+export enum UseWatchTextFileStatus {
+  Error = "error",
+  Loading = "loading",
+  Watching = "watching",
+  Moved = "moved",
+  Deleted = "deleted",
+}
+
 export enum HandshakeStatus {
   Ready = "ready",
   Error = "error",
@@ -341,38 +354,45 @@ export interface NullableStrError {
   error: string | null;
 }
 
-export interface TextFileWatcherReadyArgs {
+export type TextChange = {
+  from: number;
+  to?: number;
+  insert?: string;
+};
+
+export type WriteChange = (changes: TextChange | Array<TextChange>) => void;
+
+export interface TextFileReadyEvent {
+  writeChange: (changes: TextChange | Array<TextChange>) => void;
+  getLatestContent: () => string;
   initialContent: string;
-  version: number;
-  writeChange: (writeChangeArgs: WriteChangeArgs) => Promise<void>;
 }
-export interface TextFileWatcherOnChangeArgs {
+export interface TextFileOnChangeEvent {
+  changes: Array<TextChange>;
   latestContent: string;
-  version: number;
-  changeSource: string;
-  changes: any; // TODO fix
 }
-export interface OnMoveOrDeleteArgs {
-  eventType: "MOVE" | "DELETE";
-  node: FsNode;
-}
-export type OnActiveFileChangeCallback = (file: string) => void;
-export type WatchFileWatcherOnChange = (newContent: string) => void;
-export type WatchFileWatcherOnError = (error: string) => void;
-export type WatchFileWatcherOnMoveOrDelete = (args: OnMoveOrDeleteArgs) => void;
-export type WatchTextFileWatcherOnReady = (
-  readyArgs: TextFileWatcherReadyArgs
+
+export type OnActiveFileChangeListener = (file: string) => void;
+export type WatchFileOnChangeListener<T extends string | Blob = string> = (
+  newContent: T
 ) => void;
-export type WatchTextFileWatcherOnChange = (
-  changeArgs: TextFileWatcherOnChangeArgs
+export type WatchFileOnErrorListener = (error: string) => void;
+export type WatchFileOnMoveOrDeleteListener = (
+  moveOrDeleteEvent: MoveEvent | DeleteEvent
 ) => void;
-export type WatchTextFileWatcherOnError = (error: string) => void;
-export type WatchTextFileWatcherOnMoveOrDelete = (
-  args: OnMoveOrDeleteArgs
+export type WatchTextFileOnReadyListener = (
+  readyEvent: TextFileReadyEvent
+) => void;
+export type WatchTextFileOnChangeListener = (
+  changeEvent: TextFileOnChangeEvent
+) => void;
+export type WatchTextFileOnErrorListener = (error: string) => void;
+export type WatchTextFileOnMoveOrDeleteListener = (
+  moveOrDeleteEvent: MoveEvent | DeleteEvent
 ) => void;
 export type HandshakeOuput = Promise<null | (() => void)>;
-export type OnThemeChangeValuesCallback = (values: ThemeValuesGlobal) => void;
-export type OnThemeChangeCallback = (theme: ThemeVersion) => void;
+export type OnThemeChangeValuesListener = (values: ThemeValuesGlobal) => void;
+export type OnThemeChangeListener = (theme: ThemeVersion) => void;
 
 /*****************************************************************
  * * Extension Port Wrapper
@@ -399,8 +419,8 @@ export type ExtensionPortAPI = {
   deleteDir: (path: string) => Promise<{} | StrError>;
   move: (path: string, to: string) => Promise<NullableStrError>;
   copyFile: (path: string, to: string) => Promise<NullableStrError>;
-  watchFile: (path: string, watcher: WatchFileWatchers) => () => void;
-  watchTextFile: (path: string, watcher: WatchTextFileWatchers) => () => void;
+  watchFile: (path: string, watcher: WatchFileListeners) => () => void;
+  watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
@@ -413,7 +433,7 @@ export type ExtensionPortAPI = {
   // theme
   getCurrentThemeValues: () => Promise<ThemeValuesGlobal>;
   onThemeChangeValues: (
-    callback: OnThemeChangeValuesCallback
+    callback: OnThemeChangeValuesListener
   ) => Promise<() => void>;
   getCurrentTheme: () => Promise<ThemeVersion>;
   onThemeChange: (
