@@ -333,6 +333,14 @@ export interface ReplComment {
  * * Miscalleneous / React Types / Function Args
  *****************************************************************/
 
+export enum UseWatchTextFileStatus {
+  Error = "error",
+  Loading = "loading",
+  Watching = "watching",
+  Moved = "moved",
+  Deleted = "deleted",
+}
+
 export enum HandshakeStatus {
   Ready = "ready",
   Error = "error",
