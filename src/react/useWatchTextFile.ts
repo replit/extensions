@@ -3,21 +3,24 @@ import { WriteChange, UseWatchTextFileStatus } from "src/types";
 import useReplit from "./useReplit";
 
 interface UseWatchTextFileLoading {
-  status: Status.Loading;
+  status: UseWatchTextFileStatus.Loading;
   content: null;
   watchError: null;
   writeChange: null;
 }
 
 interface UseWatchTextFileWatching {
-  status: Status.Watching;
+  status: UseWatchTextFileStatus.Watching;
   content: string;
   watchError: null;
   writeChange: WriteChange;
 }
 
 interface UseWatchTextFileErrorLike {
-  status: Status.Error | Status.Moved | Status.Deleted;
+  status:
+    | UseWatchTextFileStatus.Error
+    | UseWatchTextFileStatus.Moved
+    | UseWatchTextFileStatus.Deleted;
   content: null;
   watchError: string | null;
   writeChange: null;
@@ -36,7 +39,7 @@ export default function useWatchTextFile({
     | UseWatchTextFileWatching
     | UseWatchTextFileErrorLike
   >({
-    status: Status.Loading,
+    status: UseWatchTextFileStatus.Loading,
     content: null,
     watchError: null,
     writeChange: null,
@@ -46,12 +49,12 @@ export default function useWatchTextFile({
 
   React.useEffect(() => {
     setState((prev) => {
-      if (prev.status === Status.Loading) {
+      if (prev.status === UseWatchTextFileStatus.Loading) {
         return prev;
       }
 
       return {
-        status: Status.Loading,
+        status: UseWatchTextFileStatus.Loading,
         content: null,
         watchError: null,
         writeChange: null,
@@ -69,7 +72,7 @@ export default function useWatchTextFile({
       onReady: ({ initialContent, writeChange, getLatestContent }) => {
         isWatching = true;
         setState({
-          status: Status.Watching,
+          status: UseWatchTextFileStatus.Watching,
           content: initialContent,
           watchError: null,
           writeChange: (changes) => {
@@ -81,7 +84,7 @@ export default function useWatchTextFile({
             // We must update the state here because the file watcher
             // doesn't loop back to us to update the state
             setState((prev) => {
-              if (prev.status !== Status.Watching) {
+              if (prev.status !== UseWatchTextFileStatus.Watching) {
                 throw new Error(
                   "wrote change to file that was not being watched"
                 );
@@ -101,7 +104,7 @@ export default function useWatchTextFile({
         }
 
         setState((prev) => {
-          if (prev.status !== Status.Watching) {
+          if (prev.status !== UseWatchTextFileStatus.Watching) {
             throw new Error("got update on an unwatched file");
           }
 
@@ -113,7 +116,7 @@ export default function useWatchTextFile({
       },
       onError(err) {
         setState({
-          status: Status.Error,
+          status: UseWatchTextFileStatus.Error,
           content: null,
           watchError: err,
           writeChange: null,
@@ -122,7 +125,10 @@ export default function useWatchTextFile({
       },
       onMoveOrDelete: ({ eventType }) => {
         setState({
-          status: eventType === "MOVE" ? Status.Moved : Status.Deleted,
+          status:
+            eventType === "MOVE"
+              ? UseWatchTextFileStatus.Moved
+              : UseWatchTextFileStatus.Deleted,
           content: null,
           watchError: null,
           writeChange: null,
