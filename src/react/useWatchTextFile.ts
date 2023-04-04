@@ -1,14 +1,6 @@
 import React from "react";
-import { WriteChange } from "src/types";
+import { WriteChange, UseWatchTextFileStatus } from "src/types";
 import useReplit from "./useReplit";
-
-export enum Status {
-  Error = "error",
-  Loading = "loading",
-  Watching = "watching",
-  Moved = "moved",
-  Deleted = "deleted",
-}
 
 interface UseWatchTextFileLoading {
   status: Status.Loading;
