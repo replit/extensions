@@ -6,7 +6,7 @@ import {
   useReplitEffect,
   //@ts-ignore
 } from "@replit/extensions/react";
-import { messages } from "@replit/extensions";
+import { messages, extensionPort } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
@@ -73,7 +73,13 @@ export default function App() {
                   : "connected"
                 : "connecting..."}
               <button onClick={sendMessage}>Click</button>
-              <button onClick={randomizeJson}>Randomize JSON</button>
+              <button
+                onClick={async () =>
+                  alert(JSON.stringify(await extensionPort.getSelection()))
+                }
+              >
+                Randomize JSON
+              </button>
               <hr />
               {watching ? "watching" : "not watching " + watchError} |{" "}
               {filePath}
