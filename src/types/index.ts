@@ -375,6 +375,20 @@ export type OnThemeChangeValuesCallback = (values: ThemeValuesGlobal) => void;
 export type OnThemeChangeCallback = (theme: ThemeVersion) => void;
 
 /*****************************************************************
+ * * Session
+ *****************************************************************/
+
+interface SelectionRange {
+  from: number;
+  to: number;
+}
+
+interface EditorSelection {
+  ranges: readonly SelectionRange[];
+  mainIndex: number;
+}
+
+/*****************************************************************
  * * Extension Port Wrapper
  *****************************************************************/
 
@@ -443,4 +457,6 @@ export type ExtensionPortAPI = {
   // session Module
   watchActiveFile: (callback: (path: string) => void) => () => void;
   getActiveFile: () => Promise<string | null>;
+  onSelectionChange: (s: (s: EditorSelection) => void) => () => void;
+  getSelection: () => EditorSelection | null;
 };
