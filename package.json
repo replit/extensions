@@ -4,21 +4,8 @@
   "description": "",
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": {
-        "default": "./dist/index.js"
-      },
-      "default": "./dist/index.cjs"
-    },
-    "./react": {
-      "types": "./dist/react/index.d.ts",
-      "import": {
-        "types": "./dist/react/index.d.ts",
-        "default": "./dist/react/index.js"
-      },
-      "default": "./dist/react/index.cjs"
-    }
+    ".": "./dist",
+    "./react": "./dist/react"
   },
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -36,12 +23,18 @@
   "files": [
     "dist/*"
   ],
-  "keywords": ["replit", "extensions", "api-client", "react"],
+  "keywords": [
+    "replit",
+    "extensions",
+    "api-client",
+    "react"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@types/react": "^18.0.28",
-    "comlink": "^4.3.1"
+    "comlink": "^4.3.1",
+    "replit-extensions-react": "file:src/react"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2.0.1",

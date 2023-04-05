@@ -1,0 +1,5 @@
+{
+  "name": "replit-extensions-react",
+  "type": "module",
+  "main": "."
+}
