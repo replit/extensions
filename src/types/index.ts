@@ -357,10 +357,11 @@ export interface TextChange {
 }
 
 export type WriteChange = (changes: TextChange | Array<TextChange>) => void;
+export type GetLatestContent = () => string;
 
 export interface TextFileReadyEvent {
   writeChange: WriteChange;
-  getLatestContent: () => string;
+  getLatestContent: GetLatestContent;
   initialContent: string;
 }
 export interface TextFileOnChangeEvent {

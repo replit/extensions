@@ -20,6 +20,8 @@
       "FsNode",
       "FsNodeType",
       "TextFileReadyEvent",
+      "WriteChange",
+      "GetLatestContent",
       "MoveEvent",
       "DeleteEvent",
       "TextFileWatcherReadyEvent",
