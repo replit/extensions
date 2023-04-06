@@ -354,11 +354,11 @@ export interface NullableStrError {
   error: string | null;
 }
 
-export type TextChange = {
+export interface TextChange {
   from: number;
   to?: number;
   insert?: string;
-};
+}
 
 export type WriteChange = (changes: TextChange | Array<TextChange>) => void;
 
