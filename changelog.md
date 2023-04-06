@@ -1,3 +1,8 @@
+## 0.32.0
+
+- More stable and ergonomic file watcher, some breaking changes included
+- No longer using `useLayoutEffect` in the `useReplitEffect` hook
+
 ## 0.31.0
 
 - added the Themes API module
