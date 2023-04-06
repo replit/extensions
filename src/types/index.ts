@@ -306,12 +306,8 @@ export interface Repl {
   };
 
   // OwnerData fragment
-  owner?: {
+  owner?: Pick<User, "id" | "username" | "image"> & {
     __typename: string;
-    id: number;
-    username: string;
-    image: string;
-    bio?: string;
     description?: string;
   };
 
