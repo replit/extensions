@@ -19,6 +19,7 @@
       "WatchTextFileOnMoveOrDeleteListener",
       "FsNode",
       "FsNodeType",
+      "TextFileReadyEvent",
       "MoveEvent",
       "DeleteEvent",
       "TextFileWatcherReadyEvent",
