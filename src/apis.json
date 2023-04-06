@@ -18,6 +18,7 @@
       "WatchTextFileOnErrorListener",
       "WatchTextFileOnMoveOrDeleteListener",
       "FsNode",
+      "FsNodeType",
       "MoveEvent",
       "DeleteEvent",
       "TextFileWatcherReadyEvent",
