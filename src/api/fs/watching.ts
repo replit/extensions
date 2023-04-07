@@ -148,7 +148,7 @@ class TextFileWatcher {
     this.listeners.onReady();
   }
 
-  private handleChange({ changes: changeSpec }: { changes: ChangeSpec }) {
+  private handleChange({ changes: changeJSON }: { changes: any }) {
     if (this.isDisposed) {
       return;
     }
@@ -157,7 +157,8 @@ class TextFileWatcher {
       throw new Error("unexpected handleOnChange called before handleOnReady");
     }
 
-    let changes = ChangeSet.of(changeSpec, this.state.remoteText.length);
+    let changes = ChangeSet.fromJSON(changeJSON);
+
     this.state.remoteText = changes.apply(this.state.remoteText);
 
     for (const unconfirmed of this.state.unconfirmedChanges) {
