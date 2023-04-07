@@ -26,7 +26,8 @@
       "DeleteEvent",
       "TextFileWatcherReadyEvent",
       "TextFileWatcherOnChangeEvent",
-      "TextChange"
+      "TextChange",
+      "TextFileOnChangeEvent"
     ],
     "isActive": true
   },
