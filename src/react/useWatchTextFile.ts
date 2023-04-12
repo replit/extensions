@@ -1,22 +1,22 @@
 import React from "react";
 import { WriteChange, UseWatchTextFileStatus } from "src/types";
-import useReplit from "./useReplit";
+import { useReplit } from "./useReplit";
 
-interface UseWatchTextFileLoading {
+export interface UseWatchTextFileLoading {
   status: UseWatchTextFileStatus.Loading;
   content: null;
   watchError: null;
   writeChange: null;
 }
 
-interface UseWatchTextFileWatching {
+export interface UseWatchTextFileWatching {
   status: UseWatchTextFileStatus.Watching;
   content: string;
   watchError: null;
   writeChange: WriteChange;
 }
 
-interface UseWatchTextFileErrorLike {
+export interface UseWatchTextFileErrorLike {
   status:
     | UseWatchTextFileStatus.Error
     | UseWatchTextFileStatus.Moved
@@ -26,7 +26,7 @@ interface UseWatchTextFileErrorLike {
   writeChange: null;
 }
 
-export default function useWatchTextFile({
+export function useWatchTextFile({
   filePath,
 }: {
   filePath: string | null | undefined;

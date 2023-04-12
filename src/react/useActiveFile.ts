@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { session } from "src/api";
-import useReplit from "./useReplit";
+import { useReplit } from "./useReplit";
 
 /**
  * A React hook that returns the current file the user is focusing, if it exists in the filesystem.

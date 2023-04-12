@@ -1,6 +1,6 @@
 import React from "react";
 import { HandshakeStatus, ThemeVersion } from "src/types";
-import useReplit from "./useReplit";
+import { useReplit } from "./useReplit";
 
 export default function useTheme() {
   const [theme, setTheme] = React.useState<ThemeVersion | null>(null);

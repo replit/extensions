@@ -3,21 +3,21 @@ import { getHandshakeStatus } from "src/util/talk";
 import * as replit from "../index";
 import { HandshakeStatus } from "src/types";
 
-interface UseReplitReady {
+export interface UseReplitReady {
   status: HandshakeStatus.Ready;
   error: null;
   filePath: string;
   replit: typeof replit;
 }
 
-interface UseReplitLoading {
+export interface UseReplitLoading {
   status: HandshakeStatus.Loading;
   error: null;
   filePath: null;
   replit: null;
 }
 
-interface UseReplitFailure {
+export interface UseReplitFailure {
   status: HandshakeStatus.Error;
   error: Error;
   filePath: null;
@@ -27,7 +27,7 @@ interface UseReplitFailure {
 /**
  * A React hook that initializes and passes the Replit API wrapper to a component.
  */
-export default function useReplit() {
+export function useReplit() {
   const [status, setStatus] = useState<HandshakeStatus>(getHandshakeStatus());
   const [error, setError] = useState<Error | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
