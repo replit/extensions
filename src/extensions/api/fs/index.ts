@@ -1,6 +1,9 @@
-import { extensionPort, proxy } from "src/util/comlink";
-import { WatchFileListeners, WatchTextFileListeners } from "src/types";
-import { fileWatcherManager } from "src/api/fs/watching";
+import { extensionPort, proxy } from "src/extensions/api/util/comlink";
+import {
+  WatchFileListeners,
+  WatchTextFileListeners,
+} from "src/extensions/types";
+import { fileWatcherManager } from "src/extensions/api/fs/watching";
 
 /**
  * Reads the file specified at `path` and returns an object containing the contents, or an object containing an error if there was one

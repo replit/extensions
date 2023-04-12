@@ -1,8 +1,8 @@
-import { setDebugMode } from "src/util/log";
+import { setDebugMode } from "src/extensions/api/util/log";
 import { HandshakeOuput } from "./types";
-import { extensionPort, proxy } from "./util/comlink";
+import { extensionPort, proxy } from "./api/util/comlink";
 export * from "./api";
-export * from "./util/log";
+export * from "./api/util/log";
 export { extensionPort, proxy };
 export * from "./types";
 

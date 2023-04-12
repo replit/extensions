@@ -5,33 +5,35 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": {
-        "default": "./dist/index.js"
-      },
-      "default": "./dist/index.cjs"
+      "import": "./dist/extensions/index.js",
+      "require": "./dist/extensions/index.cjs",
+      "types": "./dist/extensions"
     },
     "./react": {
-      "types": "./dist/react/index.d.ts",
-      "import": {
-        "types": "./dist/react/index.d.ts",
-        "default": "./dist/react/index.js"
-      },
-      "default": "./dist/react/index.cjs"
+      "import": "./dist/extensions-react/index.js",
+      "require": "./dist/extensions-react/index.cjs",
+      "types": "./dist/extensions-react"
     }
   },
-  "types": "./dist/index.d.ts",
   "type": "module",
-  "unpkg": "dist/index.global.js",
+  "types": "dist/extensions",
+  "unpkg": "dist/extensions/index.global.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && tsup src/index.ts src/react/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
+    "build": "rm -rf dist && npx tsup",
     "lint": "npx prettier --write src/* && cd example && npx prettier --write .",
     "lint:check": "npx prettier -l src/* && cd example && npx prettier -l .",
     "type:check": "tsc --noEmit",
     "dev": "npm run build && cd ./example && npx vite",
     "prepublishOnly": "npm run build",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "react": [
+        "dist/extensions-react/index.d.ts"
+      ]
+    }
   },
   "files": [
     "dist/*"

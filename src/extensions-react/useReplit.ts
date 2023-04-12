@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { getHandshakeStatus } from "src/util/talk";
-import * as replit from "../index";
-import { HandshakeStatus } from "src/types";
+import { getHandshakeStatus } from "src/extensions/api/util/talk";
+import * as replit from "../extensions/index";
+import { HandshakeStatus } from "src/extensions/types";
 
 interface UseReplitReady {
   status: HandshakeStatus.Ready;

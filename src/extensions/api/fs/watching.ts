@@ -1,6 +1,6 @@
 import { ChangeSet, ChangeSpec, Text } from "@codemirror/state";
-import { extensionPort, proxy } from "src/util/comlink";
-import { TextChange, WatchTextFileListeners } from "src/types";
+import { extensionPort, proxy } from "src/extensions/api/util/comlink";
+import { TextChange, WatchTextFileListeners } from "src/extensions/types";
 
 /**
  * A helper to change a ChangeSet into a simpler serializable & human readable format

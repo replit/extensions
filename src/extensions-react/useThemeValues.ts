@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ThemeValuesGlobal } from "src/types";
+import { ThemeValuesGlobal } from "src/extensions/types";
 import useReplitEffect from "./useReplitEffect";
 
 export default function useTheme() {

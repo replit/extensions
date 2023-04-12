@@ -4,7 +4,7 @@ import {
   OnThemeChangeListener,
   OnThemeChangeValuesListener,
   ThemeValuesGlobal,
-} from "src";
+} from "src/extensions";
 
 /**
  * Returns all metadata on the current theme including syntax highlighting, description, HSL, token values, and more.

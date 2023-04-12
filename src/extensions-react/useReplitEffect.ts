@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import * as replit from "../index";
-import { HandshakeStatus } from "src/types";
+import * as replit from "../extensions/index";
+import { HandshakeStatus } from "src/extensions/types";
 import useReplit from "./useReplit";
 
 /**

@@ -1,5 +1,5 @@
 import * as Comlink from "comlink";
-import { ExtensionPortAPI } from "src/types";
+import { ExtensionPortAPI } from "src/extensions/types";
 
 export const extensionPort = (() =>
   typeof window !== "undefined"

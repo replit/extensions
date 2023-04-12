@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { session } from "src/api";
+import { session } from "src/extensions/api";
 import useReplit from "./useReplit";
 
 /**

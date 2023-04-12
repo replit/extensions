@@ -1,5 +1,5 @@
-import { ReplDataInclusion, UserDataInclusion } from "src/types";
-import { extensionPort } from "src/util/comlink";
+import { ReplDataInclusion, UserDataInclusion } from "src/extensions/types";
+import { extensionPort } from "src/extensions/api/util/comlink";
 
 /**
  * Fetches the current user via graphql

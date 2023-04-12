@@ -1,5 +1,5 @@
 import React from "react";
-import { HandshakeStatus, ThemeVersion } from "src/types";
+import { HandshakeStatus, ThemeVersion } from "src/extensions/types";
 import useReplit from "./useReplit";
 
 export default function useTheme() {

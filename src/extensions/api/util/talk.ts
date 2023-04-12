@@ -1,5 +1,5 @@
 // @ts-nocheck temporary (@lunaroyster)
-import { HandshakeStatus } from "src/types";
+import { HandshakeStatus } from "src/extensions/types";
 import { debug } from "./log";
 
 /**

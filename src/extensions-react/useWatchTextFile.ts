@@ -1,5 +1,5 @@
 import React from "react";
-import { WriteChange, UseWatchTextFileStatus } from "src/types";
+import { WriteChange, UseWatchTextFileStatus } from "src/extensions/types";
 import useReplit from "./useReplit";
 
 interface UseWatchTextFileLoading {

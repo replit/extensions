@@ -1,4 +1,8 @@
-import { extensionPort, OnActiveFileChangeListener, proxy } from "src";
+import {
+  extensionPort,
+  OnActiveFileChangeListener,
+  proxy,
+} from "src/extensions";
 
 /**
  * Sets up a listener to handle when the active file is changed
