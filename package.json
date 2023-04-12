@@ -33,6 +33,13 @@
     "prepublishOnly": "npm run build",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"
   },
+  "typesVersions": {
+    "*": {
+      "react": [
+        "dist/react/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist/*"
   ],
