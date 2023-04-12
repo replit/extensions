@@ -1,3 +1,8 @@
+## 0.33.0
+
+ - React Type Declarations work now!
+ - Exported status types for the `useReplit` and `useWatchTextFile` hook to `@replit/extensions/react`
+
 ## 0.32.0
 
 - More stable and ergonomic file watcher, some breaking changes included
