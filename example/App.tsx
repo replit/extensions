@@ -3,7 +3,7 @@ import {
   useReplit,
   useWatchTextFile,
   useThemeValues,
-  useReplitEffect
+  useReplitEffect,
 } from "@replit/extensions/react";
 import { messages } from "@replit/extensions";
 import "./App.css";
