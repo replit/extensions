@@ -5,17 +5,20 @@ import {
   useThemeValues,
   useReplitEffect,
 } from "@replit/extensions/react";
-import { messages } from "@replit/extensions";
+import { UseWatchTextFileStatus, messages } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
-  const { status, error, filePath } = useReplit({
-    debug: true,
-  });
+  const { status, error, filePath } = useReplit();
 
   const connected: boolean = status === "ready";
 
-  const { content, watching, watchError, writeChange } = useWatchTextFile({
+  const {
+    content,
+    watchError,
+    writeChange,
+    status: watchStatus,
+  } = useWatchTextFile({
     filePath: "test.json",
   });
 
@@ -26,23 +29,26 @@ export default function App() {
   };
 
   useReplitEffect(async (replit) => {
-    await messages.showConfirm(JSON.stringify(await replit.data.currentUser()));
+    await messages.showConfirm(
+      JSON.stringify(await replit.data.currentUser({}))
+    );
   }, []);
 
   const randomizeJson = async () => {
     try {
-      const json = JSON.parse(content);
+      const json = JSON.parse(content || "{}");
 
       const randomKey =
         Object.keys(json)[Math.floor(Math.random() * Object.keys(json).length)];
 
       json[randomKey] = Math.random();
 
-      await writeChange({
-        from: 0,
-        to: content.length,
-        insert: JSON.stringify(json, null, 2),
-      });
+      if (writeChange)
+        writeChange({
+          from: 0,
+          to: content.length,
+          insert: JSON.stringify(json, null, 2),
+        });
     } catch (e) {
       console.error(e);
       await messages.showError("Error randomizing JSON");
@@ -74,11 +80,12 @@ export default function App() {
               <button onClick={sendMessage}>Click</button>
               <button onClick={randomizeJson}>Randomize JSON</button>
               <hr />
-              {watching ? "watching" : "not watching " + watchError} |{" "}
-              {filePath}
+              {watchStatus === UseWatchTextFileStatus.Watching
+                ? "watching"
+                : "not watching " + watchError}{" "}
+              | {filePath}
               <hr />
               <pre>{content}</pre>
-              {Object.values(theme).join(", ")}
             </div>
           )}
         </div>
