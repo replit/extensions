@@ -4,7 +4,6 @@ import {
   useWatchTextFile,
   useThemeValues,
   useReplitEffect,
-  //@ts-ignore
 } from "@replit/extensions/react";
 import { messages } from "@replit/extensions";
 import "./App.css";

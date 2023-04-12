@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import * as replit from "../index";
 import { HandshakeStatus } from "src/types";
-import useReplit from "./useReplit";
+import { useReplit } from "./useReplit";
 
 /**
  * Fires a callback with the Replit API wrapper when its dependency array changes.
