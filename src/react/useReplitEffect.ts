@@ -8,14 +8,22 @@ import { useReplit } from "./useReplit";
  * Similar in functionality to the React useEffect hook.
  */
 export default function useReplitEffect(
-  callback: (r: typeof replit) => void | Promise<void>,
+  callback: (
+    r: typeof replit
+  ) => void | Promise<void> | (() => void) | Promise<() => void>,
   dependencies: Array<any>
 ) {
   const { replit, status } = useReplit();
 
   return useEffect(() => {
     if (replit && status === HandshakeStatus.Ready) {
-      callback(replit);
+      const dispose = callback(replit);
+
+      if (typeof dispose === "function") {
+        return () => {
+          dispose();
+        };
+      }
     }
   }, [...dependencies, replit, status]);
 }
