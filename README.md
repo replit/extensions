@@ -24,8 +24,6 @@ pnpm add @replit/extensions
 
 ## Usage
 
-**Note**: Make sure you have access to the Extensions Developer Beta.  If not, you can apply for access [here](https://replit.com/@replit/Extensions-Beta).
-
 1. Fork the [React Template](https://replit.com/@replit/React-Extension?v=1) on Replit and run the Repl
 2. Use **cmd**/**ctrl** + K to open up the command bar
 3. Hit **Manage extensions** > **Add an extension by URL**
