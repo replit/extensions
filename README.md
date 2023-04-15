@@ -8,7 +8,7 @@ The Replit Extensions client is a module that allows you to easily interact with
   - [Resources](https://docs.replit.com/extensions/resources)
   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
   - [React Hooks](https://docs.replit.com/extensions/category/react-hooks)
- - [Discord Server](https://discord.gg/replit-devs)
+ - [Discord Server](https://discord.gg/replit)
  - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
  - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
