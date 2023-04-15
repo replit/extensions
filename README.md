@@ -95,4 +95,4 @@ export default App;
 5. Copy the https ngrok link and install that as an extension (note: some of the filesystem APIs won't behave correctly on localhost)
 
 ## Help
-If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [discord server](https://discord.gg/replit-devs).
+If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [Discord server](https://discord.gg/replit).
