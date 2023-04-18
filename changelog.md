@@ -1,7 +1,11 @@
+## 0.33.1
+
+- Added support for NodeJS module Resolution
+
 ## 0.33.0
 
- - React Type Declarations work now!
- - Exported status types for the `useReplit` and `useWatchTextFile` hook to `@replit/extensions/react`
+- React Type Declarations work now!
+- Exported status types for the `useReplit` and `useWatchTextFile` hook to `@replit/extensions/react`
 
 ## 0.32.0
 
@@ -30,7 +34,7 @@
 
 ## 0.28.2
 
- - Updated the `useWatchTextFile` React hook
+- Updated the `useWatchTextFile` React hook
 
 ## 0.27.0
 
@@ -39,7 +43,7 @@
 ## 0.26.0
 
 - Added encoding option to readFile
- 
+
 ## 0.25.0
 
 - Removed layout
@@ -53,6 +57,7 @@
 - Fix typing
 
 ## 0.24.0-test
+
 - Fix types
 
 ## 0.23.0
