@@ -8,7 +8,7 @@ The Replit Extensions client is a module that allows you to easily interact with
   - [Resources](https://docs.replit.com/extensions/resources)
   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
   - [React Hooks](https://docs.replit.com/extensions/category/react-hooks)
- - [Discord Server](https://discord.gg/replit-devs)
+ - [Discord Server](https://discord.gg/replit)
  - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
  - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
@@ -95,4 +95,4 @@ export default App;
 5. Copy the https ngrok link and install that as an extension (note: some of the filesystem APIs won't behave correctly on localhost)
 
 ## Help
-If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [discord server](https://discord.gg/replit-devs).
+If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [Discord server](https://discord.gg/replit).
