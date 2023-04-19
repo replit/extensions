@@ -221,6 +221,7 @@ export interface ThemeVersion {
 export interface UserDataInclusion {
   includeSocialData?: boolean;
   includeRoles?: boolean;
+  includePlan?: boolean;
 }
 
 export interface ReplDataInclusion {
@@ -256,6 +257,10 @@ export interface User {
   fullName?: string;
   followCount?: number;
   followerCount?: number;
+
+  // PlanUserData fragment
+  isUserHacker?: boolean;
+  isUserPro?: boolean;
 
   // RolesUserData fragment
   roles?: Array<UserRole>;
@@ -299,6 +304,8 @@ export interface Repl {
   runCount?: number;
   commentCount?: number;
   tags?: Array<Tag>;
+  iconUrl?: string;
+  imageUrl?: string;
 
   // CommentsReplData fragment
   comments?: {
