@@ -1,3 +1,8 @@
+## 0.34.0
+
+ - Added subscription status for users, and `iconUrl` + `imageUrl` to Repls (data module)
+ - Added the `useIsExtension` hook for the react module
+
 ## 0.33.1
 
 - Added support for NodeJS module Resolution
