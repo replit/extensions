@@ -376,6 +376,29 @@ export interface TextFileOnChangeEvent {
   latestContent: string;
 }
 
+export interface WatchDirListeners {
+  onChange: WatchDirOnChangeListener;
+  onMoveOrDelete?: WatchDirOnMoveOrDeleteListener;
+  onError: WatchDirOnErrorListener;
+}
+
+export enum FsErrors {
+  NotFound = "NOT_FOUND",
+  AlreadyExists = "ALREADY_EXIST",
+  NotDirectory = "NOT_DIRECTORY",
+  IsDirectory = "IS_DIRECTORY",
+  InvalidPath = "INVALID_PATH",
+  DiskQuotaExceeded = "DISK_QUOTA_EXCEEDED",
+}
+
+export type WatchDirOnErrorListener = (
+  err: Error & { code?: FsErrors.NotFound | FsErrors.NotDirectory },
+  extraInfo?: Record<string, any>
+) => void;
+export type WatchDirOnChangeListener = (children: Array<FsNode>) => void;
+export type WatchDirOnMoveOrDeleteListener = (
+  event: MoveEvent | DeleteEvent
+) => void;
 export type OnActiveFileChangeListener = (file: string) => void;
 export type WatchFileOnChangeListener<T extends string | Blob = string> = (
   newContent: T

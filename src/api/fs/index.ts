@@ -1,5 +1,9 @@
 import { extensionPort, proxy } from "src/util/comlink";
-import { WatchFileListeners, WatchTextFileListeners } from "src/types";
+import {
+  WatchDirListeners,
+  WatchFileListeners,
+  WatchTextFileListeners,
+} from "src/types";
 import { fileWatcherManager } from "src/api/fs/watching";
 
 /**
@@ -75,6 +79,8 @@ export async function watchFile(path: string, listeners: WatchFileListeners) {
     })
   );
 }
+
+export async function watchDir(path: string, listeners: WatchDirListeners) {}
 
 /**
  * Watches a text file at `path` for changes with the provided `listeners`. Returns a dispose method which cleans up the listeners.

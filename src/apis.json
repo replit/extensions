@@ -27,7 +27,12 @@
       "TextFileWatcherReadyEvent",
       "TextFileWatcherOnChangeEvent",
       "TextChange",
-      "TextFileOnChangeEvent"
+      "TextFileOnChangeEvent",
+      "WatchDirListeners",
+      "FsErrors",
+      "WatchDirOnErrorListener",
+      "WatchDirOnChangeListener",
+      "WatchDirOnMoveOrDeleteListener"
     ],
     "isActive": true
   },
