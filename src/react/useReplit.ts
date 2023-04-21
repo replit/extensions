@@ -48,9 +48,10 @@ export function useReplit() {
 
     (async () => {
       try {
-        dispose = await replit.init();
+        dispose = await replit.init({
+          onHandshakeStatus: setStatus,
+        });
         setFilePath(await replit.me.filePath());
-        setStatus(HandshakeStatus.Ready);
       } catch (e) {
         setError(e as Error);
         setStatus(HandshakeStatus.Error);
