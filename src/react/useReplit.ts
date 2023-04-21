@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { getHandshakeStatus } from "src/util/talk";
+import { getHandshakeStatus } from "src/util/handshake";
 import * as replit from "../index";
 import { HandshakeStatus } from "src/types";
 
