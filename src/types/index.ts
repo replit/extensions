@@ -20,6 +20,11 @@ export interface FsNode {
   type: FsNodeType;
 }
 
+export interface FsChild {
+  filename: string;
+  type: FsNodeType;
+}
+
 export interface MoveEvent {
   eventType: "MOVE";
   node: FsNode;
@@ -376,28 +381,36 @@ export interface TextFileOnChangeEvent {
   latestContent: string;
 }
 
+export enum ChangeEventType {
+  Create = "CREATE",
+  Move = "MOVE",
+  Delete = "DELETE",
+  Modify = "MODIFY",
+}
+export interface FsMoveEvent {
+  node: FsNode;
+  to: string;
+  eventType: ChangeEventType.Move;
+}
+
+export interface FsDeleteEvent {
+  node: FsNode;
+  eventType: ChangeEventType.Delete;
+}
+
 export interface WatchDirListeners {
   onChange: WatchDirOnChangeListener;
   onMoveOrDelete?: WatchDirOnMoveOrDeleteListener;
   onError: WatchDirOnErrorListener;
 }
 
-export enum FsErrors {
-  NotFound = "NOT_FOUND",
-  AlreadyExists = "ALREADY_EXIST",
-  NotDirectory = "NOT_DIRECTORY",
-  IsDirectory = "IS_DIRECTORY",
-  InvalidPath = "INVALID_PATH",
-  DiskQuotaExceeded = "DISK_QUOTA_EXCEEDED",
-}
-
 export type WatchDirOnErrorListener = (
-  err: Error & { code?: FsErrors.NotFound | FsErrors.NotDirectory },
+  err: Error,
   extraInfo?: Record<string, any>
 ) => void;
-export type WatchDirOnChangeListener = (children: Array<FsNode>) => void;
+export type WatchDirOnChangeListener = (children: Array<FsChild>) => void;
 export type WatchDirOnMoveOrDeleteListener = (
-  event: MoveEvent | DeleteEvent
+  event: FsDeleteEvent | FsMoveEvent
 ) => void;
 export type OnActiveFileChangeListener = (file: string) => void;
 export type WatchFileOnChangeListener<T extends string | Blob = string> = (

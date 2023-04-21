@@ -29,10 +29,12 @@
       "TextChange",
       "TextFileOnChangeEvent",
       "WatchDirListeners",
-      "FsErrors",
       "WatchDirOnErrorListener",
       "WatchDirOnChangeListener",
-      "WatchDirOnMoveOrDeleteListener"
+      "WatchDirOnMoveOrDeleteListener",
+      "ChangeEventType",
+      "FsMoveEvent",
+      "FsDeleteEvent"
     ],
     "isActive": true
   },
