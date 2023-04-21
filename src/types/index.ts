@@ -397,12 +397,15 @@ export type WatchTextFileOnMoveOrDeleteListener = (
 export type HandshakeOuput = Promise<null | (() => void)>;
 export type OnThemeChangeValuesListener = (values: ThemeValuesGlobal) => void;
 export type OnThemeChangeListener = (theme: ThemeVersion) => void;
-export type OnHandshakeStatusListener = (status: HandshakeStatus) => void;
 
 export interface ReplitInitArgs {
   timeout?: number;
   debug?: boolean;
-  onHandshakeStatus?: OnHandshakeStatusListener;
+}
+
+export interface ReplitInitOutput {
+  dispose: () => void;
+  status: HandshakeStatus;
 }
 
 /*****************************************************************

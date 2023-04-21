@@ -44,13 +44,11 @@ export function useReplit() {
       return;
     }
 
-    let dispose: (() => void) | null = () => {};
+    let dispose: () => void = () => {};
 
     (async () => {
       try {
-        dispose = await replit.init({
-          onHandshakeStatus: setStatus,
-        });
+        dispose = (await replit.init()).dispose;
         setFilePath(await replit.me.filePath());
       } catch (e) {
         setError(e as Error);
@@ -59,7 +57,7 @@ export function useReplit() {
     })();
 
     return () => {
-      dispose?.();
+      dispose();
     };
   }, []);
 
