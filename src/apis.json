@@ -34,10 +34,7 @@
   {
     "name": "replDb",
     "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data.",
-    "typeNames": [
-      "NullableStrError",
-      "StrError"
-    ],
+    "typeNames": ["NullableStrError", "StrError"],
     "isActive": true
   },
   {
@@ -69,9 +66,7 @@
   {
     "name": "session",
     "description": "The session api provides you with information on the current user's coding session in the workspace.",
-    "typeNames": [
-      "OnActiveFileChangeCallback"
-    ],
+    "typeNames": ["OnActiveFileChangeCallback"],
     "isActive": true
   },
   {
