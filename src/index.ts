@@ -1,5 +1,4 @@
 import { setDebugMode } from "src/util/log";
-import { HandshakeOuput } from "./types";
 import { extensionPort, proxy } from "./util/comlink";
 export * from "./api";
 export * from "./util/log";
@@ -15,10 +14,7 @@ function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   ]);
 }
 
-export async function init(args?: {
-  timeout?: number;
-  debug?: boolean;
-}): HandshakeOuput {
+export async function init(args?: { timeout?: number; debug?: boolean }) {
   if (extensionPort === null) {
     console.warn(`extensionPort is null. Was init() called in SSR?`);
     return null;
