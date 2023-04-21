@@ -5,7 +5,7 @@ import {
   useThemeValues,
   useReplitEffect,
 } from "@replit/extensions/react";
-import { UseWatchTextFileStatus, messages, init } from "@replit/extensions";
+import { UseWatchTextFileStatus, messages } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
