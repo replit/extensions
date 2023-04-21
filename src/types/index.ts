@@ -20,19 +20,25 @@ export interface FsNode {
   type: FsNodeType;
 }
 
+export enum ChangeEventType {
+  Create = "CREATE",
+  Move = "MOVE",
+  Delete = "DELETE",
+  Modify = "MODIFY",
+}
 export interface FsChild {
   filename: string;
   type: FsNodeType;
 }
 
 export interface MoveEvent {
-  eventType: "MOVE";
+  eventType: ChangeEventType.Move;
   node: FsNode;
   to: string;
 }
 
 export interface DeleteEvent {
-  eventType: "DELETE";
+  eventType: ChangeEventType.Delete;
   node: FsNode;
 }
 
@@ -381,23 +387,6 @@ export interface TextFileOnChangeEvent {
   latestContent: string;
 }
 
-export enum ChangeEventType {
-  Create = "CREATE",
-  Move = "MOVE",
-  Delete = "DELETE",
-  Modify = "MODIFY",
-}
-export interface FsMoveEvent {
-  node: FsNode;
-  to: string;
-  eventType: ChangeEventType.Move;
-}
-
-export interface FsDeleteEvent {
-  node: FsNode;
-  eventType: ChangeEventType.Delete;
-}
-
 export interface WatchDirListeners {
   onChange: WatchDirOnChangeListener;
   onMoveOrDelete?: WatchDirOnMoveOrDeleteListener;
@@ -410,7 +399,7 @@ export type WatchDirOnErrorListener = (
 ) => void;
 export type WatchDirOnChangeListener = (children: Array<FsChild>) => void;
 export type WatchDirOnMoveOrDeleteListener = (
-  event: FsDeleteEvent | FsMoveEvent
+  event: DeleteEvent | MoveEvent
 ) => void;
 export type OnActiveFileChangeListener = (file: string) => void;
 export type WatchFileOnChangeListener<T extends string | Blob = string> = (
