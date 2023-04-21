@@ -80,7 +80,15 @@ export async function watchFile(path: string, listeners: WatchFileListeners) {
   );
 }
 
-export async function watchDir(path: string, listeners: WatchDirListeners) {}
+export async function watchDir(path: string, listeners: WatchDirListeners) {
+  return extensionPort.watchDir(
+    path,
+    proxy({
+      onMoveOrDelete: () => {},
+      ...listeners,
+    })
+  );
+}
 
 /**
  * Watches a text file at `path` for changes with the provided `listeners`. Returns a dispose method which cleans up the listeners.

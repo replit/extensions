@@ -461,6 +461,7 @@ export type ExtensionPortAPI = {
   copyFile: (path: string, to: string) => Promise<NullableStrError>;
   watchFile: (path: string, watcher: WatchFileListeners) => () => void;
   watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
+  watchDir: (path: string, watcher: WatchDirListeners) => () => void;
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
