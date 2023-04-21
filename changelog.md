@@ -1,3 +1,7 @@
+## 0.35.0
+
+ - Some polish updates on the init function
+
 ## 0.34.0
 
  - Added subscription status for users, and `iconUrl` + `imageUrl` to Repls (data module)
