@@ -2,7 +2,10 @@
   {
     "name": "init",
     "description": "The `init()` method initializes the Extension, establishes a handshake with the Repl, and adds an event listener to the window object. It takes as an argument an object containing optional parameters for the initialization process. It returns a function that removes the event listener added to the window object.",
-    "isActive": true
+    "isActive": true,
+    "typeNames": [
+      "HandshakeOutput"
+    ]
   },
   {
     "name": "fs",
@@ -34,7 +37,10 @@
   {
     "name": "replDb",
     "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data.",
-    "typeNames": ["NullableStrError", "StrError"],
+    "typeNames": [
+      "NullableStrError",
+      "StrError"
+    ],
     "isActive": true
   },
   {
@@ -66,7 +72,9 @@
   {
     "name": "session",
     "description": "The session api provides you with information on the current user's coding session in the workspace.",
-    "typeNames": ["OnActiveFileChangeCallback"],
+    "typeNames": [
+      "OnActiveFileChangeCallback"
+    ],
     "isActive": true
   },
   {
