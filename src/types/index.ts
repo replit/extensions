@@ -26,10 +26,6 @@ export enum ChangeEventType {
   Delete = "DELETE",
   Modify = "MODIFY",
 }
-export interface FsChild {
-  filename: string;
-  type: FsNodeType;
-}
 
 export interface MoveEvent {
   eventType: ChangeEventType.Move;
@@ -397,7 +393,7 @@ export type WatchDirOnErrorListener = (
   err: Error,
   extraInfo?: Record<string, any>
 ) => void;
-export type WatchDirOnChangeListener = (children: Array<FsChild>) => void;
+export type WatchDirOnChangeListener = (children: Array<FsNode>) => void;
 export type WatchDirOnMoveOrDeleteListener = (
   event: DeleteEvent | MoveEvent
 ) => void;
