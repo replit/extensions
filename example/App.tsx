@@ -88,6 +88,7 @@ export default function App() {
               <pre>{content}</pre>
             </div>
           )}
+          <span>{status}</span>
         </div>
       </div>
     </main>

@@ -398,6 +398,16 @@ export type HandshakeOuput = Promise<null | (() => void)>;
 export type OnThemeChangeValuesListener = (values: ThemeValuesGlobal) => void;
 export type OnThemeChangeListener = (theme: ThemeVersion) => void;
 
+export interface ReplitInitArgs {
+  timeout?: number;
+  debug?: boolean;
+}
+
+export interface ReplitInitOutput {
+  dispose: () => void;
+  status: HandshakeStatus;
+}
+
 /*****************************************************************
  * * Extension Port Wrapper
  *****************************************************************/
