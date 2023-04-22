@@ -1,3 +1,7 @@
+## 0.36.0
+
+ - Added `fs.watchDir`
+
 ## 0.35.0
 
  - Some polish updates on the init function
