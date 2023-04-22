@@ -80,6 +80,9 @@ export async function watchFile(path: string, listeners: WatchFileListeners) {
   );
 }
 
+/**
+ * Watches file events (move, create, delete) in the specified directory at the given `path`.
+ */
 export async function watchDir(path: string, listeners: WatchDirListeners) {
   return extensionPort.watchDir(
     path,
