@@ -1,5 +1,9 @@
 import { extensionPort, proxy } from "src/util/comlink";
-import { WatchFileListeners, WatchTextFileListeners } from "src/types";
+import {
+  WatchDirListeners,
+  WatchFileListeners,
+  WatchTextFileListeners,
+} from "src/types";
 import { fileWatcherManager } from "src/api/fs/watching";
 
 /**
@@ -71,6 +75,16 @@ export async function watchFile(path: string, listeners: WatchFileListeners) {
     proxy({
       onMoveOrDelete: () => {},
       onError: () => {},
+      ...listeners,
+    })
+  );
+}
+
+export async function watchDir(path: string, listeners: WatchDirListeners) {
+  return extensionPort.watchDir(
+    path,
+    proxy({
+      onMoveOrDelete: () => {},
       ...listeners,
     })
   );

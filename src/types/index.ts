@@ -20,14 +20,21 @@ export interface FsNode {
   type: FsNodeType;
 }
 
+export enum ChangeEventType {
+  Create = "CREATE",
+  Move = "MOVE",
+  Delete = "DELETE",
+  Modify = "MODIFY",
+}
+
 export interface MoveEvent {
-  eventType: "MOVE";
+  eventType: ChangeEventType.Move;
   node: FsNode;
   to: string;
 }
 
 export interface DeleteEvent {
-  eventType: "DELETE";
+  eventType: ChangeEventType.Delete;
   node: FsNode;
 }
 
@@ -376,6 +383,20 @@ export interface TextFileOnChangeEvent {
   latestContent: string;
 }
 
+export interface WatchDirListeners {
+  onChange: WatchDirOnChangeListener;
+  onMoveOrDelete?: WatchDirOnMoveOrDeleteListener;
+  onError: WatchDirOnErrorListener;
+}
+
+export type WatchDirOnErrorListener = (
+  err: Error,
+  extraInfo?: Record<string, any>
+) => void;
+export type WatchDirOnChangeListener = (children: Array<FsNode>) => void;
+export type WatchDirOnMoveOrDeleteListener = (
+  event: DeleteEvent | MoveEvent
+) => void;
 export type OnActiveFileChangeListener = (file: string) => void;
 export type WatchFileOnChangeListener<T extends string | Blob = string> = (
   newContent: T
@@ -435,6 +456,7 @@ export type ExtensionPortAPI = {
   copyFile: (path: string, to: string) => Promise<NullableStrError>;
   watchFile: (path: string, watcher: WatchFileListeners) => () => void;
   watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
+  watchDir: (path: string, watcher: WatchDirListeners) => () => void;
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
