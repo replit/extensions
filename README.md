@@ -2,8 +2,12 @@
 
 The Replit Extensions client is a module that allows you to easily interact with the Workspace
 
- - [Repository](https://github.com/replit/extensions)
- - [NPM Package](https://www.npmjs.com/package/@replit/extensions)
+ - Repositories
+  - https://github.com/replit/extensions
+  - https://github.com/replit/extensions-react
+ - NPM Packages
+  - https://www.npmjs.com/package/@replit/extensions
+  - https://www.npmjs.com/package/@replit/extensions-react
  - [Documentation](https://docs.replit.com/extensions)
   - [Resources](https://docs.replit.com/extensions/resources)
   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
@@ -34,7 +38,7 @@ pnpm add @replit/extensions
 ```jsx
 import './App.css'
 import { useState } from 'react';
-import { useReplit } from '@replit/extensions/react';
+import { useReplit } from '@replit/extensions-react';
 
 function App() {
   const { status, error, replit } = useReplit(); // Establish the handshake with Replit
