@@ -16,6 +16,9 @@ export interface FsNode {
   type: FsNodeType;
 }
 
+/**
+ * An array of Filesystem Nodes
+ */
 export type FsNodeArray = Array<FsNode>;
 
 /**
