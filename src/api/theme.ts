@@ -1,5 +1,6 @@
 import { proxy } from "comlink";
 import {
+  DisposerFunction,
   extensionPort,
   OnThemeChangeListener,
   OnThemeChangeValuesListener,
@@ -25,7 +26,7 @@ export async function getCurrentThemeValues(): Promise<ThemeValuesGlobal> {
  */
 export async function onThemeChange(
   callback: OnThemeChangeListener
-): Promise<() => void> {
+): Promise<DisposerFunction> {
   return await extensionPort.onThemeChange(proxy(callback));
 }
 
@@ -34,6 +35,6 @@ export async function onThemeChange(
  */
 export async function onThemeChangeValues(
   callback: OnThemeChangeValuesListener
-): Promise<() => void> {
+): Promise<DisposerFunction> {
   return await extensionPort.onThemeChangeValues(proxy(callback));
 }
