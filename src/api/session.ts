@@ -1,9 +1,16 @@
-import { extensionPort, OnActiveFileChangeListener, proxy } from "src";
+import {
+  DisposerFunction,
+  extensionPort,
+  OnActiveFileChangeListener,
+  proxy,
+} from "src";
 
 /**
  * Sets up a listener to handle when the active file is changed
  */
-export function onActiveFileChange(listener: OnActiveFileChangeListener) {
+export function onActiveFileChange(
+  listener: OnActiveFileChangeListener
+): DisposerFunction {
   let dispose = () => {
     console.log("disposing existing watcher");
   };
