@@ -35,7 +35,8 @@
       "WatchDirOnMoveOrDeleteListener",
       "ChangeEventType",
       "FsMoveEvent",
-      "FsDeleteEvent"
+      "FsDeleteEvent",
+      "DisposerFunction"
     ],
     "isActive": true
   },
@@ -89,7 +90,8 @@
       "ThemeEditorSyntaxHighlighting",
       "ThemeValuesEditor",
       "ThemeValues",
-      "ThemeVersion"
+      "ThemeVersion",
+      "DisposerFunction"
     ],
     "isActive": true
   },

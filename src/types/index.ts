@@ -16,7 +16,6 @@ import {
   ThemeVersion,
   OnThemeChangeValuesListener,
 } from "./themes";
-import { OnActiveFileChangeListener } from "./session";
 
 export * from "./fs";
 export * from "./themes";
@@ -41,12 +40,7 @@ export interface ReplitInitOutput {
 
 export type HandshakeOuput = Promise<null | (() => void)>;
 
-// export interface StrError {
-//   error: string;
-// }
-// export interface NullableStrError {
-//   error: string | null;
-// }
+export type DisposerFunction = () => void;
 
 /*****************************************************************
  * * Extension Port Wrapper
@@ -108,9 +102,9 @@ export type ExtensionPortAPI = {
   ) => Promise<{
     error: string | null;
   }>;
-  watchFile: (path: string, watcher: WatchFileListeners) => () => void;
+  watchFile: (path: string, watcher: WatchFileListeners) => DisposerFunction;
   watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
-  watchDir: (path: string, watcher: WatchDirListeners) => () => void;
+  watchDir: (path: string, watcher: WatchDirListeners) => DisposerFunction;
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
@@ -131,11 +125,11 @@ export type ExtensionPortAPI = {
   getCurrentThemeValues: () => Promise<ThemeValuesGlobal>;
   onThemeChangeValues: (
     callback: OnThemeChangeValuesListener
-  ) => Promise<() => void>;
+  ) => Promise<DisposerFunction>;
   getCurrentTheme: () => Promise<ThemeVersion>;
   onThemeChange: (
     callback: (theme: ThemeVersion) => void
-  ) => Promise<() => void>;
+  ) => Promise<DisposerFunction>;
 
   filePath: string;
 
