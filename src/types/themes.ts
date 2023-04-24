@@ -1,4 +1,4 @@
-import { User } from './data';
+import { User } from "./data";
 
 export type CssColor = string;
 

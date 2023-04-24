@@ -41,12 +41,12 @@ export interface ReplitInitOutput {
 
 export type HandshakeOuput = Promise<null | (() => void)>;
 
-export interface StrError {
-  error: string;
-}
-export interface NullableStrError {
-  error: string | null;
-}
+// export interface StrError {
+//   error: string;
+// }
+// export interface NullableStrError {
+//   error: string | null;
+// }
 
 /*****************************************************************
  * * Extension Port Wrapper
@@ -59,28 +59,70 @@ export type ExtensionPortAPI = {
   readFile: (
     path: string,
     encoding: "utf8" | "binary" | null
-  ) => Promise<{ content: string } | StrError>;
+  ) => Promise<
+    | { content: string }
+    | {
+        error: string;
+      }
+  >;
   writeFile: (
     path: string,
     content: string | Blob
-  ) => Promise<{ success: boolean } | StrError>;
+  ) => Promise<
+    | { success: boolean }
+    | {
+        error: string;
+      }
+  >;
   readDir: (path: string) => Promise<{
     children: Array<DirectoryChildNode>;
     error: string;
   }>;
-  createDir: (path: string) => Promise<{} | StrError>;
-  deleteFile: (path: string) => Promise<{} | StrError>;
-  deleteDir: (path: string) => Promise<{} | StrError>;
-  move: (path: string, to: string) => Promise<NullableStrError>;
-  copyFile: (path: string, to: string) => Promise<NullableStrError>;
+  createDir: (path: string) => Promise<
+    | {}
+    | {
+        error: string;
+      }
+  >;
+  deleteFile: (path: string) => Promise<
+    | {}
+    | {
+        error: string;
+      }
+  >;
+  deleteDir: (path: string) => Promise<
+    | {}
+    | {
+        error: string;
+      }
+  >;
+  move: (
+    path: string,
+    to: string
+  ) => Promise<{
+    error: string | null;
+  }>;
+  copyFile: (
+    path: string,
+    to: string
+  ) => Promise<{
+    error: string | null;
+  }>;
   watchFile: (path: string, watcher: WatchFileListeners) => () => void;
   watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
   watchDir: (path: string, watcher: WatchDirListeners) => () => void;
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
-  getReplDbValue: (key: string) => NullableStrError;
-  listReplDbKeys: (prefix: string) => Promise<{ keys: string[] } | StrError>;
+  getReplDbValue: (key: string) => {
+    error: string | null;
+  };
+  listReplDbKeys: (prefix: string) => Promise<
+    | { keys: string[] }
+    | {
+        error: string;
+      }
+  >;
   deleteReplDbKey: (key: string) => Promise<void>;
 
   activatePane: () => Promise<void>;

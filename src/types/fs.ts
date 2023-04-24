@@ -79,7 +79,6 @@ export interface WatchFileListeners<T extends string | Blob = string> {
   onMoveOrDelete?: WatchFileOnMoveOrDeleteListener;
 }
 
-
 /**
  * A written text change for the WriteChange function exposed by WatchTextFileListeners.onReady
  */
@@ -109,7 +108,7 @@ export interface TextFileReadyEvent {
 }
 
 /**
- * Signifies a change when a text file's text content is updated 
+ * Signifies a change when a text file's text content is updated
  */
 export interface TextFileOnChangeEvent {
   changes: Array<TextChange>;
@@ -151,7 +150,6 @@ export interface WatchTextFileListeners {
   onError?: WatchTextFileOnErrorListener;
   onMoveOrDelete?: WatchTextFileOnMoveOrDeleteListener;
 }
-
 
 /**
  * Fires when watching a directory fails
