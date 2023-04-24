@@ -94,8 +94,8 @@
     "isActive": true
   },
   {
-    "name": "rui",
-    "description": "The RUI or Replit User Interface API lets you create with Replit's UI Components.",
+    "name": "me",
+    "description": "The `me` api module exposes information specific to the current extension.",
     "typeNames": []
   }
 ]
