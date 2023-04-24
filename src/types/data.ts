@@ -80,19 +80,22 @@ export interface Repl {
   imageUrl?: string;
 
   // CommentsReplData fragment
-  comments?: {
-    items?: Array<ReplComment>;
-  };
+  comments?: ReplCommentConnection;
 
   // OwnerData fragment
-  owner?: Pick<User, "id" | "username" | "image"> & {
-    __typename: string;
-    description?: string;
-  };
+  owner?: ReplOwner;
 
   // MultiplayersData fragment
   multiplayers?: Array<User>;
 }
+
+/**
+ * A Repl Owner, can be either a User or a Team
+ */
+export type ReplOwner = Pick<User, "id" | "username" | "image"> & {
+  __typename: string;
+  description?: string;
+};
 
 /**
  * A Repl tag
@@ -109,6 +112,13 @@ export interface ReplComment {
   id: number;
   body: string;
   user: User;
+}
+
+/**
+ * An array of ReplComments as items
+ */
+export interface ReplCommentConnection {
+  items: Array<ReplComment>;
 }
 
 /**
