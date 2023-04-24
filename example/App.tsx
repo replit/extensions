@@ -5,7 +5,7 @@ import {
   useThemeValues,
   useReplitEffect,
 } from "@replit/extensions-react";
-import { UseWatchTextFileStatus, messages } from "@replit/extensions";
+import { messages } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
@@ -80,7 +80,7 @@ export default function App() {
               <button onClick={sendMessage}>Click</button>
               <button onClick={randomizeJson}>Randomize JSON</button>
               <hr />
-              {watchStatus === UseWatchTextFileStatus.Watching
+              {watchStatus === "Watching"
                 ? "watching"
                 : "not watching " + watchError}{" "}
               | {filePath}
