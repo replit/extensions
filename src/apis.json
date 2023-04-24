@@ -75,7 +75,7 @@
   {
     "name": "session",
     "description": "The session api provides you with information on the current user's coding session in the workspace.",
-    "typeNames": ["OnActiveFileChangeCallback"],
+    "typeNames": ["OnActiveFileChangeListener", "DisposerFunction"],
     "isActive": true
   },
   {

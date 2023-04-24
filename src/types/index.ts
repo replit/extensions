@@ -161,6 +161,6 @@ export type ExtensionPortAPI = {
   replByUrl: (args: { url: string } & ReplDataInclusion) => ReplQueryOutput;
 
   // session Module
-  watchActiveFile: (callback: (path: string) => void) => () => void;
+  watchActiveFile: (callback: (path: string) => void) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
 };
