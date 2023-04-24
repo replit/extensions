@@ -11,7 +11,7 @@ The Replit Extensions client is a module that allows you to easily interact with
  - [Documentation](https://docs.replit.com/extensions)
   - [Resources](https://docs.replit.com/extensions/resources)
   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
-  - [React Hooks](https://docs.replit.com/extensions/category/react-hooks)
+  - [React Client](https://docs.replit.com/extensions/category/react)
  - [Discord Server](https://discord.gg/replit)
  - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
  - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
@@ -81,22 +81,6 @@ function App() {
 
 export default App;
 ```
-
-## Developer Guide
-### Repl
-
-1. [Import this repository](https://replit.com/github/replit/extensions) onto Replit.
-2. Configure the `.replit` file ([docs](https://docs.replit.com/programming-ide/configuring-repl)) to run the `dev` script in package.json (`npm run dev`).  This will build the project with esbuild and run a dev server which opens a webview.
-3. Once built, you can publish the package with `npm publish`.  Make sure you increment the version.
-4. Update the changelog when publishing.
-5. Copy the URL from the webview and install it as an extension in your Repl.
-
-### Local Development
-1. Clone this repository with `git clone https://github.com/replit/extensions`.
-2. Navigate into the folder with `cd extensions`.
-3. Run `npm run dev` to build the package and run the development server.
-4. Expose localhost to an ngrok link with `ngrok http <port>`.
-5. Copy the https ngrok link and install that as an extension (note: some of the filesystem APIs won't behave correctly on localhost)
 
 ## Help
 If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [Discord server](https://discord.gg/replit).
