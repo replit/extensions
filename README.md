@@ -12,7 +12,7 @@ The Replit Extensions client is a module that allows you to easily interact with
   - [Resources](https://docs.replit.com/extensions/resources)
   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
   - [React Client](https://docs.replit.com/extensions/category/react)
- - [Discord Server](https://discord.gg/replit)
+ - [Discourse Category](https://ask.replit.com/c/extensions)
  - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
  - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
@@ -83,4 +83,4 @@ export default App;
 ```
 
 ## Help
-If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get support in our [Discord server](https://discord.gg/replit).
+If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get help on the [Ask Forum](https://ask.replit.com/c/extensions).
