@@ -16,6 +16,8 @@ export interface FsNode {
   type: FsNodeType;
 }
 
+export type FsNodeArray = Array<FsNode>;
+
 /**
  * A directory child node - a file or a folder.
  */
@@ -162,7 +164,7 @@ export type WatchDirOnErrorListener = (
 /**
  * Fires when a directory's child nodes change
  */
-export type WatchDirOnChangeListener = (children: Array<FsNode>) => void;
+export type WatchDirOnChangeListener = (children: FsNodeArray) => void;
 
 /**
  * Fires when a watched directory is moved or deleted
