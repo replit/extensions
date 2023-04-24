@@ -98,7 +98,7 @@ export interface ReplOwner {
   image: string;
   __typename: string;
   description?: string;
-};
+}
 
 /**
  * A Repl tag
