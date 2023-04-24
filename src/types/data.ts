@@ -92,7 +92,10 @@ export interface Repl {
 /**
  * A Repl Owner, can be either a User or a Team
  */
-export type ReplOwner = Pick<User, "id" | "username" | "image"> & {
+export interface ReplOwner {
+  id: number;
+  username: string;
+  image: string;
   __typename: string;
   description?: string;
 };
