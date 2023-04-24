@@ -1,7 +1,13 @@
 import { User } from "./data";
 
+/**
+ * Alias for strings
+ */
 export type CssColor = string;
 
+/**
+ * Global theme values interface
+ */
 export interface ThemeValuesGlobal {
   __typename?: string;
   backgroundRoot: CssColor;
@@ -101,11 +107,17 @@ export interface ThemeValuesGlobal {
   white: CssColor;
 }
 
+/**
+ * Enumerated Color Scheme
+ */
 export enum ColorScheme {
   Light = "light",
   Dark = "dark",
 }
 
+/**
+ * Custom Theme GraphQL type
+ */
 export interface CustomTheme {
   author: User;
   colorScheme: ColorScheme;
@@ -120,12 +132,18 @@ export interface CustomTheme {
   title?: string;
 }
 
+/**
+ * Theme Syntax Highlighting Tag
+ */
 export interface ThemeSyntaxHighlightingTag {
   __typename: string;
   name: string;
   modifiers: null | Array<string>;
 }
 
+/**
+ * Theme Syntax Highlighting Modifier
+ */
 export interface ThemeSyntaxHighlightingModifier {
   textDecoration?: string;
   fontSize?: string;
@@ -134,22 +152,34 @@ export interface ThemeSyntaxHighlightingModifier {
   color?: string;
 }
 
+/**
+ * Theme Editor Syntax Highlighting
+ */
 export interface ThemeEditorSyntaxHighlighting {
   __typename: string;
   tags: Array<ThemeSyntaxHighlightingTag>;
   values: ThemeSyntaxHighlightingModifier;
 }
 
+/**
+ * Editor Theme Values, an array of ThemeEditorSyntaxHighlighting
+ */
 export interface ThemeValuesEditor {
   editor: Array<ThemeEditorSyntaxHighlighting>;
 }
 
+/**
+ * Both global and editor theme values
+ */
 export interface ThemeValues {
   __typename?: string;
   editor: ThemeValuesEditor;
   global: ThemeValuesGlobal;
 }
 
+/**
+ * Theme Version GraphQL type
+ */
 export interface ThemeVersion {
   __typename?: string;
   id: number;
@@ -162,5 +192,12 @@ export interface ThemeVersion {
   values?: ThemeValues;
 }
 
+/**
+ * Fires with the new theme values when the current theme changes
+ */
 export type OnThemeChangeValuesListener = (values: ThemeValuesGlobal) => void;
+
+/**
+ * Fires with the new theme data when the current theme changes
+ */
 export type OnThemeChangeListener = (theme: ThemeVersion) => void;

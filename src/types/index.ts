@@ -22,30 +22,39 @@ export * from "./themes";
 export * from "./data";
 export * from "./session";
 
+/**
+ * An enumerated set of values for the Handshake between the workspace and an extension
+ */
 export enum HandshakeStatus {
   Ready = "ready",
   Error = "error",
   Loading = "loading",
 }
 
+/**
+ * The Replit init() function arguments
+ */
 export interface ReplitInitArgs {
   timeout?: number;
   debug?: boolean;
 }
 
+/**
+ * The output of the Replit init() function
+ */
 export interface ReplitInitOutput {
   dispose: () => void;
   status: HandshakeStatus;
 }
 
-export type HandshakeOuput = Promise<null | (() => void)>;
-
+/**
+ * A cleanup/disposer function (void)
+ */
 export type DisposerFunction = () => void;
 
-/*****************************************************************
- * * Extension Port Wrapper
- *****************************************************************/
-
+/**
+ * The Extension Port
+ */
 export type ExtensionPortAPI = {
   handshake: () => void;
 

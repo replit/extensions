@@ -1,3 +1,6 @@
+/**
+ * A Replit user
+ */
 export interface User {
   id: number;
   username: string;
@@ -22,11 +25,18 @@ export interface User {
   roles?: Array<UserRole>;
 }
 
+/**
+ * A user social media link
+ */
 export interface UserSocial {
   id: number;
   url: string;
   type: UserSocialType;
 }
+
+/**
+ * An enumerated type of social media links
+ */
 export enum UserSocialType {
   twitter = "twitter",
   github = "github",
@@ -37,6 +47,10 @@ export enum UserSocialType {
   facebook = "facebook",
   discord = "discord",
 }
+
+/**
+ * A user role
+ */
 export interface UserRole {
   id: number;
   name: string;
@@ -44,7 +58,9 @@ export interface UserRole {
   tagline: string;
 }
 
-// Repl
+/**
+ * A Repl
+ */
 export interface Repl {
   id: string;
   url: string;
@@ -78,22 +94,35 @@ export interface Repl {
   multiplayers?: Array<User>;
 }
 
+/**
+ * A Repl tag
+ */
 export interface Tag {
   id: string;
   isOfficial: boolean;
 }
+
+/**
+ * A Repl Comment
+ */
 export interface ReplComment {
   id: number;
   body: string;
   user: User;
 }
 
+/**
+ * Options for user queries
+ */
 export interface UserDataInclusion {
   includeSocialData?: boolean;
   includeRoles?: boolean;
   includePlan?: boolean;
 }
 
+/**
+ * Options for repl queries
+ */
 export interface ReplDataInclusion {
   includeSocialData?: boolean;
   includeComments?: boolean;
@@ -101,8 +130,22 @@ export interface ReplDataInclusion {
   includeMultiplayers?: boolean;
 }
 
+/**
+ * A graphql response
+ */
 export type GraphResponse<T> = Promise<T | never>;
 
+/**
+ * A graphql response for the repl query
+ */
 export type ReplQueryOutput = GraphResponse<{ repl: Repl }>;
+
+/**
+ * A graphql response for the userByUsername query
+ */
 export type UserByUsernameQueryOutput = GraphResponse<{ userByUsername: User }>;
+
+/**
+ * A graphql response for the user query
+ */
 export type UserQueryOutput = GraphResponse<{ user: User }>;
