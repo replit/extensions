@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@replit/extensions": "^0.35.2",
-    "@replit/extensions-react": "^0.0.2",
+    "@replit/extensions-react": "^0.1.0-beta.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite": "^4.2.1"

@@ -3,7 +3,7 @@
     "name": "init",
     "description": "The `init()` method initializes the Extension, establishes a handshake with the Repl, and adds an event listener to the window object. It takes as an argument an object containing optional parameters for the initialization process. It returns a function that removes the event listener added to the window object.",
     "isActive": true,
-    "typeNames": ["ReplitInitArgs", "ReplitInitOutput"]
+    "typeNames": ["ReplitInitArgs", "ReplitInitOutput", "HandshakeStatus"]
   },
   {
     "name": "fs",
@@ -20,6 +20,7 @@
       "WatchTextFileOnMoveOrDeleteListener",
       "FsNode",
       "FsNodeType",
+      "FsNodeArray",
       "TextFileReadyEvent",
       "WriteChange",
       "GetLatestContent",
@@ -35,7 +36,9 @@
       "WatchDirOnMoveOrDeleteListener",
       "ChangeEventType",
       "FsMoveEvent",
-      "FsDeleteEvent"
+      "FsDeleteEvent",
+      "DisposerFunction",
+      "DirectoryChildNode"
     ],
     "isActive": true
   },
@@ -67,14 +70,16 @@
       "ReplComment",
       "UserSocial",
       "UserSocialType",
-      "UserRole"
+      "UserRole",
+      "ReplOwner",
+      "ReplCommentConnection"
     ],
     "isActive": true
   },
   {
     "name": "session",
     "description": "The session api provides you with information on the current user's coding session in the workspace.",
-    "typeNames": ["OnActiveFileChangeCallback"],
+    "typeNames": ["OnActiveFileChangeListener", "DisposerFunction"],
     "isActive": true
   },
   {
@@ -89,7 +94,8 @@
       "ThemeEditorSyntaxHighlighting",
       "ThemeValuesEditor",
       "ThemeValues",
-      "ThemeVersion"
+      "ThemeVersion",
+      "DisposerFunction"
     ],
     "isActive": true
   },
