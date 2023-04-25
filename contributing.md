@@ -15,7 +15,7 @@ We appreciate your interest in contributing to our project! As a team, we believ
 
 ## Developer Guide
 
-1. [Import this repository](https://replit.com/github/replit/extensions) on Replit.  Make sure you select Typescript as the language.
+1. Import [this repository](https://replit.com/github/replit/extensions) onto Replit.  Make sure you select Typescript as the language.  If you make your own fork to create a Pull Request, import that onto Replit instead.
 2. Install packages by running `npm install` in the shell
 3. Run `git reset --hard origin/main` in the shell
 4. Run the Repl
