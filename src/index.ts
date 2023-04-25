@@ -22,7 +22,7 @@ async function windowIsReady() {
       resolve();
       return;
     }
-    
+
     const loadHandler = () => {
       resolve();
       window.removeEventListener("load", loadHandler);
