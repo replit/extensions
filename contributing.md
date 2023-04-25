@@ -18,7 +18,8 @@ We appreciate your interest in contributing to our project! As a team, we believ
 1. [Import this repository](https://replit.com/github/replit/extensions) on Replit.  Make sure you select Typescript as the language.
 2. Install packages by running `npm install` in the shell
 3. Run the Repl
-4. Edit the example extension to ensure that your new implementation works.  To reload the code in the npm package, stop and restart the Repl.
+4. Open the Extension Devtools and hit "Open" on the first Tool listed.
+5. Edit the example extension to ensure that your new implementation works.  To reload the code in the npm package, stop and restart the Repl.
 
 ## Checklist
 
