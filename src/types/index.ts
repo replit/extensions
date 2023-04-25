@@ -15,7 +15,9 @@ import {
   ThemeValuesGlobal,
   ThemeVersion,
   OnThemeChangeValuesListener,
+  OnThemeChangeListener,
 } from "./themes";
+import { OnActiveFileChangeListener } from "./session";
 
 export * from "./fs";
 export * from "./themes";
@@ -56,7 +58,7 @@ export type DisposerFunction = () => void;
  * The Extension Port
  */
 export type ExtensionPortAPI = {
-  handshake: () => void;
+  handshake: () => { success: true };
 
   // fs Module
   readFile: (
@@ -137,7 +139,7 @@ export type ExtensionPortAPI = {
   ) => Promise<DisposerFunction>;
   getCurrentTheme: () => Promise<ThemeVersion>;
   onThemeChange: (
-    callback: (theme: ThemeVersion) => void
+    callback: OnThemeChangeListener
   ) => Promise<DisposerFunction>;
 
   filePath: string;
@@ -161,6 +163,6 @@ export type ExtensionPortAPI = {
   replByUrl: (args: { url: string } & ReplDataInclusion) => ReplQueryOutput;
 
   // session Module
-  watchActiveFile: (callback: (path: string) => void) => DisposerFunction;
+  watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
 };
