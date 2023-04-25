@@ -138,9 +138,7 @@ export type ExtensionPortAPI = {
     callback: OnThemeChangeValuesListener
   ) => Promise<DisposerFunction>;
   getCurrentTheme: () => Promise<ThemeVersion>;
-  onThemeChange: (
-    callback: OnThemeChangeListener
-  ) => Promise<DisposerFunction>;
+  onThemeChange: (callback: OnThemeChangeListener) => Promise<DisposerFunction>;
 
   filePath: string;
 
