@@ -15,13 +15,10 @@ We appreciate your interest in contributing to our project! As a team, we believ
 
 ## Developer Guide
 
-### Replit
-
-1. [Import this repository](https://replit.com/github/replit/extensions) onto Replit.
-2. Configure the `.replit` file ([docs](https://docs.replit.com/programming-ide/configuring-repl)) to run the `dev` script in package.json (`npm run dev`).  This will build the project with esbuild and run a dev server which opens a webview.
-3. Once built, you can publish the package with `npm publish`.  Make sure you increment the version.
-4. Update the changelog when publishing.
-5. Copy the URL from the webview and install it as an extension in your Repl.
+1. [Import this repository](https://replit.com/github/replit/extensions) on Replit.  Make sure you select Typescript as the language.
+2. Install packages by running `npm install` in the shell
+3. Run the Repl
+4. Edit the example extension to ensure that your new implementation works.  To reload the code in the npm package, stop and restart the Repl.
 
 ## Checklist
 
