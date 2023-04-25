@@ -27,7 +27,7 @@ export default function App() {
 
   useReplitEffect(async (replit) => {
     await messages.showConfirm(
-      JSON.stringify(await replit.data.currentUser({}))||""
+      JSON.stringify(await replit.data.currentUser({})) || ""
     );
   }, []);
 
