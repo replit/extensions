@@ -18,18 +18,12 @@ export default function App() {
     writeChange,
     status: watchStatus,
   } = useWatchTextFile({
-    filePath: "test.json",
+    filePath: "example/test.json",
   });
 
   const sendMessage = () => {
     messages.showNotice("THIS IS A TEST");
   };
-
-  useReplitEffect(async (replit) => {
-    await messages.showConfirm(
-      JSON.stringify(await replit.data.currentUser({})) || ""
-    );
-  }, []);
 
   const randomizeJson = async () => {
     try {
