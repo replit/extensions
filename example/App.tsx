@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  useReplit,
-  useWatchTextFile,
-  useReplitEffect,
-} from "@replit/extensions-react";
+import { useReplit, useWatchTextFile } from "@replit/extensions-react";
 import { messages, UseWatchTextFileStatus } from "@replit/extensions";
 import "./App.css";
 
@@ -18,18 +14,12 @@ export default function App() {
     writeChange,
     status: watchStatus,
   } = useWatchTextFile({
-    filePath: "test.json",
+    filePath: "example/test.json",
   });
 
   const sendMessage = () => {
     messages.showNotice("THIS IS A TEST");
   };
-
-  useReplitEffect(async (replit) => {
-    await messages.showConfirm(
-      JSON.stringify(await replit.data.currentUser({})) || ""
-    );
-  }, []);
 
   const randomizeJson = async () => {
     try {
@@ -40,12 +30,13 @@ export default function App() {
 
       json[randomKey] = Math.random();
 
-      if (writeChange)
+      if (writeChange) {
         writeChange({
           from: 0,
-          to: content.length,
+          to: content?.length || 0,
           insert: JSON.stringify(json, null, 2),
         });
+      }
     } catch (e) {
       console.error(e);
       await messages.showError("Error randomizing JSON");

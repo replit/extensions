@@ -7,9 +7,9 @@
   "website": "https://replit.com",
   "longDescription": "The example editor extension lets you test the extension system",
   "coverImages": [],
-  "fileHandlers": [
+  "tools": [
     {
-      "glob": "*.json",
+      "name": "Example extension",
       "handler": "/"
     }
   ]

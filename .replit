@@ -13,6 +13,11 @@ XDG_CONFIG_HOME = "/home/runner/.config"
 PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG/node_modules/.bin"
 npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
 
+[extension]
+isExtension = true
+buildCommand = "cd example && npm run build"
+outputDirectory = "./example/dist"
+
 [unitTest]
 language = "nodejs"
 
@@ -22,50 +27,10 @@ pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
   [languages.javascript.languageServer]
   start = [ "typescript-language-server", "--stdio" ]
 
-[debugger]
-support = true
-
-  [debugger.interactive]
-  transport = "localhost:0"
-  startCommand = [ "dap-node" ]
-
-    [debugger.interactive.initializeMessage]
-    command = "initialize"
-    type = "request"
-
-      [debugger.interactive.initializeMessage.arguments]
-      clientID = "replit"
-      clientName = "replit.com"
-      columnsStartAt1 = true
-      linesStartAt1 = true
-      locale = "en-us"
-      pathFormat = "path"
-      supportsInvalidatedEvent = true
-      supportsProgressReporting = true
-      supportsRunInTerminalRequest = true
-      supportsVariablePaging = true
-      supportsVariableType = true
-
-    [debugger.interactive.launchMessage]
-    command = "launch"
-    type = "request"
-    
-      [debugger.interactive.launchMessage.arguments]  
-      args = []
-      console = "externalTerminal"
-      cwd = "."
-      environment = []
-      pauseForSourceMap = false
-      program = "./index.js"
-      request = "launch"
-      sourceMaps = true
-      stopOnEntry = false
-      type = "pwa-node"
-
 [packager]
 language = "nodejs"
 
 [packager.features]
 enabledForHosting = false
 packageSearch = true
-guessImports = true
+guessImports = false
