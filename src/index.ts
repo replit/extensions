@@ -16,6 +16,22 @@ function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   ]);
 }
 
+async function windowIsReady() {
+  return new Promise<void>((resolve) => {
+    if (document.readyState === "complete") {
+      resolve();
+      return;
+    }
+
+    const loadHandler = () => {
+      resolve();
+      window.removeEventListener("load", loadHandler);
+    };
+
+    window.addEventListener("load", loadHandler);
+  });
+}
+
 export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
   if (extensionPort === null) {
     throw new Error("Extension must be initialized in a browser context");
@@ -32,6 +48,10 @@ export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
   };
 
   try {
+    if (window) {
+      await windowIsReady();
+    }
+
     await promiseWithTimeout(extensionPort.handshake(), args?.timeout || 2000);
 
     setHandshakeStatus(HandshakeStatus.Ready);
