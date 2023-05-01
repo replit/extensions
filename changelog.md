@@ -1,3 +1,9 @@
+## 1.1.0
+ - Wait for window to be ready before handshake
+
+## 1.0.0
+ - Initial release
+
 ## 0.36.0
 
  - Added `fs.watchDir`
