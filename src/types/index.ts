@@ -3,6 +3,8 @@ import {
   WatchFileListeners,
   WatchTextFileListeners,
   WatchDirListeners,
+  RequestOptions,
+  ExecResult,
 } from "./fs";
 import {
   UserDataInclusion,
@@ -163,4 +165,5 @@ export type ExtensionPortAPI = {
   // session Module
   watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
+  exec: (args: RequestOptions) => Promise<ExecResult>;
 };

@@ -23,7 +23,7 @@
     "lint:check": "npx prettier -l src/* && cd example && npx prettier -l .",
     "type:check": "tsc --noEmit",
     "dev": "npm run build && cd ./example && npm install && npm run dev",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run lint:check && tsc --noEmit && npm run build",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"
   },
   "files": [
