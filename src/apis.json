@@ -31,16 +31,12 @@
       "DisposerFunction",
       "ChangeEventType",
       "FsDeleteEvent",
-      "RequstOptions",
       "FsNodeArray",
       "WriteChange",
       "DeleteEvent",
       "FsMoveEvent",
-      "ExecSuccess",
       "FsNodeType",
       "TextChange",
-      "ExecResult",
-      "ExecError",
       "MoveEvent",
       "FsNode"
     ],
@@ -106,6 +102,13 @@
   {
     "name": "me",
     "description": "The `me` api module exposes information specific to the current extension.",
-    "typeNames": []
+    "typeNames": [],
+    "isActive": true
+  },
+  {
+    "name": "exec",
+    "description": "The `exec` module allows the execution of shell commands and output streaming.",
+    "typeNames": ["ExecSuccess", "ExecError", "ExecResult", "ExecArgs"],
+    "isActive": true
   }
 ]

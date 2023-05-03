@@ -1,14 +1,4 @@
 /**
- * A shell execution request.  Keywords/arguments should be separated into array items in `args`.
- *
- * `env` can be used to set custom/temporary environment variables when running the particular command.
- */
-export interface RequestOptions {
-  args: Array<string>;
-  env?: Record<string, string>;
-}
-
-/**
  * A successful shell command execution
  */
 export interface ExecSuccess {
@@ -30,7 +20,12 @@ export interface ExecError {
 export type ExecResult = ExecSuccess | ExecError;
 
 /**
- * Execution args
+ * Options for the `exec()` function.
+ *
+ * `args` - a string, or an array of strings, each representing a command line argument
+ * `env` - an object containing environment variables to be set for the command
+ * `onOutput` - a callback to handle streamed stdout
+ * `onError` - a callback to handle stderr
  */
 export interface ExecArgs {
   args: string | Array<string>;
