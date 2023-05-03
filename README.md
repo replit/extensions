@@ -21,3 +21,4 @@ The Replit Extensions client is a module that allows you to easily interact with
 
 ## Help
 If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get help on the [Ask Forum](https://ask.replit.com/c/extensions).
+You can also join the [Friends of Replit](https://discord.gg/friendsofreplit) Discord server and make a post in #code-help.
