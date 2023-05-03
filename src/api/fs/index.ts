@@ -1,6 +1,5 @@
 import { extensionPort, proxy } from "src/util/comlink";
 import {
-  RequestOptions,
   WatchDirListeners,
   WatchFileListeners,
   WatchTextFileListeners,
@@ -101,11 +100,4 @@ export async function watchDir(path: string, listeners: WatchDirListeners) {
  */
 export function watchTextFile(path: string, listeners: WatchTextFileListeners) {
   return fileWatcherManager.watch(path, listeners);
-}
-
-/**
- * Executes a command in the shell.
- */
-export async function exec(args: RequestOptions) {
-  return await extensionPort.exec(args);
 }
