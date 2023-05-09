@@ -14,9 +14,17 @@ A monorepo containing all NPM packages related to Replit Extensions.
 - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
 - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
-## Developer Guide
+## Getting Started
+
 1. Clone this repository
 2. Run `pnpm install`
 3. Run `pnpm build:extensions` and `pnpm build:react`
 4. Run `pnpm dev`
-5. Ready to go
+
+## Developing the Extensions Client
+
+The default Extensions client can be located within `modules/extensions`. To preview your changes in the development environment, run `pnpm build:extensions` in the shell or simply restart the development server.
+
+## Developing the React Client
+
+The React Extensions client can be located within `modules/extensions-react`. To preview your changes in the development environment, run `pnpm build:react` in the shell or simply restart the development server.
