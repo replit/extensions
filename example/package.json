@@ -11,7 +11,7 @@
   "author": "lunaroyster",
   "license": "MIT",
   "dependencies": {
-    "@replit/extensions": "^0.35.2",
+    "@replit/extensions": "file:..",
     "@replit/extensions-react": "^0.0.2",
     "@vitejs/plugin-react": "^4.0.0",
     "react": "^18.2.0",
