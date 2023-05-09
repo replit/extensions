@@ -18,8 +18,7 @@ A monorepo containing all NPM packages related to Replit Extensions.
 
 1. Clone this repository
 2. Run `pnpm install`
-3. Run `pnpm build:extensions` and `pnpm build:react`
-4. Run `pnpm dev`
+3. Run `pnpm dev`
 
 ## Developing the Extensions Client
 
