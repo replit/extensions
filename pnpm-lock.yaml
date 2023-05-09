@@ -15,9 +15,8 @@ importers:
       typedoc: ^0.23.21
       typescript: ^4.9.3
       vite: ^4.2.1
-    dependencies:
-      '@replit/extensions': link:modules/extensions
     devDependencies:
+      '@replit/extensions': link:modules/extensions
       '@types/react': 18.2.6
       '@vitejs/plugin-react': 4.0.0_vite@4.3.5
       esbuild: 0.15.18
