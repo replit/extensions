@@ -113,7 +113,7 @@ export type ExtensionPortAPI = {
   ) => Promise<{
     error: string | null;
   }>;
-  watchFile: (path: string, watcher: WatchFileListeners) => DisposerFunction;
+  watchFile: (path: string, watcher: WatchFileListeners, encoding: "utf8" | "binary" | null) => DisposerFunction;
   watchTextFile: (path: string, watcher: WatchTextFileListeners) => () => void;
   watchDir: (path: string, watcher: WatchDirListeners) => DisposerFunction;
 

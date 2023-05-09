@@ -12,5 +12,11 @@
       "name": "Example extension",
       "handler": "/"
     }
+  ],
+  "scopes": [
+    {
+      "name": "read",
+      "reason": "read files"
+    }
   ]
 }
