@@ -1,6 +1,10 @@
 import * as React from "react";
-import { useReplit, useWatchTextFile } from "@replit/extensions-react";
-import { messages, UseWatchTextFileStatus } from "@replit/extensions";
+import {
+  useReplit,
+  useWatchTextFile,
+  UseWatchTextFileStatus,
+} from "@replit/extensions-react";
+import { messages } from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
