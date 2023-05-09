@@ -1,0 +1,53 @@
+{
+  "name": "@replit/extensions-react",
+  "version": "1.1.1",
+  "description": "",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "default": "./dist/index.js"
+      },
+      "default": "./dist/index.cjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "unpkg": "dist/index.global.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
+    "lint": "npx prettier --write src/*",
+    "lint:check": "npx prettier -l src/*",
+    "type:check": "tsc --noEmit",
+    "dev": "npm run build && cd ./example && npx vite",
+    "prepublishOnly": "tsc --noEmit && npm run lint:check && npm run build"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "keywords": [
+    "replit",
+    "extensions",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^18.0.28"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.18",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.3",
+    "@replit/extensions": "^1.1.0"
+  },
+  "peerDependencies": {
+    "@replit/extensions": ">=1.0.0",
+    "react": ">=17.0.0"
+  }
+}

@@ -1,4 +1,4 @@
-run = "npm run dev"
+run = "cd extensions && npm run dev"
 hidden = [".config"]
 
 [[hints]]

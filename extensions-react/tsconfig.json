@@ -1,0 +1,20 @@
+{
+  "include": [
+    "src",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "src": ["./src/"]
+    },
+    "module": "commonjs",
+    "target": "ESNext",
+    "declaration": true,
+    "jsx": "react-jsx"
+  },
+}
