@@ -1,5 +1,6 @@
 run = "pnpm dev"
 hidden = [".config"]
+entrypoint = "modules/example/App.tsx"
 
 [[hints]]
 regex = "Error \\[ERR_REQUIRE_ESM\\]"
@@ -34,3 +35,6 @@ language = "nodejs"
 enabledForHosting = false
 packageSearch = true
 guessImports = false
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config"]
