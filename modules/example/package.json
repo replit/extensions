@@ -11,8 +11,8 @@
   "author": "lunaroyster",
   "license": "MIT",
   "dependencies": {
-    "@replit/extensions": "file:..",
-    "@replit/extensions-react": "^0.0.2",
+    "@replit/extensions": "workspace:*",
+    "@replit/extensions-react": "workspace:*",
     "@vitejs/plugin-react": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

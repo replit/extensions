@@ -1,21 +1,23 @@
 ## 1.1.0
- - Wait for window to be ready before handshake
+
+- Wait for window to be ready before handshake
 
 ## 1.0.0
- - Initial release
+
+- Initial release
 
 ## 0.36.0
 
- - Added `fs.watchDir`
+- Added `fs.watchDir`
 
 ## 0.35.0
 
- - Some polish updates on the init function
+- Some polish updates on the init function
 
 ## 0.34.0
 
- - Added subscription status for users, and `iconUrl` + `imageUrl` to Repls (data module)
- - Added the `useIsExtension` hook for the react module
+- Added subscription status for users, and `iconUrl` + `imageUrl` to Repls (data module)
+- Added the `useIsExtension` hook for the react module
 
 ## 0.33.1
 

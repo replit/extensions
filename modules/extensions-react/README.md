@@ -2,19 +2,17 @@
 
 The React Extensions API Client comes with a set of hooks and components that combine to make a blazingly fast and seamless developer experience.
 
-- Repositories
-  - https://github.com/replit/extensions
-  - https://github.com/replit/extensions-react
 - NPM Packages
   - https://www.npmjs.com/package/@replit/extensions
   - https://www.npmjs.com/package/@replit/extensions-react
-- [GitHub Repository](https://github.com/replit/extensions-react)
+- [Repository](https://github.com/replit/extensions)
 - [Documentation](https://docs.replit.com/extensions)
-- [Resources](https://docs.replit.com/extensions/resources)
-- [API Modules](https://docs.replit.com/extensions/category/api-reference)
-- [React Client](https://docs.replit.com/extensions/category/react)
+  - [Resources](https://docs.replit.com/extensions/resources)
+  - [API Modules](https://docs.replit.com/extensions/category/api-reference)
+  - [React Client](https://docs.replit.com/extensions/category/react)
 - [Discourse Category](https://ask.replit.com/c/extensions)
 - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
+- [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
 ## Installation
 

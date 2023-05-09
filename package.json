@@ -1,0 +1,34 @@
+{
+  "name": "extensions",
+  "description": "Replit Extensions Client Monorepo",
+  "scripts": {
+    "dev": "cd modules/example && pnpm dev",
+    "lint": "prettier --write \"**/src/**/*.{js,ts,tsx,jsx}\"",
+    "lint:check": "prettier -l \"**/src/**/*.{js,ts,tsx,jsx}\"",
+    "type:check": "cd modules/extensions && tsc --noEmit && cd ../extensions-react && tsc --noEmit",
+    "build:extensions": "cd modules/extensions && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
+    "build:react": "cd modules/extensions-react && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
+    "publish:extensions": "pnpm lint:check && pnpm type:check && cd modules/extensions && npm publish",
+    "publish:react": "pnpm lint:check && pnpm type:check && cd modules/extensions-react && npm publish"
+  },
+  "keywords": [
+    "extensions",
+    "api",
+    "client",
+    "replit"
+  ],
+  "author": "Replit",
+  "license": "MIT",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "prettier": "^2.7.1",
+    "esbuild": "^0.15.18",
+    "tsup": "^6.6.3",
+    "typedoc": "^0.23.21",
+    "typescript": "^4.9.3",
+    "@types/react": "^18.0.28"
+  }
+}

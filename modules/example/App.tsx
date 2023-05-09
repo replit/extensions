@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useReplit, useWatchTextFile } from "@replit/extensions-react";
+import { useReplit } from "@replit/extensions-react";
 import * as replit from "@replit/extensions";
 import "./App.css";
-const { messages, HandshakeStatus } = replit;
+const { HandshakeStatus } = replit;
 
 export default function App() {
   const { status, error, filePath } = useReplit();
