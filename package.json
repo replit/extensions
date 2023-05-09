@@ -24,15 +24,18 @@
     "pnpm": ">=7"
   },
   "devDependencies": {
+    "@types/react": "^18.0.28",
     "@vitejs/plugin-react": "^4.0.0",
-    "vite": "^4.2.1",
+    "esbuild": "^0.15.18",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "prettier": "^2.7.1",
-    "esbuild": "^0.15.18",
     "tsup": "^6.6.3",
     "typedoc": "^0.23.21",
     "typescript": "^4.9.3",
-    "@types/react": "^18.0.28"
+    "vite": "^4.2.1"
+  },
+  "dependencies": {
+    "@replit/extensions": "workspace:*"
   }
 }
