@@ -1,15 +1,10 @@
 import * as React from "react";
 import { useReplit } from "@replit/extensions-react";
-import * as replit from "@replit/extensions";
+import { HandshakeStatus } from "@replit/extensions";
 import "./App.css";
-const { HandshakeStatus } = replit;
 
 export default function App() {
   const { status, error, filePath } = useReplit();
-
-  if (typeof window !== "undefined") {
-    window.replit = replit;
-  }
 
   return (
     <main>

@@ -3,8 +3,8 @@
   "description": "Replit Extensions Client Monorepo",
   "scripts": {
     "dev": "cd modules/example && pnpm dev",
-    "lint": "prettier --write \"**/src/**/*.{js,ts,tsx,jsx}\"",
-    "lint:check": "prettier -l \"**/src/**/*.{js,ts,tsx,jsx}\"",
+    "lint": "prettier --write \"**/(src|example)/**/*.{js,ts,tsx,jsx}\"",
+    "lint:check": "prettier -l \"**/(src|example)/**/*.{js,ts,tsx,jsx}\"",
     "type:check": "cd modules/extensions && tsc --noEmit && cd ../extensions-react && tsc --noEmit",
     "build:extensions": "cd modules/extensions && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "build:react": "cd modules/extensions-react && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
