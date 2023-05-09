@@ -32,4 +32,5 @@ jobs:
         with: 
           version: 7.29.1
       - run: pnpm install
+      - run: pnpm install @replit/extensions
       - run: pnpm lint:check
