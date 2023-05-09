@@ -7,10 +7,10 @@ const { messages, HandshakeStatus } = replit;
 export default function App() {
   const { status, error, filePath } = useReplit();
 
-  if (typeof window !== 'undefined') {
-    window.replit = replit
+  if (typeof window !== "undefined") {
+    window.replit = replit;
   }
-  
+
   return (
     <main>
       <div className="center">

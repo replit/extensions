@@ -68,7 +68,11 @@ export async function copyFile(path: string, to: string) {
 /**
  * Watches the file at `path` for changes with the provided `listeners`. Returns a dispose method which cleans up the listeners
  */
-export async function watchFile(path: string, listeners: WatchFileListeners, encoding: "utf8" | "binary" = "binary") {
+export async function watchFile(
+  path: string,
+  listeners: WatchFileListeners,
+  encoding: "utf8" | "binary" = "binary"
+) {
   // Note: comlink does not let us test for functions being present, so we provide default functions for all callbacks in case the user does not pass those, to keep the API flexible
   return extensionPort.watchFile(
     path,
@@ -77,7 +81,7 @@ export async function watchFile(path: string, listeners: WatchFileListeners, enc
       onError: () => {},
       ...listeners,
     }),
-    encoding,
+    encoding
   );
 }
 
