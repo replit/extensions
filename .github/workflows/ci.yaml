@@ -20,6 +20,7 @@ jobs:
         with: 
           version: 7.29.1
       - run: pnpm install
+      - run: pnpm build:extensions
       - run: pnpm type:check
   format:
     runs-on: ubuntu-latest
