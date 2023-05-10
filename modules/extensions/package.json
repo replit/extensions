@@ -13,7 +13,10 @@
       "require": "./dist/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "types": "./dist/index.d.ts"
+  },
   "type": "module",
   "unpkg": "dist/index.global.js",
   "scripts": {
