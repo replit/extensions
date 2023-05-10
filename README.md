@@ -1,13 +1,12 @@
-# Replit Extensions Client
+# Replit Extensions Monorepo (All Clients)
 
 A monorepo containing all NPM packages related to Replit Extensions.
 
 - NPM Packages
-  - https://www.npmjs.com/package/@replit/extensions
-  - https://www.npmjs.com/package/@replit/extensions-react
+  - [Default API Client](https://www.npmjs.com/package/@replit/extensions)
+  - [React API Client](https://www.npmjs.com/package/@replit/extensions-react)
 - [Repository](https://github.com/replit/extensions)
 - [Documentation](https://docs.replit.com/extensions)
-  - [Resources](https://docs.replit.com/extensions/resources)
   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
   - [React Client](https://docs.replit.com/extensions/category/react)
 - [Discourse Category](https://ask.replit.com/c/extensions)

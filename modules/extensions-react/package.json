@@ -1,7 +1,7 @@
 {
   "name": "@replit/extensions-react",
   "version": "1.1.1",
-  "description": "",
+  "description": "The React Extensions API Client comes with a set of hooks and components that combine to make a blazingly fast and seamless developer experience.",
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -30,7 +30,8 @@
   "keywords": [
     "replit",
     "extensions",
-    "react"
+    "react",
+    "api-client"
   ],
   "author": "",
   "license": "MIT",

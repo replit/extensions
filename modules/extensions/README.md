@@ -1,6 +1,6 @@
 # Replit Extensions API Client
 
-The Replit Extensions client is a module that allows you to easily interact with the Workspace
+The Replit Extensions client is a module that allows you to easily interact with the Workspace.
 
 - NPM Packages
   - https://www.npmjs.com/package/@replit/extensions
