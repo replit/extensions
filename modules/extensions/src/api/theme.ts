@@ -1,11 +1,11 @@
 import { proxy } from "comlink";
 import {
   DisposerFunction,
-  extensionPort,
   OnThemeChangeListener,
   OnThemeChangeValuesListener,
   ThemeValuesGlobal,
-} from "src";
+} from "../types";
+import { extensionPort } from "../util/comlink";
 
 /**
  * Returns all metadata on the current theme including syntax highlighting, description, HSL, token values, and more.

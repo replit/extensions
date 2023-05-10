@@ -1,5 +1,5 @@
-import replit, { HandshakeStatus } from "@replit/extensions";
-import { WriteChange } from "@replit/extensions";
+import { HandshakeStatus, WriteChange } from "@replit/extensions";
+import type * as replit from "@replit/extensions";
 
 export interface UseReplitReady {
   status: HandshakeStatus.Ready;

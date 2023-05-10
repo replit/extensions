@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ReplitContext } from "src/state";
+import { ReplitContext } from "../state";
 
 /**
  * Returns the handshake status, connection error (if any), filePath, and Replit API wrapper.  Can only be used if wrapped in the <HandshakeProvider> component.

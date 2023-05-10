@@ -13,9 +13,7 @@ export default function useThemeValues() {
 
     setValues(themeValues);
 
-    await themes.onThemeChangeValues((themeValues) => {
-      setValues(themeValues);
-    });
+    await themes.onThemeChangeValues(setValues);
   }, []);
 
   return values;

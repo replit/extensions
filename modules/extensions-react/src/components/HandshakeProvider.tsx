@@ -1,8 +1,8 @@
 import { HandshakeStatus } from "@replit/extensions";
 import * as replit from "@replit/extensions";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ReplitContext } from "src/state";
-import { UseReplitFailure, UseReplitLoading, UseReplitReady } from "src/types";
+import { ReplitContext } from "../state";
+import { UseReplitFailure, UseReplitLoading, UseReplitReady } from "../types";
 
 /**
  * Provides and establishes the initial handshake between the Replit workspace and your extension.

@@ -1,4 +1,4 @@
-import { setDebugMode } from "src/util/log";
+import { setDebugMode } from "./util/log";
 import { HandshakeStatus, ReplitInitArgs, ReplitInitOutput } from "./types";
 import { extensionPort, proxy } from "./util/comlink";
 import { getHandshakeStatus, setHandshakeStatus } from "./util/handshake";

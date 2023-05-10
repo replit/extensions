@@ -5,7 +5,7 @@ import {
   UseWatchTextFileLoading,
   UseWatchTextFileWatching,
   UseWatchTextFileStatus,
-} from "src/types";
+} from "../types";
 
 /**
  * Returns the watching status and contents of a text file at the given `filePath`.  Also provides a `writeChange` function that enables you to write a change to the watched text file.

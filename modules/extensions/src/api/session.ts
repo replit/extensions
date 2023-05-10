@@ -1,9 +1,8 @@
 import {
   DisposerFunction,
-  extensionPort,
   OnActiveFileChangeListener,
-  proxy,
-} from "src";
+} from "../types";
+import { extensionPort, proxy } from "../util/comlink";
 
 /**
  * Sets up a listener to handle when the active file is changed

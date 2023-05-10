@@ -1,4 +1,4 @@
-import { HandshakeStatus } from "src/types";
+import { HandshakeStatus } from "../types";
 
 let handshakeStatus: HandshakeStatus = HandshakeStatus.Loading;
 

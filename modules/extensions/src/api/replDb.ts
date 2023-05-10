@@ -1,4 +1,4 @@
-import { extensionPort } from "src/util/comlink";
+import { extensionPort } from "../util/comlink";
 
 /**
  * Sets the value for a given key

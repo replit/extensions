@@ -16,7 +16,7 @@ export default function useActiveFile() {
         setFile(await session.getActiveFile());
       })();
 
-      return session.onActiveFileChange(async (f) => setFile(f));
+      return session.onActiveFileChange(async (f: string | null) => setFile(f));
     } else {
       return () => {};
     }

@@ -1,4 +1,5 @@
-import { extensionPort } from "src";
+import { extensionPort } from "../util/comlink";
+
 
 /**
  * Shows a confirmation toast message within the Replit workspace for `length` milliseconds.  Returns the ID of the message as a UUID
