@@ -1,7 +1,4 @@
-import {
-  DisposerFunction,
-  OnActiveFileChangeListener,
-} from "../types";
+import { DisposerFunction, OnActiveFileChangeListener } from "../types";
 import { extensionPort, proxy } from "../util/comlink";
 
 /**
