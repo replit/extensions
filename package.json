@@ -9,6 +9,7 @@
     "build:extensions": "cd modules/extensions && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "build:react": "cd modules/extensions-react && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "build:all": "pnpm build:extensions && pnpm build:react",
+    "clean:all": "rm -rf modules/extensions/dist && rm -rf modules/extensions-react/dist",
     "publish:extensions": "pnpm lint:check && pnpm type:check && cd modules/extensions && npm publish",
     "publish:react": "pnpm lint:check && pnpm type:check && cd modules/extensions-react && npm publish"
   },
