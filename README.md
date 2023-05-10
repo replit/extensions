@@ -1,23 +1,30 @@
-# Replit Extensions API Client
+# Replit Extensions Monorepo (All Clients)
 
-The Replit Extensions client is a module that allows you to easily interact with the Workspace
+A monorepo containing all NPM packages related to Replit Extensions.
 
-- Repositories
-  - https://github.com/replit/extensions
-  - https://github.com/replit/extensions-react
 - NPM Packages
-  - https://www.npmjs.com/package/@replit/extensions
-  - https://www.npmjs.com/package/@replit/extensions-react
-- [GitHub Repository](https://github.com/replit/extensions)
+  - [Default API Client](https://www.npmjs.com/package/@replit/extensions)
+  - [React API Client](https://www.npmjs.com/package/@replit/extensions-react)
+- [Repository](https://github.com/replit/extensions)
 - [Documentation](https://docs.replit.com/extensions)
-   - [Resources](https://docs.replit.com/extensions/resources)
-   - [API Modules](https://docs.replit.com/extensions/category/api-reference)
-   - [React Client](https://docs.replit.com/extensions/category/react)
-- [Ask Forum](https://ask.replit.com/c/extensions)
+  - [API Modules](https://docs.replit.com/extensions/category/api-reference)
+  - [React Client](https://docs.replit.com/extensions/category/react)
+- [Discourse Category](https://ask.replit.com/c/extensions)
 - [React Extension Template](https://replit.com/@replit/React-Extension?v=1)
 - [HTML/CSS/JS Extension Template](https://replit.com/@replit/HTMLCSSJS-Extension?v=1)
 
-[![Run on Replit button](https://user-images.githubusercontent.com/50180265/228865994-ccf7348e-ffb7-454e-bc4e-ce90df6c09bc.png)](https://replit.com/github/replit/extensions)
+## Getting Started
 
-## Help
-If you don't understand something in the documentation, have found a bug, or would like to request a feature, you can get help on the [Ask Forum](https://ask.replit.com/c/extensions).
+1. Clone this repository
+2. Run `pnpm install`
+3. Run `pnpm dev`, or simply hit the Run button if you've imported this into Replit.
+
+You can edit either the default Extensions client or the React client and test your changes in `modules/example`.
+
+## Developing the Extensions Client
+
+The default Extensions client can be located within `modules/extensions`. To preview your changes in the development environment, run `pnpm build:extensions` in the shell or simply restart the development server.
+
+## Developing the React Client
+
+The React Extensions client can be located within `modules/extensions-react`. To preview your changes in the development environment, run `pnpm build:react` in the shell or simply restart the development server.

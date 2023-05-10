@@ -15,16 +15,16 @@ We appreciate your interest in contributing to our project! As a team, we believ
 
 ## Developer Guide
 
-1. Import [this repository](https://replit.com/github/replit/extensions) onto Replit.  Make sure you select Typescript as the language.  If you make your own fork to create a Pull Request, import that onto Replit instead.
+1. Import [this repository](https://replit.com/github/replit/extensions) onto Replit. Make sure you select Typescript as the language. If you make your own fork to create a Pull Request, import that onto Replit instead.
 2. Install packages by running `npm install` in the shell
 3. Run `git reset --hard origin/main` in the shell
 4. Run the Repl
 5. Open the Extension Devtools and hit "Open" on the first Tool listed.
-6. Edit the example extension to ensure that your new implementation works.  To reload the code in the npm package, stop and restart the Repl.
+6. Edit the example extension to ensure that your new implementation works. To reload the code in the npm package, stop and restart the Repl.
 
 ## Checklist
 
-1. Ensure that your code does not have any syntax or compiler errors.  You can check this by running `tsc --noEmit` in the shell.
+1. Ensure that your code does not have any syntax or compiler errors. You can check this by running `tsc --noEmit` in the shell.
 2. Make sure everything is formatted properly with `npm run lint`.
 3. Provide a test plan for anything you've modified so we can test it out and make sure it works.
 
