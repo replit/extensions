@@ -2,9 +2,12 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
-    "module": "commonjs",
     "target": "ESNext",
-    "declaration": true,
-    "isolatedModules": true
-  }
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "noUncheckedIndexedAccess": true
+  },
 }
