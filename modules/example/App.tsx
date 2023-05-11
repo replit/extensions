@@ -4,7 +4,12 @@ import { useReplit } from "@replit/extensions-react";
 import "./App.css";
 
 export default function App() {
-  const { status, error, filePath } = useReplit();
+  const { status, error, filePath, replit } = useReplit();
+
+  if (typeof window !== 'undefined') {
+    // @ts-ignore
+    window.replit = replit;
+  }
 
   return (
     <main>
