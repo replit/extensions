@@ -1,19 +1,5 @@
 import { extensionPort, proxy } from "../util/comlink";
-import { Env, ExecOptions, ExecResult } from "src/types";
-
-interface ExecArgs {
-  splitStderr?: boolean;
-  env?: Env;
-  args: Array<string> | string;
-  onOutput?: (output: string) => void;
-  onStdErr?: (stderr: string) => void;
-  onError?: (error: Error) => void;
-  onEnd?: (
-    res: ExecResult & {
-      output: string;
-    }
-  ) => void;
-}
+import { ExecArgs } from "../types";
 
 export default async function exec({
   splitStderr,
