@@ -1,6 +1,6 @@
 {
   "name": "replit-extensions-client",
-  "version": "0",
+  "version": "0.0.1",
   "description": "Replit Extensions Monorepo (All Clients)",
   "scripts": {
     "dev": "cd modules/example && pnpm dev",
