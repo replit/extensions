@@ -21,7 +21,7 @@
   "unpkg": "dist/index.global.js",
   "scripts": {
     "build": "rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
-    "lint": "npx prettier --write src/* && cd example && npx prettier --write .",
+    "lint": "npx prettier --write src/*",
     "lint:check": "npx prettier -l src/* && cd example && npx prettier -l .",
     "type:check": "tsc --noEmit",
     "prepublishOnly": "npm run build",

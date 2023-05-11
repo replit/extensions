@@ -3,8 +3,7 @@
   "description": "Replit Extensions Monorepo (All Clients)",
   "scripts": {
     "dev": "pnpm build:all && cd modules/example && pnpm dev",
-    "lint": "prettier --write \"**/(src|example)/**/*.{js,ts,tsx,jsx}\"",
-    "lint:check": "prettier -l \"**/(src|example)/**/*.{js,ts,tsx,jsx}\"",
+    "lint": "turbo run lint",
     "type:check": "cd modules/extensions && tsc --noEmit && cd ../extensions-react && tsc --noEmit",
     "build:extensions": "cd modules/extensions && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "build:react": "cd modules/extensions-react && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
