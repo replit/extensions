@@ -19,20 +19,14 @@ export default function App() {
   }
 
   const execute = async () => {
-    const dispose = await exec({
-      args: ["pnpm", "lint"],
-      env: {},
-      onOutput: (a: string) => {
-        messages.showConfirm(a);
-      },
-      onEnd: (a) => {
-        messages.showNotice(a.output);
-        messages.showWarning(String(a.exitCode));
-        messages.showError(String(a.error));
+    const out = await exec({
+      args: "pnpm lint",
+      onOutput: (output) => {
+        messages.showConfirm(output);
       },
     });
 
-    // dispose();
+    messages.showWarning(out.output);
   };
 
   return (

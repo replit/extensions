@@ -1,44 +1,66 @@
 import { extensionPort, proxy } from "../util/comlink";
-import { ExecArgs } from "../types";
+import {
+  CombinedOutputExecOptions,
+  CombinedOutputExecResult,
+  SeparatedOutputExecOptions,
+  SeparatedOutputExecResult,
+} from "../types";
 
-export default async function exec({
-  splitStderr,
-  args,
-  env,
-  onOutput = () => {},
-  onStdErr = () => {},
-  onError = () => {},
-  onEnd = () => {},
-}: ExecArgs): Promise<() => void> {
+export async function exec(
+  combinedOutputOptions: CombinedOutputExecOptions
+): Promise<CombinedOutputExecResult>;
+export async function exec(
+  separatedOutputOptions: SeparatedOutputExecOptions
+): Promise<SeparatedOutputExecResult>;
+export async function exec(
+  options: CombinedOutputExecOptions | SeparatedOutputExecOptions
+): Promise<SeparatedOutputExecResult | CombinedOutputExecResult> {
   let outputStr: string = "";
+  let errorStr: string = "";
+  let exitCode: string = "";
 
-  // TODO: Make dispose() not cause a BSOD after being called immediately
-  const { dispose, promise } = await extensionPort.experimental.exec(
+  const { promise } = await extensionPort.experimental.exec(
     proxy({
-      args: Array.isArray(args) ? args : ["bash", "-c", args],
-      env,
-      splitStderr,
+      args: Array.isArray(options.args)
+        ? options.args
+        : ["bash", "-c", options.args],
+      env: options.env || {},
+      splitStderr: options.separateStdErr,
       onOutput: (output: string) => {
         outputStr += output;
-        onOutput(output);
+        if (options.separateStdErr) {
+          options.onStdOutOutput?.(output);
+        } else {
+          options.onOutput?.(output);
+        }
       },
       onStdErr: (stderr: string) => {
-        onStdErr(stderr);
+        if (options.separateStdErr) {
+          errorStr += stderr;
+          options.onStdErrOutput?.(stderr);
+        } else {
+          outputStr += stderr;
+          options.onOutput?.(stderr);
+        }
       },
       onError: (err: Error) => {
-        onError(err);
+        exitCode = err.message.match(/[0-9]+/)?.[0] || "";
       },
     })
   );
 
-  promise.then((res) => {
-    onEnd({
-      ...res,
-      output: outputStr,
-    });
-  });
+  await promise;
 
-  return () => {
-    dispose();
-  };
+  if (options.separateStdErr) {
+    return {
+      output: outputStr,
+      error: errorStr,
+      exitError: exitCode || null,
+    };
+  } else {
+    return {
+      output: outputStr,
+      exitError: exitCode || null,
+    };
+  }
 }

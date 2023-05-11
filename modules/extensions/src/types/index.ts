@@ -18,7 +18,6 @@ import {
   OnThemeChangeListener,
 } from "./themes";
 import { OnActiveFileChangeListener } from "./session";
-import { ExecOptions, ExecResult } from "./exec";
 
 export * from "./fs";
 export * from "./themes";
@@ -174,8 +173,20 @@ export type ExtensionPortAPI = {
 };
 
 export interface ExperimentalAPIs {
-  exec: (args: ExecOptions) => Promise<{
+  exec: (args: {
+    splitStderr?: boolean;
+    args: Array<string>;
+    env?: {
+      [key: string]: string;
+    };
+    onOutput: (output: string) => void;
+    onStdErr: (stderr: string) => void;
+    onError: (error: Error) => void;
+  }) => Promise<{
     dispose: () => void;
-    promise: Promise<ExecResult>;
+    promise: Promise<{
+      exitCode: number | null;
+      error: string | null;
+    }>;
   }>;
 }

@@ -1,50 +1,38 @@
-/**
- * The promise result returned by the `exec()` function
- */
-export interface ExecResult {
-  exitCode: number | null;
-  error: string | null;
+export interface CombinedOutputExecResult {
+  /** Buffered standard out and standard error outputs combined */
+  output: string;
+  /** This is usually a string containing an exit code if non-zero exit */
+  exitError: string | null;
 }
 
-/**
- * Custom environment variables for an execution channel
- */
-export type Env = {
-  [key: string]: string;
-};
-
-/**
- * Options for the `exec()` function.
- * `splitStderr` - Whether to seperate stderr from stdout
- * `env` - Optional. Whether to add custom environment variables to this execution channel
- * `args` - The arguments to execute.  Can be a string or an array of strings.
- * `onOutput` - Callback for when the output of the command is streamed.
- * `onStdErr` - Callback for when the stderr of the command is streamed.
- * `onError` - Callback for when the command errors.
- * `onEnd` - Callback for when the command ends.
- */
-export interface ExecArgs {
-  splitStderr?: boolean;
-  env?: Env;
-  args: Array<string> | string;
-  onOutput?: (output: string) => void;
-  onStdErr?: (stderr: string) => void;
-  onError?: (error: Error) => void;
-  onEnd?: (
-    res: ExecResult & {
-      output: string;
-    }
-  ) => void;
+export interface SeparatedOutputExecResult {
+  /** Buffered standard out output */
+  output: string;
+  /** Buffered standard error output */
+  error: string;
+  /** This is usually a string containing an exit code if non-zero exit */
+  exitError: string | null;
 }
 
-/**
- * Options for the replit-web exec function
- */
-export interface ExecOptions {
-  splitStderr?: boolean;
-  args: Array<string> | string;
-  env?: Env;
+export interface BaseExecOptions {
+  /** whether to keep standard out and standard error outputs separate */
+  separateStdErr?: boolean;
+  /** arguments for the command, can be an array of arguments, or a string interpreted by bash */
+  args: string | Array<string>;
+  /** any environment variables to add to the execution context */
+  env?: Record<string, string>;
+}
+
+export interface CombinedOutputExecOptions extends BaseExecOptions {
+  separateStdErr?: false;
+  /** output of the command will have standard out and standard error combined */
   onOutput?: (output: string) => void;
-  onStdErr?: (stderr: string) => void;
-  onError?: (error: Error) => void;
+}
+
+export interface SeparatedOutputExecOptions extends BaseExecOptions {
+  separateStdErr: true;
+  /** output of the command on standard out */
+  onStdOutOutput?: (output: string) => void;
+  /** output of the command on standard error */
+  onStdErrOutput?: (output: string) => void;
 }
