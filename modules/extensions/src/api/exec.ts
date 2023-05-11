@@ -30,14 +30,14 @@ export async function exec(
       splitStderr: separateStdErr,
       onOutput: (output: string) => {
         outputStr += output;
-        if (options.separateStdErr) {
+        if (splitStdErr) {
           options.onStdOutOutput?.(output);
         } else {
           options.onOutput?.(output);
         }
       },
       onStdErr: (stderr: string) => {
-        if (options.separateStdErr) {
+        if (splitStdErr) {
           errorStr += stderr;
           options.onStdErrOutput?.(stderr);
         } else {
