@@ -1,10 +1,10 @@
-import { extensionPort, proxy } from "../util/comlink";
+import { extensionPort, proxy } from "../../util/comlink";
 import {
   CombinedOutputExecOptions,
   CombinedOutputExecResult,
   SeparatedOutputExecOptions,
   SeparatedOutputExecResult,
-} from "../types";
+} from "../../types";
 
 export async function exec(
   combinedOutputOptions: CombinedOutputExecOptions
@@ -44,7 +44,7 @@ export async function exec(
         }
       },
       onError: (err: Error) => {
-        exitCode = err.message.match(/[0-9]+/)?.[0] || "";
+        throw err;
       },
     })
   );
