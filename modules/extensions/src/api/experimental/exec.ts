@@ -1,10 +1,10 @@
-import { extensionPort, proxy } from "../util/comlink";
+import { extensionPort, proxy } from "../../util/comlink";
 import {
   CombinedOutputExecOptions,
   CombinedOutputExecResult,
   SeparatedOutputExecOptions,
   SeparatedOutputExecResult,
-} from "../types";
+} from "../../types";
 
 export async function exec(
   combinedOutputOptions: CombinedOutputExecOptions

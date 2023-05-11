@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HandshakeStatus, exec, messages } from "@replit/extensions";
+import { HandshakeStatus, experimental, messages } from "@replit/extensions";
 import { useReplit } from "@replit/extensions-react";
 import "./App.css";
 
@@ -12,7 +12,7 @@ export default function App() {
   }
 
   const execute = async () => {
-    const out = await exec({
+    const out = await experimental.exec({
       args: "pnpm lint",
       onOutput: (output) => {
         messages.showConfirm(output);
