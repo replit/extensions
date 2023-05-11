@@ -1,3 +1,7 @@
+## 1.3.0-beta.1
+
+- Moved to experimental namespace
+
 ## 1.3.0-beta.0
 
  - Basic exec api
