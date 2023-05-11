@@ -5,7 +5,7 @@
     "dev": "pnpm build:all && cd modules/example && pnpm dev",
     "lint": "turbo run lint",
     "lint:check": "turbo run lint:check",
-    "type:check": "cd modules/extensions && tsc --noEmit && cd ../extensions-react && tsc --noEmit",
+    "type:check": "turbo run type:check",
     "build:extensions": "cd modules/extensions && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "build:react": "cd modules/extensions-react && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "build:all": "pnpm build:extensions && pnpm build:react",

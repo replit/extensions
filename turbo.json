@@ -2,6 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "lint": {},
-    "lint:check": {}
+    "lint:check": {},
+    "type:check": {}
   }
 }
