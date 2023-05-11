@@ -19,6 +19,8 @@ export async function exec(
   let errorStr: string = "";
   let exitCode: string = "";
 
+  const separateStdErr = (await options.separateStdErr) ?? false;
+
   const { promise } = await extensionPort.experimental.exec(
     proxy({
       args: Array.isArray(options.args)
