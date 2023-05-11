@@ -36,7 +36,6 @@ export default async function exec({
       ...res,
       output: outputStr,
     });
-    dispose();
   });
 
   return () => {
