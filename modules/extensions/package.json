@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "The Replit Extensions client is a module that allows you to easily interact with the Workspace.",
   "types": "./src/index.ts",
   "exports": {
@@ -34,7 +34,6 @@
     "lint:check": "npx prettier -l src/*",
     "type:check": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run build",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"
   },
   "files": [
