@@ -44,7 +44,7 @@ export async function exec(
         }
       },
       onError: (err: Error) => {
-        exitCode = err.message.match(/[0-9]+/)?.[0] || "";
+        throw err;
       },
     })
   );
