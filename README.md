@@ -19,12 +19,4 @@ A monorepo containing all NPM packages related to Replit Extensions.
 2. Run `pnpm install`
 3. Run `pnpm dev`, or simply hit the Run button if you've imported this into Replit.
 
-You can edit either the default Extensions client or the React client and test your changes in `modules/example`.
-
-## Developing the Extensions Client
-
-The default Extensions client can be located within `modules/extensions`. To preview your changes in the development environment, run `pnpm build:extensions` in the shell or simply restart the development server.
-
-## Developing the React Client
-
-The React Extensions client can be located within `modules/extensions-react`. To preview your changes in the development environment, run `pnpm build:react` in the shell or simply restart the development server.
+Edit the in the `modules` folder and your changes will be previewed live via Hot Module Reloading.
