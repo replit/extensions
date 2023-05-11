@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions",
-  "version": "1.2.0",
+  "version": "1.3.0-beta.0",
   "description": "The Replit Extensions client is a module that allows you to easily interact with the Workspace.",
   "types": "./src/index.ts",
   "exports": {

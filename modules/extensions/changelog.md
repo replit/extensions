@@ -1,3 +1,7 @@
+## 1.3.0-beta.0
+
+ - Basic exec api
+
 ## 1.1.0
 
 - Wait for window to be ready before handshake
