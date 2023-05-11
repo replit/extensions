@@ -3,6 +3,9 @@
   "pipeline": {
     "build": {},
     "lint": {},
+    "clean": {
+      "cache": false
+    },
     "lint:check": {},
     "type:check": {}
   }

@@ -7,7 +7,7 @@
     "lint:check": "turbo run lint:check",
     "type:check": "turbo run type:check",
     "build": "turbo run build",
-    "clean:all": "rm -rf modules/extensions/dist && rm -rf modules/extensions-react/dist",
+    "clean": "turbo run clean",
     "publish:extensions": "pnpm lint:check && pnpm type:check && cd modules/extensions && pnpm publish",
     "publish:react": "pnpm lint:check && pnpm type:check && cd modules/extensions-react && pnpm publish"
   },
