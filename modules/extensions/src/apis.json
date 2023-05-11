@@ -100,7 +100,13 @@
   {
     "name": "exec",
     "description": "The `exec` api module allows you to execute arbitrary shell commands.",
-    "typeNames": ["ExecResult", "ExecArgs", "Env"],
+    "typeNames": [
+      "CombinedOutputExecResult",
+      "SeparatedOutputExecResult",
+      "BaseExecOptions",
+      "CombinedOutputExecOptions",
+      "SeparatedOutputExecOptions"
+    ],
     "experimental": true
   }
 ]
