@@ -8,6 +8,6 @@ export default defineConfig({
     host: "0.0.0.0",
   },
   optimizeDeps: {
-    "exclude": ["@replit/extensions", "@replit/extensions-react"]
-  }
+    exclude: ["@replit/extensions", "@replit/extensions-react"],
+  },
 });

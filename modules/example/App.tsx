@@ -6,7 +6,7 @@ import "./App.css";
 export default function App() {
   const { status, error, filePath, replit } = useReplit();
 
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // @ts-ignore
     window.replit = replit;
   }
