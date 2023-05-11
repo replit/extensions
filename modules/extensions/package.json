@@ -22,7 +22,7 @@
   "scripts": {
     "build": "rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "lint": "npx prettier --write src/*",
-    "lint:check": "npx prettier -l src/* && cd example && npx prettier -l .",
+    "lint:check": "npx prettier -l src/*",
     "type:check": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"
