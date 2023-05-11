@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  HandshakeStatus,
-  exec,
-  messages,
-  extensionPort,
-  proxy,
-  ExecResult,
-} from "@replit/extensions";
+import { HandshakeStatus, exec, messages } from "@replit/extensions";
 import { useReplit } from "@replit/extensions-react";
 import "./App.css";
 
