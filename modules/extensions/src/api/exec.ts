@@ -27,7 +27,7 @@ export async function exec(
         ? options.args
         : ["bash", "-c", options.args],
       env: options.env || {},
-      splitStderr: options.separateStdErr,
+      splitStderr: separateStdErr,
       onOutput: (output: string) => {
         outputStr += output;
         if (options.separateStdErr) {
