@@ -2,7 +2,6 @@
   {
     "name": "init",
     "description": "The `init()` method initializes the Extension, establishes a handshake with the Repl, and adds an event listener to the window object. It takes as an argument an object containing optional parameters for the initialization process. It returns a function that removes the event listener added to the window object.",
-    "isActive": true,
     "typeNames": ["ReplitInitArgs", "ReplitInitOutput", "HandshakeStatus"]
   },
   {
@@ -39,20 +38,17 @@
       "FsDeleteEvent",
       "DisposerFunction",
       "DirectoryChildNode"
-    ],
-    "isActive": true
+    ]
   },
   {
     "name": "replDb",
     "description": "ReplDB is a simple key-value store available on all repls by default. Extensions can use ReplDB to store repl specific data.",
-    "typeNames": ["NullableStrError", "StrError"],
-    "isActive": true
+    "typeNames": ["NullableStrError", "StrError"]
   },
   {
     "name": "messages",
     "description": "The messages API allows you to send custom notices in the Replit workspace.",
-    "typeNames": [],
-    "isActive": true
+    "typeNames": []
   },
   {
     "name": "data",
@@ -73,14 +69,12 @@
       "UserRole",
       "ReplOwner",
       "ReplCommentConnection"
-    ],
-    "isActive": true
+    ]
   },
   {
     "name": "session",
     "description": "The session api provides you with information on the current user's coding session in the workspace.",
-    "typeNames": ["OnActiveFileChangeListener", "DisposerFunction"],
-    "isActive": true
+    "typeNames": ["OnActiveFileChangeListener", "DisposerFunction"]
   },
   {
     "name": "themes",
@@ -96,12 +90,23 @@
       "ThemeValues",
       "ThemeVersion",
       "DisposerFunction"
-    ],
-    "isActive": true
+    ]
   },
   {
     "name": "me",
     "description": "The `me` api module exposes information specific to the current extension.",
     "typeNames": []
+  },
+  {
+    "name": "exec",
+    "description": "The `exec` api module allows you to execute arbitrary shell commands.",
+    "typeNames": [
+      "CombinedOutputExecResult",
+      "SeparatedOutputExecResult",
+      "BaseExecOptions",
+      "CombinedOutputExecOptions",
+      "SeparatedOutputExecOptions"
+    ],
+    "experimental": true
   }
 ]

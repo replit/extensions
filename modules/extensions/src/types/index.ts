@@ -23,6 +23,7 @@ export * from "./fs";
 export * from "./themes";
 export * from "./data";
 export * from "./session";
+export * from "./exec";
 
 /**
  * An enumerated set of values for the Handshake between the workspace and an extension
@@ -167,4 +168,25 @@ export type ExtensionPortAPI = {
   // session Module
   watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
+
+  experimental: ExperimentalAPIs;
 };
+
+export interface ExperimentalAPIs {
+  exec: (args: {
+    splitStderr?: boolean;
+    args: Array<string>;
+    env?: {
+      [key: string]: string;
+    };
+    onOutput: (output: string) => void;
+    onStdErr: (stderr: string) => void;
+    onError: (error: Error) => void;
+  }) => Promise<{
+    dispose: () => void;
+    promise: Promise<{
+      exitCode: number | null;
+      error: string | null;
+    }>;
+  }>;
+}
