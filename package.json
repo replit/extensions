@@ -6,9 +6,7 @@
     "lint": "turbo run lint",
     "lint:check": "turbo run lint:check",
     "type:check": "turbo run type:check",
-    "build:extensions": "cd modules/extensions && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
-    "build:react": "cd modules/extensions-react && rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
-    "build:all": "pnpm build:extensions && pnpm build:react",
+    "build": "turbo run build",
     "clean:all": "rm -rf modules/extensions/dist && rm -rf modules/extensions-react/dist",
     "publish:extensions": "pnpm lint:check && pnpm type:check && cd modules/extensions && pnpm publish",
     "publish:react": "pnpm lint:check && pnpm type:check && cd modules/extensions-react && pnpm publish"

@@ -20,7 +20,7 @@
   "type": "module",
   "unpkg": "dist/index.global.js",
   "scripts": {
-    "build": "rm -rf dist && tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
+    "build": "tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "lint": "npx prettier --write src/*",
     "lint:check": "npx prettier -l src/*",
     "type:check": "tsc --noEmit",
