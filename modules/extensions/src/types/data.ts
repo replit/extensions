@@ -135,7 +135,6 @@ export interface ReplCommentConnection {
  * Editor Preferences
  */
 export interface EditorPreferences {
-  isLayoutStacked: boolean;
   fontSize: number;
   indentIsSpaces: boolean;
   indentSize: number;
@@ -143,13 +142,7 @@ export interface EditorPreferences {
   wrapping: boolean;
   codeIntelligence: boolean;
   codeSuggestion: boolean;
-  completeCodeEngine: string;
-  chatEngine: string;
-  accessibleTerminal: boolean;
   multiselectModifierKey: string;
-  webviewAutoOpenOnPortOpened: boolean;
-  extraDelight: boolean;
-  enableGpu: boolean;
   minimapDisplay: string;
 }
 
