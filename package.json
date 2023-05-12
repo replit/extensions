@@ -8,7 +8,8 @@
     "type:check": "turbo run type:check",
     "build": "turbo run build",
     "clean": "turbo run clean",
-    "publish-packages": "turbo run lint:check type:check build && pnpm publish"
+    "publish:extensions": "turbo run lint:check type:check build && cd modules/extensions && pnpm publish",
+    "publish:react": "turbo run lint:check type:check build && cd modules/extensions-react && pnpm publish"
   },
   "keywords": [
     "extensions",
