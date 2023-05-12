@@ -10,6 +10,8 @@ import {
   UserByUsernameQueryOutput,
   ReplDataInclusion,
   ReplQueryOutput,
+  CurrentUserQueryOutput,
+  CurrentUserDataInclusion,
 } from "./data";
 import {
   ThemeValuesGlobal,
@@ -157,7 +159,7 @@ export type ExtensionPortAPI = {
   hideAllMessages: () => void;
 
   // data Module
-  currentUser: (args: UserDataInclusion) => UserQueryOutput;
+  currentUser: (args: CurrentUserDataInclusion) => CurrentUserQueryOutput;
   userById: (args: { id: string } & UserDataInclusion) => UserQueryOutput;
   userByUsername: (
     args: { username: string } & UserDataInclusion

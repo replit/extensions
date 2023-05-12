@@ -1,10 +1,14 @@
-import { ReplDataInclusion, UserDataInclusion } from "../types";
+import {
+  ReplDataInclusion,
+  UserDataInclusion,
+  CurrentUserDataInclusion,
+} from "../types";
 import { extensionPort } from "../util/comlink";
 
 /**
  * Fetches the current user via graphql
  */
-export async function currentUser(args: UserDataInclusion) {
+export async function currentUser(args: CurrentUserDataInclusion) {
   return await extensionPort.currentUser(args);
 }
 

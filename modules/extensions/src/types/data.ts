@@ -26,6 +26,13 @@ export interface User {
 }
 
 /**
+ * Extended values for the current user
+ */
+export interface CurrentUser extends User {
+  editorPreferences: EditorPreferences;
+}
+
+/**
  * A user social media link
  */
 export interface UserSocial {
@@ -125,12 +132,44 @@ export interface ReplCommentConnection {
 }
 
 /**
+ * Editor Preferences
+ */
+export interface EditorPreferences {
+  isLayoutStacked: boolean;
+  fontSize: number;
+  indentIsSpaces: boolean;
+  indentSize: number;
+  keyboardHandler: string;
+  wrapping: boolean;
+  codeIntelligence: boolean;
+  codeSuggestion: boolean;
+  completeCodeEngine: string;
+  chatEngine: string;
+  accessibleTerminal: boolean;
+  multiselectModifierKey: string;
+  webviewAutoOpenOnPortOpened: boolean;
+  extraDelight: boolean;
+  enableGpu: boolean;
+  minimapDisplay: string;
+}
+
+/**
  * Options for user queries
  */
 export interface UserDataInclusion {
   includeSocialData?: boolean;
   includeRoles?: boolean;
   includePlan?: boolean;
+}
+
+/**
+ * Options for the currentUser query
+ */
+export interface CurrentUserDataInclusion {
+  includeSocialData?: boolean;
+  includeRoles?: boolean;
+  includePlan?: boolean;
+  includeEditorPreferences?: boolean;
 }
 
 /**
@@ -162,3 +201,8 @@ export type UserByUsernameQueryOutput = GraphResponse<{ userByUsername: User }>;
  * A graphql response for the user query
  */
 export type UserQueryOutput = GraphResponse<{ user: User }>;
+
+/**
+ * A graphql response for the currentUser query
+ */
+export type CurrentUserQueryOutput = GraphResponse<{ user: CurrentUser }>;
