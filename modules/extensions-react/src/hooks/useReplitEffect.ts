@@ -11,7 +11,7 @@ export default function useReplitEffect(
   callback: (
     r: typeof replit
   ) => void | Promise<void> | (() => void) | Promise<() => void>,
-  dependencies: Array<any>
+  dependencies?: Array<any>
 ) {
   const { replit, status } = useReplit();
 
@@ -25,5 +25,5 @@ export default function useReplitEffect(
         };
       }
     }
-  }, [...dependencies, replit, status]);
+  }, [...(dependencies || []), replit, status]);
 }
