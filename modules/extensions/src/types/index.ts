@@ -170,8 +170,8 @@ export type ExtensionPortAPI = {
   watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
 
-  experimental: ExperimentalAPIs;
-  internal: InternalAPIs;
+  experimental: ExperimentalAPI;
+  internal: InternalAPI;
 };
 
 export interface ExperimentalAPI {
@@ -193,14 +193,13 @@ export interface ExperimentalAPI {
   }>;
 }
 
-export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
-  experimental: Comlink.RemoteObject<ExperimentalAPI>;
-};
-export interface InternalAPIs {
+export interface InternalAPI {
   auth: {
     getAuthToken: () => Promise<string>
   }
 }
+
 export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
   experimental: Comlink.RemoteObject<ExperimentalAPI>;
+  internal: Comlink.RemoteObject<InternalAPI>;
 };
