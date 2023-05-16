@@ -26,13 +26,15 @@ export interface BaseExecOptions {
 export interface CombinedOutputExecOptions extends BaseExecOptions {
   separateStdErr?: false;
   /** output of the command will have standard out and standard error combined */
-  onOutput?: (output: string) => void;
+  onOutput?: OutputStrCallback;
 }
 
 export interface SeparatedOutputExecOptions extends BaseExecOptions {
   separateStdErr: true;
   /** output of the command on standard out */
-  onStdOutOutput?: (output: string) => void;
+  onStdOutOutput?: OutputStrCallback;
   /** output of the command on standard error */
-  onStdErrOutput?: (output: string) => void;
+  onStdErrOutput?: OutputStrCallback;
 }
+
+export type OutputStrCallback = (output: string) => void;

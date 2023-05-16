@@ -105,7 +105,8 @@
       "SeparatedOutputExecResult",
       "BaseExecOptions",
       "CombinedOutputExecOptions",
-      "SeparatedOutputExecOptions"
+      "SeparatedOutputExecOptions",
+      "OutputStrCallback"
     ],
     "experimental": true
   }
