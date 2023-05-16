@@ -11,19 +11,22 @@ export default function useReplitEffect(
   callback: (
     r: typeof replit
   ) => void | Promise<void> | (() => void) | Promise<() => void>,
-  dependencies: Array<any>
+  dependencies?: Array<any>
 ) {
   const { replit, status } = useReplit();
 
-  return useEffect(() => {
-    if (replit && status === HandshakeStatus.Ready) {
-      const dispose = callback(replit);
+  return useEffect(
+    () => {
+      if (replit && status === HandshakeStatus.Ready) {
+        const dispose = callback(replit);
 
-      if (typeof dispose === "function") {
-        return () => {
-          dispose();
-        };
+        if (typeof dispose === "function") {
+          return () => {
+            dispose();
+          };
+        }
       }
-    }
-  }, [...dependencies, replit, status]);
+    },
+    dependencies ? [...dependencies, replit, status] : undefined
+  );
 }
