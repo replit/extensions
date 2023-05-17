@@ -13,14 +13,18 @@ export default function App() {
 
   const execute = async () => {
     const { result: out, kill } = await experimental.exec({
-      args: "pnpm lint",
+      args: "tsc --noEmit --watch",
       onOutput: (output) => {
         messages.showConfirm(output);
       },
     });
 
+    setTimeout(() => {
+      kill();
+      messages.showError("Killed");
+    }, 3000);
+
     messages.showWarning((await out).output);
-    console.log(kill);
   };
 
   return (
