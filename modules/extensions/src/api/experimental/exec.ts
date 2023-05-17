@@ -2,6 +2,7 @@ import { extensionPort, proxy } from "../../util/comlink";
 import {
   CombinedOutputExecOptions,
   CombinedOutputExecResult,
+  ExecOutput,
   SeparatedOutputExecOptions,
   SeparatedOutputExecResult,
 } from "../../types";
@@ -11,18 +12,18 @@ import {
  */
 export async function exec(
   combinedOutputOptions: CombinedOutputExecOptions
-): Promise<CombinedOutputExecResult>;
+): Promise<ExecOutput<CombinedOutputExecResult>>;
 export async function exec(
   separatedOutputOptions: SeparatedOutputExecOptions
-): Promise<SeparatedOutputExecResult>;
+): Promise<ExecOutput<SeparatedOutputExecResult>>;
 export async function exec(
   options: CombinedOutputExecOptions | SeparatedOutputExecOptions
-): Promise<SeparatedOutputExecResult | CombinedOutputExecResult> {
+): Promise<ExecOutput> {
   let outputStr: string = "";
   let errorStr: string = "";
   let exitCode: string = "";
 
-  const { promise } = await extensionPort.experimental.exec(
+  const { promise, dispose: kill } = await extensionPort.experimental.exec(
     proxy({
       args: Array.isArray(options.args)
         ? options.args
@@ -52,18 +53,26 @@ export async function exec(
     })
   );
 
-  await promise;
+  const result: Promise<SeparatedOutputExecResult | CombinedOutputExecResult> =
+    new Promise((resolve) => {
+      promise.then(() => {
+        if (options.separateStdErr) {
+          resolve({
+            output: outputStr,
+            error: errorStr,
+            exitError: exitCode || null,
+          });
+        } else {
+          resolve({
+            output: outputStr,
+            exitError: exitCode || null,
+          });
+        }
+      });
+    });
 
-  if (options.separateStdErr) {
-    return {
-      output: outputStr,
-      error: errorStr,
-      exitError: exitCode || null,
-    };
-  } else {
-    return {
-      output: outputStr,
-      exitError: exitCode || null,
-    };
-  }
+  return {
+    result,
+    kill,
+  };
 }

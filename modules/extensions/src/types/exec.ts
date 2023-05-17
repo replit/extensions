@@ -38,3 +38,10 @@ export interface SeparatedOutputExecOptions extends BaseExecOptions {
 }
 
 export type OutputStrCallback = (output: string) => void;
+
+export interface ExecOutput<
+  T = CombinedOutputExecResult | SeparatedOutputExecResult
+> {
+  kill: () => void;
+  result: Promise<T>;
+}
