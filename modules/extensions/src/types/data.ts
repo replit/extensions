@@ -28,9 +28,7 @@ export interface User {
 /**
  * Extended values for the current user
  */
-export interface CurrentUser extends User {
-  editorPreferences: EditorPreferences;
-}
+export interface CurrentUser extends User {}
 
 /**
  * A user social media link
@@ -162,7 +160,6 @@ export interface CurrentUserDataInclusion {
   includeSocialData?: boolean;
   includeRoles?: boolean;
   includePlan?: boolean;
-  includeEditorPreferences?: boolean;
 }
 
 /**

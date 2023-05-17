@@ -12,6 +12,7 @@ import {
   ReplQueryOutput,
   CurrentUserQueryOutput,
   CurrentUserDataInclusion,
+  EditorPreferences,
 } from "./data";
 import {
   ThemeValuesGlobal,
@@ -193,6 +194,10 @@ export type ExperimentalAPI = {
       error: string | null;
     }>;
   }>;
+
+  editor: {
+    getPreferences: () => Promise<EditorPreferences>;
+  };
 };
 
 export type InternalAPI = {
