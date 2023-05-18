@@ -201,3 +201,6 @@ export interface InternalAPIs {
     getAuthToken: () => Promise<string>
   }
 }
+export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
+  experimental: Comlink.RemoteObject<ExperimentalAPI>;
+};
