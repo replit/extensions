@@ -12,14 +12,9 @@ export default function App() {
   }
 
   const execute = async () => {
-    const out = await experimental.exec({
-      args: "pnpm lint",
-      onOutput: (output) => {
-        messages.showConfirm(output);
-      },
-    });
+    const out = await experimental.editor.getPreferences();
 
-    messages.showWarning(out.output);
+    console.log(out);
   };
 
   return (

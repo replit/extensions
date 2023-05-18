@@ -1,2 +1,2 @@
 export { exec } from "./exec";
-export * from "./editor";
+export * as editor from "./editor";
