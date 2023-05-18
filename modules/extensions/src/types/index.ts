@@ -174,7 +174,7 @@ export type ExtensionPortAPI = {
   internal: InternalAPI;
 };
 
-export interface ExperimentalAPI {
+export type ExperimentalAPI = {
   exec: (args: {
     splitStderr?: boolean;
     args: Array<string>;
@@ -193,13 +193,16 @@ export interface ExperimentalAPI {
   }>;
 }
 
-export interface InternalAPI {
+export type InternalAPI = {
   auth: {
     getAuthToken: () => Promise<string>
   }
 }
 
-export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
-  experimental: Comlink.RemoteObject<ExperimentalAPI>;
-  internal: Comlink.RemoteObject<InternalAPI>;
+type RemoteProperty<T> = T extends Function | Comlink.ProxyMarked ? Comlink.Remote<T> : T;
+
+type RemoteObject<T> = {
+  [P in keyof T]: RemoteProperty<T[P]>;
 };
+
+export type ExtensionPort = RemoteObject<ExtensionPortAPI>

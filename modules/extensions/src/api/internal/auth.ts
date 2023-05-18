@@ -2,7 +2,6 @@ import { extensionPort } from "../../util/comlink";
 import jose from 'jose'
 
 export async function getAuthToken() {
-  // @ts-ignore
   return extensionPort.internal.auth.getAuthToken();
 }
 
