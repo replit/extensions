@@ -1,5 +1,5 @@
 import { extensionPort } from "../../util/comlink";
-import jose from "jose";
+import * as jose from "jose";
 
 export async function getAuthToken() {
   return extensionPort.internal.auth.getAuthToken();
