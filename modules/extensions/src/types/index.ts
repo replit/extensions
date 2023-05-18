@@ -18,6 +18,7 @@ import {
   OnThemeChangeListener,
 } from "./themes";
 import { OnActiveFileChangeListener } from "./session";
+import Comlink from "comlink";
 
 export * from "./fs";
 export * from "./themes";
@@ -168,11 +169,9 @@ export type ExtensionPortAPI = {
   // session Module
   watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
-
-  experimental: ExperimentalAPIs;
 };
 
-export interface ExperimentalAPIs {
+export interface ExperimentalAPI {
   exec: (args: {
     splitStderr?: boolean;
     args: Array<string>;
@@ -189,4 +188,9 @@ export interface ExperimentalAPIs {
       error: string | null;
     }>;
   }>;
+}
+
+
+export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
+  experimental: Comlink.RemoteObject<ExperimentalAPI>;
 }
