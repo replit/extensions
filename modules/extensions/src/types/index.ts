@@ -191,18 +191,20 @@ export type ExperimentalAPI = {
       error: string | null;
     }>;
   }>;
-}
+};
 
 export type InternalAPI = {
   auth: {
-    getAuthToken: () => Promise<string>
-  }
-}
+    getAuthToken: () => Promise<string>;
+  };
+};
 
-type RemoteProperty<T> = T extends Function | Comlink.ProxyMarked ? Comlink.Remote<T> : T;
+type RemoteProperty<T> = T extends Function | Comlink.ProxyMarked
+  ? Comlink.Remote<T>
+  : T;
 
 type RemoteObject<T> = {
   [P in keyof T]: RemoteProperty<T[P]>;
 };
 
-export type ExtensionPort = RemoteObject<ExtensionPortAPI>
+export type ExtensionPort = RemoteObject<ExtensionPortAPI>;
