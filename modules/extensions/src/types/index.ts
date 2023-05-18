@@ -10,6 +10,9 @@ import {
   UserByUsernameQueryOutput,
   ReplDataInclusion,
   ReplQueryOutput,
+  CurrentUserQueryOutput,
+  CurrentUserDataInclusion,
+  EditorPreferences,
 } from "./data";
 import {
   ThemeValuesGlobal,
@@ -157,7 +160,7 @@ export type ExtensionPortAPI = {
   hideAllMessages: () => void;
 
   // data Module
-  currentUser: (args: UserDataInclusion) => UserQueryOutput;
+  currentUser: (args: CurrentUserDataInclusion) => CurrentUserQueryOutput;
   userById: (args: { id: string } & UserDataInclusion) => UserQueryOutput;
   userByUsername: (
     args: { username: string } & UserDataInclusion
@@ -191,6 +194,10 @@ export type ExperimentalAPI = {
       error: string | null;
     }>;
   }>;
+
+  editor: {
+    getPreferences: () => Promise<EditorPreferences>;
+  };
 };
 
 export type InternalAPI = {

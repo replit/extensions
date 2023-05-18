@@ -68,7 +68,11 @@
       "UserSocialType",
       "UserRole",
       "ReplOwner",
-      "ReplCommentConnection"
+      "ReplCommentConnection",
+      "CurrentUserDataInclusion",
+      "EditorPreferences",
+      "CurrentUser",
+      "CurrentUserQueryOutput"
     ]
   },
   {
