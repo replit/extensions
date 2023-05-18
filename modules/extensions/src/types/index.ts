@@ -169,9 +169,12 @@ export type ExtensionPortAPI = {
   // session Module
   watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
+
+  experimental: ExperimentalAPI;
+  internal: InternalAPI;
 };
 
-export interface ExperimentalAPI {
+export type ExperimentalAPI = {
   exec: (args: {
     splitStderr?: boolean;
     args: Array<string>;
@@ -188,8 +191,24 @@ export interface ExperimentalAPI {
       error: string | null;
     }>;
   }>;
-}
-
-export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
-  experimental: Comlink.RemoteObject<ExperimentalAPI>;
 };
+
+export type InternalAPI = {
+  auth: {
+    getAuthToken: () => Promise<string>;
+  };
+};
+
+type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
+
+type RemoteProperty<T> = T extends Function | Comlink.ProxyMarked
+  ? Comlink.Remote<T>
+  : T extends object
+  ? T
+  : Promisify<T>; //  We don't want to promisify objects, but we do want to promisify all other primitives
+
+type RemoteObject<T> = {
+  [P in keyof T]: RemoteProperty<T[P]>;
+};
+
+export type ExtensionPort = RemoteObject<ExtensionPortAPI>;
