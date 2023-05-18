@@ -3,9 +3,9 @@ import { ExtensionPort } from "../types";
 
 export const extensionPort = (() =>
   typeof window !== "undefined"
-    ? Comlink.wrap(
+    ? (Comlink.wrap(
         Comlink.windowEndpoint(self.parent, self, "*")
-      ) as any as ExtensionPort
+      ) as any as ExtensionPort)
     : null)() as ExtensionPort;
 
 export const proxy = Comlink.proxy;

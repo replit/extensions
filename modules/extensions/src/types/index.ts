@@ -190,7 +190,6 @@ export interface ExperimentalAPI {
   }>;
 }
 
-
 export type ExtensionPort = Comlink.Remote<ExtensionPortAPI> & {
   experimental: Comlink.RemoteObject<ExperimentalAPI>;
-}
+};
