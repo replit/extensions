@@ -1,6 +1,14 @@
+## 1.4.0-beta.0
+
+ - Experimental `editor` API module
+
+## 1.1.2
+
+ - No initial changes to client
+
 ## 1.3.0-beta.1
 
-- Moved to experimental namespace
+- Moved exec to experimental namespace
 
 ## 1.3.0-beta.0
 
