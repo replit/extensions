@@ -29,7 +29,7 @@
   "type": "module",
   "unpkg": "dist/index.global.js",
   "scripts": {
-    "build": "tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
+    "build": "tsup src/index.ts  --sourcemap --dts --platform browser --format esm,cjs,iife --global-name replit",
     "test:build": "jest buildTests",
     "lint": "npx prettier --write src/*",
     "lint:check": "npx prettier -l src/*",
