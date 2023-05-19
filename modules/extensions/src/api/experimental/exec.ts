@@ -6,6 +6,9 @@ import {
   SeparatedOutputExecResult,
 } from "../../types";
 
+/**
+ * Executes arbitrary shell commands, with given arguments and environment variables
+ */
 export async function exec(
   combinedOutputOptions: CombinedOutputExecOptions
 ): Promise<CombinedOutputExecResult>;
