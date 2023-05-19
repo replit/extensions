@@ -1,4 +1,4 @@
-## 1.4.0-beta.0
+## 1.1.2-beta.0
 
  - Experimental `editor` API module
 
