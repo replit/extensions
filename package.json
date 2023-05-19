@@ -6,6 +6,7 @@
     "lint": "turbo run lint",
     "lint:check": "turbo run lint:check",
     "type:check": "turbo run type:check",
+    "test:build": "turbo run test:build",
     "build": "turbo run build",
     "clean": "turbo run clean",
     "publish:extensions": "turbo run lint:check type:check build && cd modules/extensions && pnpm publish",
