@@ -15,7 +15,7 @@ export async function currentUser(args: CurrentUserDataInclusion) {
 /**
  * Fetches a user by their id via graphql
  */
-export async function userById(args: { id: string } & UserDataInclusion) {
+export async function userById(args: { id: number } & UserDataInclusion) {
   if (typeof args.id !== "number") {
     throw new Error(
       `Query parameter "id" must be a number.  Found type ${typeof args.id} instead.`

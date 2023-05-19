@@ -161,7 +161,7 @@ export type ExtensionPortAPI = {
 
   // data Module
   currentUser: (args: CurrentUserDataInclusion) => CurrentUserQueryOutput;
-  userById: (args: { id: string } & UserDataInclusion) => UserQueryOutput;
+  userById: (args: { id: number } & UserDataInclusion) => UserQueryOutput;
   userByUsername: (
     args: { username: string } & UserDataInclusion
   ) => UserByUsernameQueryOutput;
