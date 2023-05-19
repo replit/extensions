@@ -7,7 +7,7 @@ import {
 } from "../../types";
 
 /**
- * Allows execution of arbitrary shell commands.
+ * Executes arbitrary shell commands, with given arguments and environment variables
  */
 export async function exec(
   combinedOutputOptions: CombinedOutputExecOptions
