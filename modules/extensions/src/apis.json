@@ -113,5 +113,11 @@
       "OutputStrCallback"
     ],
     "experimental": true
+  },
+  {
+    "name": "editor",
+    "description": "The `editor` api module allows you to get the current user's editor preferences.",
+    "experimental": true,
+    "typeNames": ["EditorPreferences"]
   }
 ]
