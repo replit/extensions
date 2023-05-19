@@ -9,7 +9,9 @@
     "build": "turbo run build",
     "clean": "turbo run clean",
     "publish:extensions": "turbo run lint:check type:check build && cd modules/extensions && pnpm publish",
-    "publish:react": "turbo run lint:check type:check build && cd modules/extensions-react && pnpm publish"
+    "publish:react": "turbo run lint:check type:check build && cd modules/extensions-react && pnpm publish",
+    "publish:extensions:beta": "turbo run lint:check type:check build && cd modules/extensions && pnpm publish --tag beta",
+    "publish:react:beta": "turbo run lint:check type:check build && cd modules/extensions-react && pnpm publish --tag beta"
   },
   "keywords": [
     "extensions",
