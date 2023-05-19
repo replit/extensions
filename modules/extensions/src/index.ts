@@ -7,6 +7,8 @@ export * from "./util/log";
 export { extensionPort, proxy };
 export * from "./types";
 
+export { version } from '../package.json';
+
 function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   return Promise.race([
     promise,
