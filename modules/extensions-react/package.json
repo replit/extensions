@@ -1,6 +1,6 @@
 {
   "name": "@replit/extensions-react",
-  "version": "0.2.0",
+  "version": "0.3.0-beta",
   "description": "The React Extensions API Client comes with a set of hooks and components that combine to make a blazingly fast and seamless developer experience.",
   "exports": {
     "./package.json": "./package.json",
@@ -59,7 +59,7 @@
     "@replit/extensions": "workspace:*"
   },
   "peerDependencies": {
-    "@replit/extensions": ">=1.0.0",
+    "@replit/extensions": ">=1.x",
     "react": ">=17.0.0"
   }
 }

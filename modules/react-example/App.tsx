@@ -21,7 +21,7 @@ export default function App() {
     <main>
       <div className="center">
         <div>
-          <div className="heading">Example extension</div>
+          <div className="heading">React Example extension</div>
           {error ? (
             <>
               <div className="error">error: {error.message ?? error}</div>

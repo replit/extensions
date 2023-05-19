@@ -2,7 +2,7 @@
   "name": "replit-extensions-client",
   "description": "Replit Extensions Monorepo (All Clients)",
   "scripts": {
-    "dev": "cd modules/example && pnpm dev",
+    "dev": "cd modules/react-example && pnpm dev",
     "lint": "turbo run lint",
     "lint:check": "turbo run lint:check",
     "type:check": "turbo run type:check",
