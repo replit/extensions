@@ -29,6 +29,8 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "@replit/extensions": "workspace:*",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.2.3",
     "@types/react": "^18.0.28",
     "@vitejs/plugin-react": "^4.0.0",
     "esbuild": "^0.15.18",
