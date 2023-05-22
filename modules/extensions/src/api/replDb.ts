@@ -17,7 +17,7 @@ export async function get(args: { key: string }) {
 /**
  * Lists keys in the replDb. Accepts an optional `prefix`, which filters for keys beginning with the given prefix. Required [permissions](/extensions/api/manifest#scopetype): `repldb:read`.
  */
-export async function list(args?: { prefix?: string }) {
+export async function list(args: { prefix?: string } = {}) {
   return extensionPort.listReplDbKeys(args?.prefix || "");
 }
 
