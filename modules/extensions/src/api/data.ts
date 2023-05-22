@@ -8,8 +8,8 @@ import { extensionPort } from "../util/comlink";
 /**
  * Fetches the current user via graphql
  */
-export async function currentUser(args: CurrentUserDataInclusion) {
-  return await extensionPort.currentUser(args);
+export async function currentUser(args?: CurrentUserDataInclusion) {
+  return await extensionPort.currentUser(args || {});
 }
 
 /**
@@ -43,8 +43,8 @@ export async function userByUsername(
 /**
  * Fetches the current Repl via graphql
  */
-export async function currentRepl(args: ReplDataInclusion) {
-  return await extensionPort.currentRepl(args);
+export async function currentRepl(args?: ReplDataInclusion) {
+  return await extensionPort.currentRepl(args || {});
 }
 
 /**
