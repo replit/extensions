@@ -43,7 +43,7 @@ export async function userByUsername(
 /**
  * Fetches the current Repl via graphql
  */
-export async function currentRepl(args?: ReplDataInclusion) {
+export async function currentRepl(args: ReplDataInclusion = {}) {
   return await extensionPort.currentRepl(args || {});
 }
 
