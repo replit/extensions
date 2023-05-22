@@ -4,6 +4,12 @@
 import fs from "fs";
 import { version } from "../package.json";
 
+declare global {
+  interface Window {
+    replit: any;
+  }
+}
+
 describe("dist/index.global.js (IIFE)", () => {
   test("exists", () => {
     expect(fs.existsSync("./dist/index.global.js")).toBe(true);
