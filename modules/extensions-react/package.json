@@ -34,7 +34,8 @@
     "clean": "rm -rf dist",
     "lint": "npx prettier --write src/*",
     "lint:check": "npx prettier -l src/*",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "test:build": "jest buildTests"
   },
   "files": [
     "dist/*"
@@ -54,6 +55,7 @@
     "esbuild": "^0.15.18",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsup": "^6.6.3",
     "typescript": "^4.9.3",
     "@replit/extensions": "workspace:*"
