@@ -2,6 +2,7 @@ import { extensionPort, proxy } from "../../util/comlink";
 import {
   CombinedOutputExecOptions,
   CombinedOutputExecResult,
+  ExecOutput,
   SeparatedOutputExecOptions,
   SeparatedOutputExecResult,
 } from "../../types";
@@ -11,18 +12,17 @@ import {
  */
 export async function exec(
   combinedOutputOptions: CombinedOutputExecOptions
-): Promise<CombinedOutputExecResult>;
+): Promise<ExecOutput<CombinedOutputExecResult>>;
 export async function exec(
   separatedOutputOptions: SeparatedOutputExecOptions
-): Promise<SeparatedOutputExecResult>;
+): Promise<ExecOutput<SeparatedOutputExecResult>>;
 export async function exec(
   options: CombinedOutputExecOptions | SeparatedOutputExecOptions
-): Promise<SeparatedOutputExecResult | CombinedOutputExecResult> {
+): Promise<ExecOutput> {
   let outputStr: string = "";
   let errorStr: string = "";
-  let exitCode: string = "";
 
-  const { promise } = await extensionPort.experimental.exec(
+  const { promise, dispose } = await extensionPort.experimental.exec(
     proxy({
       args: Array.isArray(options.args)
         ? options.args
@@ -32,7 +32,7 @@ export async function exec(
       onOutput: (output: string) => {
         outputStr += output;
         if (options.separateStdErr) {
-          options.onStdOutOutput?.(output);
+          options.onStdOut?.(output);
         } else {
           options.onOutput?.(output);
         }
@@ -40,7 +40,7 @@ export async function exec(
       onStdErr: (stderr: string) => {
         if (options.separateStdErr) {
           errorStr += stderr;
-          options.onStdErrOutput?.(stderr);
+          options.onStdErr?.(stderr);
         } else {
           outputStr += stderr;
           options.onOutput?.(stderr);
@@ -52,18 +52,28 @@ export async function exec(
     })
   );
 
-  await promise;
+  const result: Promise<SeparatedOutputExecResult | CombinedOutputExecResult> =
+    new Promise(async (resolve) => {
+      const { exitCode, error } = await promise;
 
-  if (options.separateStdErr) {
-    return {
-      output: outputStr,
-      error: errorStr,
-      exitError: exitCode || null,
-    };
-  } else {
-    return {
-      output: outputStr,
-      exitError: exitCode || null,
-    };
-  }
+      if (options.separateStdErr) {
+        resolve({
+          stdOut: outputStr,
+          stdErr: errorStr,
+          error,
+          exitCode: exitCode ?? 0,
+        });
+      } else {
+        resolve({
+          error,
+          output: outputStr,
+          exitCode: exitCode ?? 0,
+        });
+      }
+    });
+
+  return {
+    result,
+    dispose,
+  };
 }

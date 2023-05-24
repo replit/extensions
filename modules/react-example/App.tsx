@@ -12,9 +12,23 @@ export default function App() {
   }
 
   const execute = async () => {
-    const out = await experimental.editor.getPreferences();
+    const { result: out, dispose } = await experimental.exec({
+      args: "tsc --noEmit --watch",
+      onStdOut: (output) => {
+        messages.showConfirm(output);
+      },
+      onStdErr: (output) => {
+        messages.showError(output);
+      },
+      separateStdErr: true,
+    });
 
-    console.log(out);
+    setTimeout(() => {
+      dispose();
+      messages.showError("Killed");
+    }, 3000);
+
+    messages.showWarning((await out).stdOut);
   };
 
   return (

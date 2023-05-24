@@ -190,7 +190,7 @@ export type ExperimentalAPI = {
   }) => Promise<{
     dispose: () => void;
     promise: Promise<{
-      exitCode: number | null;
+      exitCode: number;
       error: string | null;
     }>;
   }>;
