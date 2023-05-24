@@ -2,16 +2,20 @@ export interface CombinedOutputExecResult {
   /** Buffered standard out and standard error outputs combined */
   output: string;
   /** This is usually a string containing an exit code if non-zero exit */
-  exitError: string | null;
+  exitCode: number | null;
+  /** Execution Channel Error */
+  error: string | null;
 }
 
 export interface SeparatedOutputExecResult {
   /** Buffered standard out output */
-  output: string;
+  stdOut: string;
   /** Buffered standard error output */
-  error: string;
+  stdErr: string;
+  /** Execution Channel Error */
+  error: string | null;
   /** This is usually a string containing an exit code if non-zero exit */
-  exitError: string | null;
+  exitCode: number | null;
 }
 
 export interface BaseExecOptions {

@@ -1,11 +1,11 @@
-import { extensionPort, proxy } from "../../util/comlink";
+import { extensionPort, proxy } from "../util/comlink";
 import {
   CombinedOutputExecOptions,
   CombinedOutputExecResult,
   ExecOutput,
   SeparatedOutputExecOptions,
   SeparatedOutputExecResult,
-} from "../../types";
+} from "../types";
 
 /**
  * Executes arbitrary shell commands, with given arguments and environment variables
