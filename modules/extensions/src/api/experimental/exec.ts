@@ -46,7 +46,7 @@ export async function exec(
           options.onOutput?.(stderr);
         }
       },
-      onError: (err: Error) => {
+      onError: (err: string) => {
         throw err;
       },
     })

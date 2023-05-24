@@ -186,7 +186,7 @@ export type ExperimentalAPI = {
     };
     onOutput: (output: string) => void;
     onStdErr: (stderr: string) => void;
-    onError: (error: Error) => void;
+    onError: (error: string) => void;
   }) => Promise<{
     dispose: () => void;
     promise: Promise<{
