@@ -23,7 +23,7 @@ export async function exec(
   let errorStr: string = "";
   let exitCode: string = "";
 
-  const { promise, dispose: kill } = await extensionPort.experimental.exec(
+  const { promise, dispose } = await extensionPort.experimental.exec(
     proxy({
       args: Array.isArray(options.args)
         ? options.args
@@ -73,6 +73,6 @@ export async function exec(
 
   return {
     result,
-    kill,
+    dispose,
   };
 }

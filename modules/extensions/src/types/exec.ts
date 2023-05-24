@@ -42,6 +42,6 @@ export type OutputStrCallback = (output: string) => void;
 export interface ExecOutput<
   T = CombinedOutputExecResult | SeparatedOutputExecResult
 > {
-  kill: () => void;
+  dispose: () => void;
   result: Promise<T>;
 }
