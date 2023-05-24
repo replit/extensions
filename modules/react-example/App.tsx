@@ -20,7 +20,7 @@ export default function App() {
     });
 
     setTimeout(() => {
-      kill();
+      dispose();
       messages.showError("Killed");
     }, 3000);
 
