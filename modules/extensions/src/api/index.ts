@@ -7,7 +7,6 @@ import * as data from "./data";
 import * as session from "./session";
 import * as experimental from "./experimental";
 import * as internal from "./internal";
-import { exec } from "./exec";
 
 export {
   fs,
@@ -19,7 +18,6 @@ export {
   session,
   experimental,
   internal,
-  exec,
 };
 
 // deprecate this after migrating existing extensions

@@ -14,9 +14,13 @@ export default function App() {
   const execute = async () => {
     const { result: out, dispose } = await experimental.exec({
       args: "tsc --noEmit --watch",
-      onOutput: (output) => {
+      onStdOut: (output) => {
         messages.showConfirm(output);
       },
+      onStdErr: (output) => {
+        messages.showError(output);
+      },
+      separateStdErr: true,
     });
 
     setTimeout(() => {
@@ -24,7 +28,7 @@ export default function App() {
       messages.showError("Killed");
     }, 3000);
 
-    messages.showWarning((await out).output);
+    messages.showWarning((await out).stdOut);
   };
 
   return (

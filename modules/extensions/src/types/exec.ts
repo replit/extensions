@@ -36,9 +36,9 @@ export interface CombinedOutputExecOptions extends BaseExecOptions {
 export interface SeparatedOutputExecOptions extends BaseExecOptions {
   separateStdErr: true;
   /** output of the command on standard out */
-  onStdOutOutput?: OutputStrCallback;
+  onStdOut?: OutputStrCallback;
   /** output of the command on standard error */
-  onStdErrOutput?: OutputStrCallback;
+  onStdErr?: OutputStrCallback;
 }
 
 export type OutputStrCallback = (output: string) => void;

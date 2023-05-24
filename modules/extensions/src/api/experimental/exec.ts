@@ -32,7 +32,7 @@ export async function exec(
       onOutput: (output: string) => {
         outputStr += output;
         if (options.separateStdErr) {
-          options.onStdOutOutput?.(output);
+          options.onStdOut?.(output);
         } else {
           options.onOutput?.(output);
         }
@@ -40,7 +40,7 @@ export async function exec(
       onStdErr: (stderr: string) => {
         if (options.separateStdErr) {
           errorStr += stderr;
-          options.onStdErrOutput?.(stderr);
+          options.onStdErr?.(stderr);
         } else {
           outputStr += stderr;
           options.onOutput?.(stderr);
