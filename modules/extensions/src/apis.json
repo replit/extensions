@@ -111,8 +111,7 @@
       "CombinedOutputExecOptions",
       "SeparatedOutputExecOptions",
       "OutputStrCallback"
-    ],
-    "experimental": true
+    ]
   },
   {
     "name": "editor",
