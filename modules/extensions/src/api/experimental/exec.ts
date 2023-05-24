@@ -20,7 +20,6 @@ export async function exec(
 ): Promise<SeparatedOutputExecResult | CombinedOutputExecResult> {
   let outputStr: string = "";
   let errorStr: string = "";
-  let exitCode: string = "";
 
   const { promise } = await extensionPort.experimental.exec(
     proxy({
@@ -52,18 +51,18 @@ export async function exec(
     })
   );
 
-  await promise;
+  const promiseRes = await promise;
 
   if (options.separateStdErr) {
     return {
       output: outputStr,
       error: errorStr,
-      exitError: exitCode || null,
+      exitCode: promiseRes.exitCode ?? 0,
     };
   } else {
     return {
       output: outputStr,
-      exitError: exitCode || null,
+      exitCode: promiseRes.exitCode ?? 0,
     };
   }
 }

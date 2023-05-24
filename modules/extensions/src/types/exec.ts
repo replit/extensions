@@ -2,7 +2,7 @@ export interface CombinedOutputExecResult {
   /** Buffered standard out and standard error outputs combined */
   output: string;
   /** This is usually a string containing an exit code if non-zero exit */
-  exitError: string | null;
+  exitCode: number;
 }
 
 export interface SeparatedOutputExecResult {
@@ -11,7 +11,7 @@ export interface SeparatedOutputExecResult {
   /** Buffered standard error output */
   error: string;
   /** This is usually a string containing an exit code if non-zero exit */
-  exitError: string | null;
+  exitCode: number;
 }
 
 export interface BaseExecOptions {
