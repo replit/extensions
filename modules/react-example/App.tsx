@@ -12,7 +12,7 @@ export default function App() {
   }
 
   const execute = async () => {
-    const { result: out, kill } = await experimental.exec({
+    const { result: out, dispose } = await experimental.exec({
       args: "tsc --noEmit --watch",
       onOutput: (output) => {
         messages.showConfirm(output);
