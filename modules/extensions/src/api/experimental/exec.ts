@@ -1,48 +1,33 @@
-import { extensionPort, proxy } from "../../util/comlink";
 import {
-  CombinedOutputExecOptions,
-  CombinedOutputExecResult,
-  ExecOutput,
-  SeparatedOutputExecOptions,
-  SeparatedOutputExecResult,
-} from "../../types";
+  ExecResult,
+  SpawnOptions,
+  SpawnOutput,
+  SpawnResult,
+} from "src/types/exec";
+import { extensionPort, proxy } from "../../util/comlink";
 
 /**
- * Executes arbitrary shell commands, with given arguments and environment variables
+ * Spawns a command, with given arguments and environment variables. Takes in callbacks,
+ * and returns an object containing a promise that resolves when the command exits, and
+ * a dispose function to kill the process
  */
-function executeCommand(
-  combinedOutputOptions: CombinedOutputExecOptions
-): ExecOutput<CombinedOutputExecResult>;
-function executeCommand(
-  separatedOutputOptions: SeparatedOutputExecOptions
-): ExecOutput<SeparatedOutputExecResult>;
-function executeCommand(
-  options: CombinedOutputExecOptions | SeparatedOutputExecOptions
-): ExecOutput {
-  let outputStr: string = "";
-  let errorStr: string = "";
-
+function spawn(options: SpawnOptions): SpawnOutput {
   let execResult = extensionPort.experimental.exec(
     proxy({
-      args: Array.isArray(options.args)
-        ? options.args
-        : ["bash", "-c", options.args],
+      args: options.args,
       env: options.env || {},
-      splitStderr: options.separateStdErr || false,
+      splitStderr: options.splitStderr ?? false,
       onOutput: (output: string) => {
-        outputStr += output;
-        if (options.separateStdErr) {
+        if (options.splitStderr) {
           options.onStdOut?.(output);
         } else {
           options.onOutput?.(output);
         }
       },
       onStdErr: (stderr: string) => {
-        if (options.separateStdErr) {
-          errorStr += stderr;
+        if (options.splitStderr) {
           options.onStdErr?.(stderr);
         } else {
-          outputStr += stderr;
           options.onOutput?.(stderr);
         }
       },
@@ -56,25 +41,13 @@ function executeCommand(
     (await execResult).dispose();
   };
 
-  const resultPromise: Promise<
-    SeparatedOutputExecResult | CombinedOutputExecResult
-  > = new Promise(async (resolve) => {
+  const resultPromise = new Promise<SpawnResult>(async (resolve) => {
     const { exitCode, error } = await (await execResult).promise;
 
-    if (options.separateStdErr) {
-      resolve({
-        stdOut: outputStr,
-        stdErr: errorStr,
-        error,
-        exitCode: exitCode ?? 0,
-      });
-    } else {
-      resolve({
-        error,
-        output: outputStr,
-        exitCode: exitCode ?? 0,
-      });
-    }
+    resolve({
+      error,
+      exitCode: exitCode ?? 0,
+    });
   });
 
   return {
@@ -83,16 +56,27 @@ function executeCommand(
   };
 }
 
+/**
+ * Executes a command in the shell, with given arguments and environment variables
+ */
 async function exec(
-  args: string | Array<string>,
+  command: string,
   options: {
     env?: Record<string, string>;
   } = {}
-) {
-  const { resultPromise } = executeCommand({
-    args,
+): Promise<ExecResult> {
+  let stderr = "";
+  let stdout = "";
+  const { resultPromise } = spawn({
+    args: ["bash", "-c", command],
     env: options.env ?? {},
-    separateStdErr: true,
+    splitStderr: true,
+    onStdErr: (output: string) => {
+      stderr += output;
+    },
+    onStdOut: (output: string) => {
+      stdout += output;
+    },
   });
 
   const result = await resultPromise;
@@ -101,13 +85,11 @@ async function exec(
     throw new Error(result.error);
   }
 
-  if (result.exitCode !== 0) {
-    throw new Error(result.stdErr);
-  }
-
-  return result;
+  return {
+    stdout,
+    stderr,
+    exitCode: result.exitCode,
+  };
 }
 
-exec.executeCommand = executeCommand;
-
-export { exec };
+export { spawn, exec };

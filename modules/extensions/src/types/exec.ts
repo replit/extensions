@@ -1,51 +1,42 @@
-export interface CombinedOutputExecResult {
-  /** Buffered standard out and standard error outputs combined */
-  output: string;
-  /** This is usually a string containing an exit code if non-zero exit */
-  exitCode: number | null;
-  /** Execution Channel Error */
-  error: string | null;
-}
-
-export interface SeparatedOutputExecResult {
-  /** Buffered standard out output */
-  stdOut: string;
-  /** Buffered standard error output */
-  stdErr: string;
-  /** Execution Channel Error */
-  error: string | null;
-  /** This is usually a string containing an exit code if non-zero exit */
-  exitCode: number | null;
-}
-
-export interface BaseExecOptions {
-  /** whether to keep standard out and standard error outputs separate */
-  separateStdErr?: boolean;
-  /** arguments for the command, can be an array of arguments, or a string interpreted by bash */
-  args: string | Array<string>;
-  /** any environment variables to add to the execution context */
-  env?: Record<string, string>;
-}
-
-export interface CombinedOutputExecOptions extends BaseExecOptions {
-  separateStdErr?: false;
-  /** output of the command will have standard out and standard error combined */
-  onOutput?: OutputStrCallback;
-}
-
-export interface SeparatedOutputExecOptions extends BaseExecOptions {
-  separateStdErr: true;
-  /** output of the command on standard out */
-  onStdOut?: OutputStrCallback;
-  /** output of the command on standard error */
-  onStdErr?: OutputStrCallback;
-}
-
 export type OutputStrCallback = (output: string) => void;
 
-export interface ExecOutput<
-  T = CombinedOutputExecResult | SeparatedOutputExecResult
-> {
+export type BaseSpawnOptions = {
+  /** The command and arguments, as an array. This does not spawn with a shell */
+  args: string[];
+  /** any environment variables to add to the execution context */
+  env?: Record<string, string>;
+  /** whether to keep stdout and standard error outputs separate */
+  splitStderr?: boolean;
+};
+
+type SplitStderrSpawnOptions = BaseSpawnOptions & {
+  splitStderr: true;
+  /* callback that's triggered when stdout is written to */
+  onStdOut?: OutputStrCallback;
+  /* callback that's triggered when stderr is written to */
+  onStdErr?: OutputStrCallback;
+};
+
+type CombinedStderrSpawnOptions = BaseSpawnOptions & {
+  splitStderr?: false;
+  /* callback that's triggered when stdout or stderr are written to */
+  onOutput?: (output: string) => void;
+};
+
+export type SpawnOptions = SplitStderrSpawnOptions | CombinedStderrSpawnOptions;
+
+export type SpawnResult = {
+  exitCode: number;
+  error: string | null;
+};
+
+export type SpawnOutput = {
   dispose: () => void;
-  resultPromise: Promise<T>;
-}
+  resultPromise: Promise<SpawnResult>;
+};
+
+export type ExecResult = {
+  stdout: string;
+  stderr: string;
+  exitCode: number;
+};
