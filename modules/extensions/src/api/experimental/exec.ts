@@ -99,4 +99,4 @@ async function exec(
 
 exec.executeCommand = executeCommand;
 
-export default exec;
+export { exec };
