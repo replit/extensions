@@ -10,19 +10,19 @@ import {
 /**
  * Executes arbitrary shell commands, with given arguments and environment variables
  */
-export async function exec(
+function executeCommand(
   combinedOutputOptions: CombinedOutputExecOptions
-): Promise<ExecOutput<CombinedOutputExecResult>>;
-export async function exec(
+): ExecOutput<CombinedOutputExecResult>;
+function executeCommand(
   separatedOutputOptions: SeparatedOutputExecOptions
-): Promise<ExecOutput<SeparatedOutputExecResult>>;
-export async function exec(
+): ExecOutput<SeparatedOutputExecResult>;
+function executeCommand(
   options: CombinedOutputExecOptions | SeparatedOutputExecOptions
-): Promise<ExecOutput> {
+): ExecOutput {
   let outputStr: string = "";
   let errorStr: string = "";
 
-  const { promise, dispose } = await extensionPort.experimental.exec(
+  let execResult = extensionPort.experimental.exec(
     proxy({
       args: Array.isArray(options.args)
         ? options.args
@@ -52,9 +52,13 @@ export async function exec(
     })
   );
 
+  let dispose = async () => {
+    (await execResult).dispose();
+  };
+
   const result: Promise<SeparatedOutputExecResult | CombinedOutputExecResult> =
     new Promise(async (resolve) => {
-      const { exitCode, error } = await promise;
+      const { exitCode, error } = await (await execResult).promise;
 
       if (options.separateStdErr) {
         resolve({
@@ -77,3 +81,22 @@ export async function exec(
     dispose,
   };
 }
+
+async function exec(
+  args: string | Array<string>,
+  options: {
+    env?: Record<string, string>;
+  } = {}
+) {
+  const { result } = executeCommand({
+    args,
+    env: options.env ?? {},
+    separateStdErr: true,
+  });
+
+  return await result;
+}
+
+exec.executeCommand = executeCommand;
+
+export default exec;
