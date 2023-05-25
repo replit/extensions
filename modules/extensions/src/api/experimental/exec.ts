@@ -56,28 +56,29 @@ function executeCommand(
     (await execResult).dispose();
   };
 
-  const result: Promise<SeparatedOutputExecResult | CombinedOutputExecResult> =
-    new Promise(async (resolve) => {
-      const { exitCode, error } = await (await execResult).promise;
+  const resultPromise: Promise<
+    SeparatedOutputExecResult | CombinedOutputExecResult
+  > = new Promise(async (resolve) => {
+    const { exitCode, error } = await (await execResult).promise;
 
-      if (options.separateStdErr) {
-        resolve({
-          stdOut: outputStr,
-          stdErr: errorStr,
-          error,
-          exitCode: exitCode ?? 0,
-        });
-      } else {
-        resolve({
-          error,
-          output: outputStr,
-          exitCode: exitCode ?? 0,
-        });
-      }
-    });
+    if (options.separateStdErr) {
+      resolve({
+        stdOut: outputStr,
+        stdErr: errorStr,
+        error,
+        exitCode: exitCode ?? 0,
+      });
+    } else {
+      resolve({
+        error,
+        output: outputStr,
+        exitCode: exitCode ?? 0,
+      });
+    }
+  });
 
   return {
-    result,
+    resultPromise,
     dispose,
   };
 }
@@ -88,13 +89,23 @@ async function exec(
     env?: Record<string, string>;
   } = {}
 ) {
-  const { result } = executeCommand({
+  const { resultPromise } = executeCommand({
     args,
     env: options.env ?? {},
     separateStdErr: true,
   });
 
-  return await result;
+  const result = await resultPromise;
+
+  if (result.error) {
+    throw new Error(result.error);
+  }
+
+  if (result.exitCode !== 0) {
+    throw new Error(result.stdErr);
+  }
+
+  return result;
 }
 
 exec.executeCommand = executeCommand;

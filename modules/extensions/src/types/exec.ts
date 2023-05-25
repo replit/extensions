@@ -47,5 +47,5 @@ export interface ExecOutput<
   T = CombinedOutputExecResult | SeparatedOutputExecResult
 > {
   dispose: () => void;
-  result: Promise<T>;
+  resultPromise: Promise<T>;
 }
