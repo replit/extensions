@@ -3,7 +3,7 @@ import {
   SpawnOptions,
   SpawnOutput,
   SpawnResult,
-} from "src/types/exec";
+} from "../../types/exec";
 import { extensionPort, proxy } from "../../util/comlink";
 
 /**
