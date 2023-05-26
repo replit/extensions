@@ -1,7 +1,6 @@
-import * as React from "react";
 import { HandshakeStatus, experimental, messages } from "@replit/extensions";
 import { useReplit } from "@replit/extensions-react";
-import "./App.css";
+import "../public/App.css";
 
 export default function App() {
   const { status, error, filePath, replit } = useReplit();

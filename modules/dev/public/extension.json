@@ -1,0 +1,34 @@
+{
+  "name": "Extensions API Tester",
+  "description": "Runs all the available Replit Extension APIs, confirming that each one works.",
+  "version": "0",
+  "tags": ["extensions", "replit", "tester"],
+  "website": "https://github.com/replit/extensions",
+  "coverImages": [],
+  "icon": "./icon.png",
+  "tools": [
+    {
+      "name": "Extensions API Tester",
+      "handler": "/",
+      icon: "./icon.png"
+    }
+  ],
+  "scopes": [
+    {
+      "name": "read",
+      "reason": "Required to run and test the `fs` API module."
+    },
+    {
+      "name": "write-exec",
+      "reason": "Required to run and test the `fs` and `exec` API modules."
+    },
+    {
+      "name": "repldb:read",
+      "reason": "Required to run and test the `replDb` API module."
+    },
+    {
+      "name": "repldb:write",
+      "reason": "Required to run and test the `replDb` API module."
+    }
+  ]
+}

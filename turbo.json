@@ -7,11 +7,9 @@
     "test:build": {
       "dependsOn": ["build"]
     },
-    "lint": {},
     "clean": {
       "cache": false
     },
-    "lint:check": {},
     "type:check": {}
   }
 }

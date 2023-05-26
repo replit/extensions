@@ -31,8 +31,6 @@
   "scripts": {
     "build": "tsup src/index.ts  --sourcemap --dts --platform browser --format esm,cjs,iife --global-name replit",
     "test:build": "jest buildTests",
-    "lint": "npx prettier --write src/*",
-    "lint:check": "npx prettier -l src/*",
     "type:check": "tsc --noEmit",
     "clean": "rm -rf dist",
     "generate:docs": "npx typedoc src/index.ts --json docs/main.json --plugin ./util/signature-plugin/index.cjs"

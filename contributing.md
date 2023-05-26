@@ -20,13 +20,13 @@ We appreciate your interest in contributing to our project! As a team, we believ
 3. Run `git reset --hard origin/main` in the shell
 4. Run the Repl
 5. Open the Extension Devtools and hit "Open" on the first Tool listed.
-6. Edit the example extension to ensure that your new implementation works. To reload the code in the npm package, stop and restart the Repl.
 
 ## Checklist
 
 1. Ensure that your code does not have any syntax or compiler errors. You can check this by running `tsc --noEmit` in the shell.
 2. Make sure everything is formatted properly with `npm run lint`.
 3. Provide a test plan for anything you've modified so we can test it out and make sure it works.
+4. Make sure tests pass as expected with the API tester extension.  Write new tests for any new APIs you implement.
 
 ## Requesting Features or Enhancements
 
