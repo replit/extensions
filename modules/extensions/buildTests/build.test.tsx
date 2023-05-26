@@ -8,7 +8,7 @@ declare global {
   interface Window {
     replit: any;
   }
-};
+}
 
 describe("dist/index.global.js (IIFE)", () => {
   test("exists", () => {

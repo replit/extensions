@@ -10,6 +10,8 @@
     "clean": {
       "cache": false
     },
-    "type:check": {}
+    "type:check": {
+      "dependsOn": ["build"]
+    }
   }
 }

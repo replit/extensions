@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from "fs";
 
 describe("dist/index.cjs (CommonJS)", () => {
   test("exists", () => {

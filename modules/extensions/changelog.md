@@ -4,11 +4,11 @@
 
 ## 1.1.2-beta.0
 
- - Experimental `editor` API module
+- Experimental `editor` API module
 
 ## 1.1.2
 
- - No initial changes to client
+- No initial changes to client
 
 ## 1.3.0-beta.1
 
@@ -16,7 +16,7 @@
 
 ## 1.3.0-beta.0
 
- - Basic exec api
+- Basic exec api
 
 ## 1.1.0
 

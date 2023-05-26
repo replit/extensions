@@ -10,7 +10,7 @@
     {
       "name": "Extensions API Tester",
       "handler": "/",
-      icon: "./icon.png"
+      "icon": "./icon.png"
     }
   ],
   "scopes": [
