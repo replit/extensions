@@ -5,31 +5,6 @@ import "../public/App.css";
 export default function App() {
   const { status, error, filePath, replit } = useReplit();
 
-  if (typeof window !== "undefined") {
-    // @ts-ignore
-    window.replit = replit;
-  }
-
-  const execute = async () => {
-    const { result: out, dispose } = await experimental.exec({
-      args: "tsc --noEmit --watch",
-      onStdOut: (output) => {
-        messages.showConfirm(output);
-      },
-      onStdErr: (output) => {
-        messages.showError(output);
-      },
-      separateStdErr: true,
-    });
-
-    setTimeout(() => {
-      dispose();
-      messages.showError("Killed");
-    }, 3000);
-
-    messages.showWarning((await out).stdOut);
-  };
-
   return (
     <main>
       <div className="center">
@@ -55,7 +30,6 @@ export default function App() {
             </div>
           )}
           <span>{status}</span>
-          <button onClick={execute}>Exec</button>
         </div>
       </div>
     </main>

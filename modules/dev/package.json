@@ -1,8 +1,7 @@
 {
-  "name": "react-extension-example",
+  "name": "extensions-api-tester",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Runs all the available Replit Extension APIs, confirming that each one works.",
   "scripts": {
     "dev": "vite",
     "type:check": "tsc --noEmit"
@@ -12,8 +11,6 @@
   "dependencies": {
     "@replit/extensions": "workspace:*",
     "@replit/extensions-react": "workspace:*",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^4.0.0",
     "jose": "^4.14.4",
     "react": "^18.2.0",
@@ -21,6 +18,8 @@
     "vite": "^4.2.1"
   },
   "devDependencies": {
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.2.4"
   }
 }
