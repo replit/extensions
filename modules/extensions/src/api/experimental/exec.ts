@@ -65,17 +65,13 @@ async function exec(
     env?: Record<string, string>;
   } = {}
 ): Promise<ExecResult> {
-  let stderr = "";
-  let stdout = "";
+  let output = "";
   const { resultPromise } = spawn({
     args: ["bash", "-c", command],
     env: options.env ?? {},
-    splitStderr: true,
-    onStdErr: (output: string) => {
-      stderr += output;
-    },
-    onStdOut: (output: string) => {
-      stdout += output;
+    splitStderr: false,
+    onOutput: (newOutput: string) => {
+      output += newOutput;
     },
   });
 
@@ -86,8 +82,7 @@ async function exec(
   }
 
   return {
-    stdout,
-    stderr,
+    output,
     exitCode: result.exitCode,
   };
 }

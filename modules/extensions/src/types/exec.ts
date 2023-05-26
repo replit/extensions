@@ -36,7 +36,6 @@ export type SpawnOutput = {
 };
 
 export type ExecResult = {
-  stdout: string;
-  stderr: string;
+  output: string;
   exitCode: number;
 };
