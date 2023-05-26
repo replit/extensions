@@ -1,48 +1,33 @@
-import { extensionPort, proxy } from "../../util/comlink";
 import {
-  CombinedOutputExecOptions,
-  CombinedOutputExecResult,
-  ExecOutput,
-  SeparatedOutputExecOptions,
-  SeparatedOutputExecResult,
-} from "../../types";
+  ExecResult,
+  SpawnOptions,
+  SpawnOutput,
+  SpawnResult,
+} from "../../types/exec";
+import { extensionPort, proxy } from "../../util/comlink";
 
 /**
- * Executes arbitrary shell commands, with given arguments and environment variables
+ * Spawns a command, with given arguments and environment variables. Takes in callbacks,
+ * and returns an object containing a promise that resolves when the command exits, and
+ * a dispose function to kill the process
  */
-export async function exec(
-  combinedOutputOptions: CombinedOutputExecOptions
-): Promise<ExecOutput<CombinedOutputExecResult>>;
-export async function exec(
-  separatedOutputOptions: SeparatedOutputExecOptions
-): Promise<ExecOutput<SeparatedOutputExecResult>>;
-export async function exec(
-  options: CombinedOutputExecOptions | SeparatedOutputExecOptions
-): Promise<ExecOutput> {
-  let outputStr: string = "";
-  let errorStr: string = "";
-
-  const { promise, dispose } = await extensionPort.experimental.exec(
+function spawn(options: SpawnOptions): SpawnOutput {
+  let execResult = extensionPort.experimental.exec(
     proxy({
-      args: Array.isArray(options.args)
-        ? options.args
-        : ["bash", "-c", options.args],
+      args: options.args,
       env: options.env || {},
-      splitStderr: options.separateStdErr || false,
+      splitStderr: options.splitStderr ?? false,
       onOutput: (output: string) => {
-        outputStr += output;
-        if (options.separateStdErr) {
+        if (options.splitStderr) {
           options.onStdOut?.(output);
         } else {
           options.onOutput?.(output);
         }
       },
       onStdErr: (stderr: string) => {
-        if (options.separateStdErr) {
-          errorStr += stderr;
+        if (options.splitStderr) {
           options.onStdErr?.(stderr);
         } else {
-          outputStr += stderr;
           options.onOutput?.(stderr);
         }
       },
@@ -52,28 +37,54 @@ export async function exec(
     })
   );
 
-  const result: Promise<SeparatedOutputExecResult | CombinedOutputExecResult> =
-    new Promise(async (resolve) => {
-      const { exitCode, error } = await promise;
+  let dispose = async () => {
+    (await execResult).dispose();
+  };
 
-      if (options.separateStdErr) {
-        resolve({
-          stdOut: outputStr,
-          stdErr: errorStr,
-          error,
-          exitCode: exitCode ?? 0,
-        });
-      } else {
-        resolve({
-          error,
-          output: outputStr,
-          exitCode: exitCode ?? 0,
-        });
-      }
+  const resultPromise = new Promise<SpawnResult>(async (resolve) => {
+    const { exitCode, error } = await (await execResult).promise;
+
+    resolve({
+      error,
+      exitCode: exitCode ?? 0,
     });
+  });
 
   return {
-    result,
+    resultPromise,
     dispose,
   };
 }
+
+/**
+ * Executes a command in the shell, with given arguments and environment variables
+ */
+async function exec(
+  command: string,
+  options: {
+    env?: Record<string, string>;
+  } = {}
+): Promise<ExecResult> {
+  let output = "";
+  const { resultPromise } = spawn({
+    args: ["bash", "-c", command],
+    env: options.env ?? {},
+    splitStderr: false,
+    onOutput: (newOutput: string) => {
+      output += newOutput;
+    },
+  });
+
+  const result = await resultPromise;
+
+  if (result.error) {
+    throw new Error(result.error);
+  }
+
+  return {
+    output,
+    exitCode: result.exitCode,
+  };
+}
+
+export { spawn, exec };
