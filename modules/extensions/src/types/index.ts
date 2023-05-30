@@ -198,13 +198,13 @@ export type ExperimentalAPI = {
   editor: {
     getPreferences: () => Promise<EditorPreferences>;
   };
-};
 
-export type InternalAPI = {
   auth: {
     getAuthToken: () => Promise<string>;
   };
 };
+
+export type InternalAPI = {};
 
 export type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
 

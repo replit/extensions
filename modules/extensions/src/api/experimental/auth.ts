@@ -5,7 +5,7 @@ import * as jose from "jose";
  * Returns a unique JWT token that can be used to verify that an extension has been loaded on Replit by a particular user
  */
 export async function getAuthToken() {
-  return extensionPort.internal.auth.getAuthToken();
+  return extensionPort.experimental.auth.getAuthToken();
 }
 
 /**
