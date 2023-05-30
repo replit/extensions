@@ -5,6 +5,10 @@
     "paths": {
       "src": ["./src/"]
     },
+    "types": [
+      "jest",
+      "node"
+    ]
   },
   "extends": "../../tsconfig.json",
 }
