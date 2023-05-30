@@ -9,7 +9,7 @@ export type BaseSpawnOptions = {
   splitStderr?: boolean;
 };
 
-type SplitStderrSpawnOptions = BaseSpawnOptions & {
+export type SplitStderrSpawnOptions = BaseSpawnOptions & {
   splitStderr: true;
   /* callback that's triggered when stdout is written to */
   onStdOut?: OutputStrCallback;
@@ -17,7 +17,7 @@ type SplitStderrSpawnOptions = BaseSpawnOptions & {
   onStdErr?: OutputStrCallback;
 };
 
-type CombinedStderrSpawnOptions = BaseSpawnOptions & {
+export type CombinedStderrSpawnOptions = BaseSpawnOptions & {
   splitStderr?: false;
   /* callback that's triggered when stdout or stderr are written to */
   onOutput?: (output: string) => void;

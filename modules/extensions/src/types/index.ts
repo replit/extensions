@@ -206,15 +206,15 @@ export type InternalAPI = {
   };
 };
 
-type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
+export type Promisify<T> = T extends Promise<unknown> ? T : Promise<T>;
 
-type RemoteProperty<T> = T extends Function | Comlink.ProxyMarked
+export type RemoteProperty<T> = T extends Function | Comlink.ProxyMarked
   ? Comlink.Remote<T>
   : T extends object
   ? T
   : Promisify<T>; //  We don't want to promisify objects, but we do want to promisify all other primitives
 
-type RemoteObject<T> = {
+export type RemoteObject<T> = {
   [P in keyof T]: RemoteProperty<T[P]>;
 };
 
