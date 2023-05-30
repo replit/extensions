@@ -1,3 +1,7 @@
+## 1.2.0 - 1.5.0-beta.0
+
+ - Experimenting with `exec` API.
+
 ## 1.1.2-beta.0
 
  - Experimental `editor` API module
