@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { Test, AppState } from "./";
+import { Test, AppState } from "../types";
 
 export const StateContext = createContext<AppState>({
   tests: [],
@@ -14,7 +14,10 @@ export default function AppStateProvider({
   const [tests, setTests] = React.useState<Array<Test>>([]);
 
   return (
-    <StateContext.Provider value={(tests, setTests)}>
+    <StateContext.Provider value={{
+      tests,
+      setTests
+    }}>
       {children}
     </StateContext.Provider>
   );

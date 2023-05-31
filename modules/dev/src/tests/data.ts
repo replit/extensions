@@ -1,16 +1,14 @@
-import { Expectation, Test, TestNamespace } from "../types";
-import { CurrentUser, data } from "@replit/extensions";
+import { TestNamespace } from "../types";
+import { data } from "@replit/extensions";
+import assert from "assert";
 
-const tests: Record<string, Test> = {
-  "data.currentUser should fetch the information of the current Replit user":
-    async (expect: Expectation) => {
-      const currentUser = await data.currentUser();
+const tests: Record<string, () => Promise<void> | void> = {
+  "data.currentUser should work": async () => {
+    const res = await data.currentUser();
 
-      expect(currentUser.user);
-      expect(currentUser.user.id);
-
-      log(`Fetched current user @${currentUser.user.username}`);
-    },
+    assert(res.user);
+    assert(typeof res.user.id === "number")
+  }
 };
 
 const DataTests: TestNamespace = {

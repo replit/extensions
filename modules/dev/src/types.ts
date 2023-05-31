@@ -9,7 +9,11 @@ export type Module =
   | "session"
   | "themes";
 
-export type Test = (expect: Expectation) => Promise<void>;
+export interface Test {
+  module: Module;
+  key: string;
+  status: "passed" | "failed" | "loading" | "idle";
+}
 
 export type Expectation = (
   value: any
@@ -20,7 +24,7 @@ export type Expectation = (
 
 export interface TestNamespace {
   module: Module;
-  tests: Record<string, Test>;
+  tests: Record<string, () => Promise<void> | void>;
 }
 
 export interface AppState {
