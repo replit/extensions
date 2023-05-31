@@ -1,12 +1,16 @@
-import { HandshakeStatus, experimental, messages } from "@replit/extensions";
+import { HandshakeStatus } from "@replit/extensions";
 import { useReplit, useThemeValues } from "@replit/extensions-react";
+import { useEffect, useRef } from "react";
 import "../public/App.css";
 import Header from "./components/Header";
-import { UnitTest } from "./components/Test";
+import { useAppState } from "./components/StateContext";
 import TestGroup from "./components/TestGroup";
+import UnitTests from "./tests";
 
 export default function App() {
   const { status, error } = useReplit();
+  const { logs, setLogs } = useAppState();
+  const logRef = useRef<HTMLDivElement>(null);
 
   const tokens = useThemeValues();
 
@@ -19,6 +23,13 @@ export default function App() {
           )}: ${val} !important;`
       )
     : [];
+
+  useEffect(() => {
+    logRef?.current?.scrollTo({
+      top: logRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [logs, logRef]);
 
   if (status === HandshakeStatus.Loading) {
     return (
@@ -55,18 +66,44 @@ ${mappedThemeValues.join("\n")}
         }`}</style>
         <Header />
 
-        <div style={{ padding: 8 }}>
-          <TestGroup
-            title="fs Module"
-            tests={[
-              { state: "passed", text: "fs.readFile should successfully return a file's contents", time: "0.2s" },
-              { state: "passed", text: "fs.writeFile should successfully write contents to a non-utf-8 file", time: "0.3s" },
-              { state: "failed", text: "fs.readDir should return an array of Directory Child Nodes", time: "4.15s" },
-              { state: "passed", text: "fs.createDir should successfully create a directory", time: "4s" },
-              { state: "loading", text: "fs.deleteFile should successfully delete a file", time: "0.2s" },
-              { state: "idle", text: "fs.deleteDir should delete a directory and all its children", time: "--" },
-            ]}
-          />
+        <div style={{ flexGrow: 1, position: "relative" }}>
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              overflowY: "auto",
+              padding: 8,
+            }}
+          >
+            {Object.values(UnitTests)
+              .sort((a, b) => a.module.localeCompare(b.module))
+              .map(({ module }, i) => (
+                <TestGroup module={module} key={i} />
+              ))}
+          </div>
+        </div>
+
+        <div className="logs">
+          <div className="logs-head">
+            <span>Logs</span>
+            <button
+              className="button"
+              onClick={() => setLogs([])}
+              disabled={logs.length === 0}
+            >
+              Clear
+            </button>
+          </div>
+          {logs.length > 0 ? (
+            <div className="logs-scroll" ref={logRef}>
+              {logs.map((l, i) => (
+                <span key={i}>{l}</span>
+              ))}
+            </div>
+          ) : null}
         </div>
       </main>
     );

@@ -1,23 +1,27 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { experimental, fs } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
 const { exec } = experimental;
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "exec should work": async () => {
+const tests: TestObject = {
+  exec: async () => {
     await exec({
-      args: ["touch", "test_text_file.txt"]
-    })
+      args: ["touch", "test_text_file.txt"],
+    });
     const res = await fs.readFile("test_text_file.txt");
 
-    assert(res);
-    assert('content' in res);
-    assert(typeof res.content === "string");
+    assert.isObject(res);
+
+    if ("content" in res) {
+      assert.isString(res.content);
+    } else {
+      throw new Error("Expected a string");
+    }
 
     // Cleanup
     await fs.deleteFile("test_text_file.txt");
-  }
+  },
 };
 
 const ExecTests: TestNamespace = {

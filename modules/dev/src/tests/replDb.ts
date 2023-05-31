@@ -1,15 +1,28 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { replDb } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "messages.showConfirm should work": async () => {
-    const res = await replDb.list();
+const tests: TestObject = {
+  list: async (log) => {
+    await replDb.set({
+      key: "__extensions_test_key__",
+      value: "test value",
+    });
 
-    assert(res);
-    assert('keys' in res);
-    assert(typeof res.keys === "object" && Array.isArray(res.keys));
-  }
+    const res = await replDb.list({ prefix: "" });
+
+    assert.isObject(res);
+    if ("keys" in res) {
+      assert.isArray(res.keys);
+    } else {
+      throw new Error("failed to list keys");
+    }
+
+    // Cleanup
+    await replDb.del({
+      key: "__extensions_test_key__",
+    });
+  },
 };
 
 const ReplDBTests: TestNamespace = {

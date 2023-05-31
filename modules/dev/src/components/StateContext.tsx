@@ -1,23 +1,54 @@
 import React, { createContext } from "react";
 import { Test, AppState } from "../types";
+import UnitTests from "../tests";
 
-export const StateContext = createContext<AppState>({
-  tests: [],
-  setTests: (_) => {},
-});
+const mappedTests = Object.values(UnitTests)
+  .map(({ module, tests }) => {
+    return Object.keys(tests).map(
+      (key) =>
+        ({
+          module,
+          key,
+          status: "idle",
+          shouldRun: false,
+        } as Test)
+    );
+  })
+  .flat(1)
+  .sort((a, b) => a.module.localeCompare(b.module));
+
+export const StateContext = createContext<AppState | null>(null);
+
+export const useAppState = () => {
+  const state = React.useContext(StateContext);
+
+  if (!state) {
+    throw new Error("useAppState must be used within a StateProvider");
+  }
+
+  return state;
+};
 
 export default function AppStateProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [tests, setTests] = React.useState<Array<Test>>([]);
+  const [testQueue, setTestQueue] = React.useState<
+    Array<Pick<Test, "module" | "key">>
+  >([]);
+  const [logs, setLogs] = React.useState<Array<string>>([]);
 
   return (
-    <StateContext.Provider value={{
-      tests,
-      setTests
-    }}>
+    <StateContext.Provider
+      value={{
+        tests: mappedTests,
+        testQueue,
+        setTestQueue,
+        logs,
+        setLogs,
+      }}
+    >
       {children}
     </StateContext.Provider>
   );

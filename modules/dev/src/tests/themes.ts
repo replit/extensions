@@ -1,18 +1,18 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { themes } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "session.getActiveFile should work": async () => {
+const tests: TestObject = {
+  getCurrentTheme: async () => {
     const res = await themes.getCurrentTheme();
 
-    assert(res);
-    assert(res.customTheme);
-  }
+    assert.isObject(res);
+    assert.isNumber(res.id);
+  },
 };
 
 const ThemeTests: TestNamespace = {
-  module: "session",
+  module: "themes",
   tests,
 };
 

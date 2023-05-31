@@ -1,14 +1,13 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { session } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "session.getActiveFile should work": async () => {
+const tests: TestObject = {
+  getActiveFile: async () => {
     const res = await session.getActiveFile();
 
-    assert(res);
-    assert(typeof res === "string" || typeof res === "undefined")
-  }
+    assert.isTrue(typeof res === "string" || res === null);
+  },
 };
 
 const SessionTests: TestNamespace = {

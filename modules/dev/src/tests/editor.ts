@@ -1,16 +1,16 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { experimental } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
 const { editor } = experimental;
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "editor.getPreferences should work": async () => {
+const tests: TestObject = {
+  getPreferences: async () => {
     const res = await editor.getPreferences();
 
-    assert(res);
-    assert(typeof res.fontSize === "number");
-  }
+    assert.isObject(res);
+    assert.isNumber(res.fontSize);
+  },
 };
 
 const EditorTests: TestNamespace = {

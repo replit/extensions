@@ -1,14 +1,15 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { data } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "data.currentUser should work": async () => {
+const tests: TestObject = {
+  currentUser: async () => {
     const res = await data.currentUser();
 
-    assert(res.user);
-    assert(typeof res.user.id === "number")
-  }
+    assert.isObject(res.user);
+
+    assert.isTrue(typeof res.user.id === "number");
+  },
 };
 
 const DataTests: TestNamespace = {

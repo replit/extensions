@@ -148,6 +148,7 @@ main {
   border-radius: 8px;
   overflow: hidden;
   border: solid 1px var(--background-higher);
+  margin-bottom: 8px;
 }
 
 .testGroup-header {
@@ -176,3 +177,31 @@ main {
 .testGroupTests > .test:last-of-type {
   border-bottom: none;
 }
+
+.logs {
+  
+}
+
+.logs-head {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  justify-content: space-between;
+  border-top: 1px solid var(--background-higher);
+}
+
+.logs-scroll {
+  padding: 8px;
+  background: var(--background-root);
+  min-height: 128px;
+  max-height: 128px;
+  overflow: auto;
+  border-top: solid 1px var(--background-higher);
+  font-family: monospace;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+

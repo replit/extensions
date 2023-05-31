@@ -1,3 +1,6 @@
+import React, { Dispatch, SetStateAction } from "react";
+import UnitTests from "./tests";
+
 export type Module =
   | "fs"
   | "me"
@@ -11,23 +14,27 @@ export type Module =
 
 export interface Test {
   module: Module;
-  key: string;
+  key: keyof (typeof UnitTests)[Module];
   status: "passed" | "failed" | "loading" | "idle";
+  shouldRun: boolean;
 }
-
-export type Expectation = (
-  value: any
-) => asserts value is Exclude<
-  any,
-  false | 0 | "" | null | undefined | typeof NaN
->;
 
 export interface TestNamespace {
   module: Module;
-  tests: Record<string, () => Promise<void> | void>;
+  tests: TestObject;
 }
+
+export type TestObject = Record<
+  string,
+  (log: (t: string) => void) => Promise<void>
+>;
 
 export interface AppState {
   tests: Array<Test>;
-  setTests: (tests: Array<Test>) => void;
+  testQueue: Array<Pick<Test, "module" | "key">>;
+  setTestQueue: React.Dispatch<
+    React.SetStateAction<Array<Pick<Test, "module" | "key">>>
+  >;
+  logs: Array<string>;
+  setLogs: React.Dispatch<React.SetStateAction<Array<string>>>;
 }

@@ -1,14 +1,13 @@
-import { TestNamespace } from "../types";
+import { TestNamespace, TestObject } from "../types";
 import { messages } from "@replit/extensions";
-import assert from "assert";
+import { assert } from "chai";
 
-const tests: Record<string, () => Promise<void> | void> = {
-  "messages.showConfirm should work": async () => {
+const tests: TestObject = {
+  showConfirm: async () => {
     const res = await messages.showConfirm("Test confirmation");
 
-    assert(res);
-    assert(typeof res === "string");
-  }
+    assert.isString(res);
+  },
 };
 
 const MessagesTests: TestNamespace = {
