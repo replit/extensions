@@ -13,9 +13,9 @@ const tests: Record<string, () => Promise<void> | void> = {
   }
 };
 
-const DataTests: TestNamespace = {
+const EditorTests: TestNamespace = {
   module: "editor",
   tests,
 };
 
-export default DataTests;
+export default EditorTests;

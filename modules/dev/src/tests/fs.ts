@@ -12,9 +12,9 @@ const tests: Record<string, () => Promise<void> | void> = {
   }
 };
 
-const DataTests: TestNamespace = {
+const FsTests: TestNamespace = {
   module: "fs",
   tests,
 };
 
-export default DataTests;
+export default FsTests;
