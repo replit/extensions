@@ -1,44 +1,160 @@
 import { TestNamespace, TestObject } from "../types";
 import { fs, FsNodeType } from "@replit/extensions";
 import { assert, expect } from "chai";
-import { createTestFile } from "../utils/tests";
+import {
+  assertDirExists,
+  assertFileExists,
+  createTestDir,
+  createTestDirIfNotExists,
+  createTestFile,
+} from "../utils/tests";
+import { assertFileContents, randomString } from "../utils/assertions";
 
 const tests: TestObject = {
-  readFile: async (log) => {
-    // Creates a file and makes sure it exists
-    // readFile is already used in the function
-    const { fileName, dispose } = await createTestFile("extension_tester/readFile.txt");
-    
-    // Make sure it returned a string
-    assert.isString(fileName);
-    log(`Successfully created ${fileName}`)
-    
+  "writeFile & readFile": async () => {
+    // runs fs.writeFile and fs.readFile
+    (await createTestFile("extension_tester/readFile.txt")).dispose();
+  },
+  readDir: async () => {
+    const { fileName, dispose } = await createTestFile(
+      "extension_tester/readDir.txt"
+    );
+
+    const { children } = await assertDirExists("extension_tester");
+    expect(children).to.deep.include({
+      filename: fileName.replace("extension_tester/", ""),
+      type: FsNodeType.File,
+    });
+
+    dispose();
+  },
+  createDir: async () => {
+    await createTestDirIfNotExists();
+
+    // Create test directory
+    const { dirName, dispose: removeDir } = await createTestDir(
+      "extension_tester/createDir"
+    );
+
+    // Add a test file to the directory
+    const { fileName, dispose } = await createTestFile(
+      `extension_tester/createDir/createDir.txt`
+    );
+
+    // Read the directory
+    const { children } = await assertDirExists(dirName);
+
+    expect(children).to.deep.include({
+      filename: fileName.replace("extension_tester/createDir/", ""),
+      type: FsNodeType.File,
+    });
+
     // Cleanup
     dispose();
+    removeDir();
   },
-  writeFile: async (log) => {
-    // Creates a file (writeFile) and makes sure it exists
-    const { fileName, fileContent, dispose } = await createTestFile("extension_tester/writeFile.txt");
+  deleteFile: async () => {
+    const { fileName, dispose } = await createTestFile(
+      "extension_tester/deleteFile.txt"
+    );
 
-    log(`Successfully created ${fileName}`);
+    await fs.deleteFile(fileName);
 
-    assert.isString(fileName);
-    assert.isString(fileContent);
-    
-    dispose();
-  },
-  readDir: async (log) => {
-    const { fileName } = await createTestFile("extension_tester/readDir.txt");
-    
     const res = await fs.readDir("extension_tester");
 
     assert.isArray(res.children);
-    expect(res.children).to.deep.include({
+    expect(res.children).to.not.include({
       filename: fileName.replace("extension_tester/", ""),
-      type: FsNodeType.File
+      type: FsNodeType.File,
     });
-    
-  }
+
+    dispose();
+  },
+  deleteDir: async () => {
+    await createTestDirIfNotExists();
+
+    const { dispose } = await createTestDir("extension_tester/deleteDir");
+
+    dispose();
+  },
+  move: async () => {
+    const { fileName, dispose } = await createTestFile(
+      "extension_tester/move.txt"
+    );
+
+    const { dirName, dispose: removeDir } = await createTestDir(
+      "extension_tester/move"
+    );
+
+    const res = await fs.move(
+      fileName,
+      fileName.replace("extension_tester", dirName)
+    );
+
+    assert.isTrue(res.success);
+
+    const { children } = await assertDirExists(dirName);
+
+    expect(children).to.deep.include({
+      filename: fileName.replace("extension_tester/", ""),
+      type: FsNodeType.File,
+    });
+
+    dispose();
+    removeDir();
+  },
+  copyFile: async () => {
+    const { fileName, dispose } = await createTestFile(
+      "extension_tester/copyFile.txt"
+    );
+
+    const { dirName, dispose: removeDir } = await createTestDir(
+      "extension_tester/copyFile"
+    );
+
+    const res = await fs.copyFile(
+      fileName,
+      fileName.replace("extension_tester", dirName)
+    );
+
+    assert.isTrue(res.success);
+
+    const { children } = await assertDirExists(dirName);
+
+    expect(children).to.deep.include({
+      filename: fileName.replace("extension_tester/", ""),
+      type: FsNodeType.File,
+    });
+
+    dispose();
+    removeDir();
+  },
+  watchFile: async (log) => {
+    const { fileName, dispose: disposeFile } = await createTestFile(
+      "extension_tester/watchFile.txt",
+      "Hello World"
+    );
+
+    const disposeWatcher = await fs.watchFile(fileName, {
+      onChange: (change) => {
+        log("Content updated: " + change);
+      },
+      onError: () => {
+        throw new Error("Failed to watch file");
+      },
+      onMoveOrDelete: () => {
+        log("File moved or deleted");
+        throw new Error("File moved or deleted");
+      },
+    });
+
+    for (let i = 0; i < 10; i++) {
+      await fs.writeFile(fileName, randomString());
+    }
+
+    disposeWatcher();
+    disposeFile();
+  },
 };
 
 const FsTests: TestNamespace = {

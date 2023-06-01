@@ -1,4 +1,8 @@
-import { assertPathOrNameValidity, assertFileContents, randomString } from "./assertions";
+import {
+  assertPathOrNameValidity,
+  assertFileContents,
+  randomString,
+} from "./assertions";
 import { fs } from "@replit/extensions";
 import { assert } from "chai";
 
@@ -41,4 +45,35 @@ export async function assertFileExists(path: string) {
   assertPathOrNameValidity(path);
   const res = await fs.readFile(path);
   assertFileContents(res);
+
+  return {
+    content: assertFileContents(res),
+  };
+}
+
+// Make sure a directory exists
+export async function assertDirExists(path: string) {
+  assertPathOrNameValidity(path);
+  const res = await fs.readDir(path);
+  assert.isArray(res.children);
+
+  return {
+    children: res.children,
+  };
+}
+
+// Create a test directory by name
+export async function createTestDir(dirName: string) {
+  assertPathOrNameValidity(dirName);
+
+  await fs.createDir(dirName);
+
+  // Assert that the directory has been created and exists
+  await assertDirExists(dirName);
+
+  const dispose = async () => {
+    await fs.deleteDir(dirName);
+  };
+
+  return { dirName, dispose };
 }

@@ -88,12 +88,10 @@ export type ExtensionPortAPI = {
     children: Array<DirectoryChildNode>;
     error: string;
   }>;
-  createDir: (path: string) => Promise<
-    | {}
-    | {
-        error: string;
-      }
-  >;
+  createDir: (path: string) => Promise<{
+    success: boolean;
+    error: string | null;
+  }>;
   deleteFile: (path: string) => Promise<
     | {}
     | {
@@ -110,12 +108,14 @@ export type ExtensionPortAPI = {
     path: string,
     to: string
   ) => Promise<{
+    success: boolean;
     error: string | null;
   }>;
   copyFile: (
     path: string,
     to: string
   ) => Promise<{
+    success: boolean;
     error: string | null;
   }>;
   watchFile: (

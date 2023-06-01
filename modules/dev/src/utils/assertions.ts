@@ -21,10 +21,10 @@ export function assertFileContents(
 export function assertPathOrNameValidity(
   pathOrName: string
 ): asserts pathOrName is string {
-  if(!pathOrName.startsWith("extension_tester/")) {
-    throw new Error("Test files must be prefixed with extension_tester/")
+  if (!pathOrName.startsWith("extension_tester")) {
+    throw new Error("Test files must be prefixed with extension_tester");
   }
 }
 
 // Generate a random string
-export const randomString = () => Math.random().toString(36).slice(2)
+export const randomString = () => Math.random().toString(36).slice(2);

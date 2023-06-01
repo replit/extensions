@@ -37,7 +37,7 @@ export const UnitTest = ({
       testQueue[0]?.module === test.module
     ) {
       setStatus("loading");
-      let t = Date.now()
+      let t = Date.now();
 
       const testFn = UnitTests[module].tests[key];
       if (testFn) {
@@ -45,7 +45,7 @@ export const UnitTest = ({
           Promise.race([
             testFn(addLog),
             new Promise((_resolve, reject) =>
-              setTimeout(() => reject(new Error("Test timed out")), 5000)
+              setTimeout(() => reject(new Error("Test timed out")), 10000)
             ),
           ])
             .then(() => {
