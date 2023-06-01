@@ -12,7 +12,6 @@
       "cache": false
     },
     "lint:check": {},
-    "type:check": {},
     "type:check": {
       "dependsOn": ["build"]
     }
