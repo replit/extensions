@@ -3,12 +3,11 @@ import { fs, FsNodeType } from "@replit/extensions";
 import { assert, expect } from "chai";
 import {
   assertDirExists,
-  assertFileExists,
   createTestDir,
   createTestDirIfNotExists,
   createTestFile,
 } from "../utils/tests";
-import { assertFileContents, randomString } from "../utils/assertions";
+import { randomString } from "../utils/assertions";
 
 const tests: TestObject = {
   "writeFile & readFile": async () => {
@@ -154,6 +153,71 @@ const tests: TestObject = {
 
     disposeWatcher();
     disposeFile();
+  },
+  watchDir: async (log) => {
+    const { dirName, dispose: removeDir } = await createTestDir(
+      "extension_tester/watchDir"
+    );
+
+    const disposeWatcher = await fs.watchDir(dirName, {
+      onChange: (children) => {
+        log(
+          "Children Updated: " +
+            children.map((child) => child.path.split("/").at(-1)).join(", ")
+        );
+      },
+      onError: () => {
+        throw new Error("Failed to watch directory");
+      },
+      onMoveOrDelete: () => {
+        log("Directory moved or deleted");
+        throw new Error("Directory moved or deleted");
+      },
+    });
+
+    for (let i = 0; i < 5; i++) {
+      const { dispose } = await createTestFile(
+        "extension_tester/watchDir/file.txt"
+      );
+
+      setTimeout(dispose, 2000);
+    }
+
+    disposeWatcher();
+    removeDir();
+  },
+  watchTextFile: async (log) => {
+    const { fileName, dispose: disposeFile } = await createTestFile(
+      "extension_tester/watchTextFile.txt",
+      "Hello World"
+    );
+
+    const writeChanges = async () => {
+      for (let _ of new Array(5)) {
+        await fs.writeFile(fileName, randomString());
+      }
+
+      disposeWatcher();
+      disposeFile();
+    };
+
+    const disposeWatcher = fs.watchTextFile(fileName, {
+      onChange: (change) => {
+        log(`Watched file updated with ${change.changes.length} OTs.`);
+      },
+      onError: () => {
+        throw new Error("Failed to watch file");
+      },
+      onMoveOrDelete: () => {
+        log("File moved or deleted");
+        throw new Error("File moved or deleted");
+      },
+      onReady: ({ initialContent }) => {
+        log(`File Watcher ready with initial content "${initialContent}"`);
+
+        writeChanges();
+      },
+    });
   },
 };
 

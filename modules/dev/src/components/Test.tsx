@@ -68,6 +68,8 @@ export const UnitTest = ({
         setStatus("failed");
         finishTest(t);
       }
+    } else if (testQueue.some((t) => t.key === key && t.module === module)) {
+      setStatus("idle");
     }
   }, [test, testQueue]);
 
