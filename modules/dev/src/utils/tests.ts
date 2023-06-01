@@ -66,6 +66,8 @@ export async function assertDirExists(path: string) {
 export async function createTestDir(dirName: string) {
   assertPathOrNameValidity(dirName);
 
+  await createTestDirIfNotExists();
+
   await fs.createDir(dirName);
 
   // Assert that the directory has been created and exists
