@@ -3,8 +3,8 @@
   "description": "Replit Extensions Monorepo (All Clients)",
   "scripts": {
     "dev": "cd modules/dev && pnpm dev",
-    "lint": "npx prettier --write \"modules/**/*.{js,ts,tsx}\"",
-    "lint:check": "npx prettier -l \"modules/**/*.{js,ts,tsx}\"",
+    "lint": "turbo run lint",
+    "lint:check": "turbo run lint:check",
     "type:check": "turbo run type:check",
     "test:build": "turbo run test:build",
     "build": "turbo run build",

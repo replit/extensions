@@ -4,6 +4,8 @@
   "description": "Runs all the available Replit Extension APIs, confirming that each one works.",
   "scripts": {
     "dev": "vite",
+    "lint": "npx prettier --write src/*",
+    "lint:check": "npx prettier -l src/*",
     "type:check": "tsc --noEmit"
   },
   "author": "lunaroyster",

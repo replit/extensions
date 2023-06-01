@@ -31,6 +31,8 @@
   "scripts": {
     "build": "tsup src/index.ts  --sourcemap --dts --format esm,cjs,iife --global-name replit",
     "clean": "rm -rf dist",
+    "lint": "npx prettier --write src/*",
+    "lint:check": "npx prettier -l src/*",
     "type:check": "tsc --noEmit",
     "test:build": "jest buildTests"
   },
