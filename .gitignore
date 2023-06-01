@@ -4,3 +4,4 @@ dist/
 .breakpoints
 docs/
 .turbo
+extension_tester/

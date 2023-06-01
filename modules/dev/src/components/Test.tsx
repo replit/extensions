@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, X, Loader, Circle } from "react-feather";
 import { Module, Test } from "../types";
 import { useAppState } from "./StateContext";
 import UnitTests from "../tests";
-import { promiseWithTimeout } from "../utils/tests";
 
 export const UnitTest = ({
   k: key,
@@ -20,11 +19,11 @@ export const UnitTest = ({
 
   const test = tests.find((t) => t.key === key && t.module === module);
 
-  const finishTest = () => {
+  const finishTest = (t: number) => {
     setTestQueue((q) =>
       q.filter((t) => !(t.key === key && t.module === module))
     );
-    setTime((t) => Date.now() - t);
+    setTime(Date.now() - t);
   };
 
   const addLog = (log: string) => {
@@ -38,31 +37,36 @@ export const UnitTest = ({
       testQueue[0]?.module === test.module
     ) {
       setStatus("loading");
-      setTime(Date.now());
+      let t = Date.now()
 
       const testFn = UnitTests[module].tests[key];
       if (testFn) {
         try {
-          promiseWithTimeout<void>(testFn(addLog), 5000)
+          Promise.race([
+            testFn(addLog),
+            new Promise((_resolve, reject) =>
+              setTimeout(() => reject(new Error("Test timed out")), 5000)
+            ),
+          ])
             .then(() => {
               addLog(`${key}: ✅ [PASS]`);
               setStatus("passed");
-              finishTest();
+              finishTest(t);
             })
             .catch((err) => {
               addLog(`${key}: ❌ ${err.message}`);
               setStatus("failed");
-              finishTest();
+              finishTest(t);
             });
         } catch (err) {
           addLog(`${key}: ❌ ${String(err)}`);
           setStatus("failed");
-          finishTest();
+          finishTest(t);
         }
       } else {
         addLog(`${key}: ❌ No test function found`);
         setStatus("failed");
-        finishTest();
+        finishTest(t);
       }
     }
   }, [test, testQueue]);
