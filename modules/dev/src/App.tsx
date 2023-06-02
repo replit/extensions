@@ -1,7 +1,7 @@
 import { HandshakeStatus } from "@replit/extensions";
 import { useReplit, useThemeValues } from "@replit/extensions-react";
 import { useEffect, useRef } from "react";
-import "../public/App.css";
+import "./App.css";
 import Header from "./components/Header";
 import { useAppState } from "./components/StateContext";
 import TestGroup from "./components/TestGroup";

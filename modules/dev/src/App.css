@@ -46,7 +46,7 @@ main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   background: var(--background-root);
   color: var(--foreground-default);
 }
@@ -66,7 +66,7 @@ main {
   border-radius: 8px;
   background: var(--accent-primary-dimmer);
   color: var(--foreground-default);
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: "IBM Plex Sans", sans-serif;
   line-height: 1;
   cursor: pointer;
   transition: 0.25s;
@@ -77,8 +77,9 @@ main {
   background: var(--accent-primary-default);
 }
 
-.button:active, .button:focus {
-  box-shadow: 0 0 0 1px var(--accent-primary-strongest)
+.button:active,
+.button:focus {
+  box-shadow: 0 0 0 1px var(--accent-primary-strongest);
 }
 
 .button:disabled {
@@ -179,7 +180,6 @@ main {
 }
 
 .logs {
-  
 }
 
 .logs-head {
