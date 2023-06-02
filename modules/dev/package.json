@@ -1,0 +1,30 @@
+{
+  "name": "extensions-api-tester",
+  "version": "1.0.0",
+  "description": "Runs all the available Replit Extension APIs, confirming that each one works.",
+  "scripts": {
+    "dev": "vite",
+    "lint": "npx prettier --write src/*",
+    "lint:check": "npx prettier -l src/*",
+    "type:check": "tsc --noEmit"
+  },
+  "author": "lunaroyster",
+  "license": "MIT",
+  "dependencies": {
+    "@replit/extensions": "workspace:*",
+    "@replit/extensions-react": "workspace:*",
+    "@vitejs/plugin-react": "^4.0.0",
+    "chai": "^4.3.7",
+    "jose": "^4.14.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
+    "vite": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.2.4",
+    "prettier": "^2.7.1"
+  }
+}

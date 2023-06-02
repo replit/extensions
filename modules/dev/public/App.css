@@ -1,0 +1,217 @@
+:root {
+  --background-root: #0e1525;
+  --background-default: #1c2333;
+  --background-higher: #2b3245;
+  --background-highest: #3c445c;
+  --background-overlay: #0e1525a0;
+  --foreground-default: #f5f9fc;
+  --foreground-dimmer: #c2c8cc;
+  --foreground-dimmest: #9da2a6;
+  --outline-dimmest: #2b3245;
+  --outline-dimmer: #3c445c;
+  --outline-default: #4e5569;
+  --outline-stronger: #5f677a;
+  --outline-strongest: #70788c;
+  --accent-primary-dimmest: #004182;
+  --accent-primary-dimmer: #0053a6;
+  --accent-primary-default: #0079f2;
+  --accent-primary-stronger: #57abff;
+  --accent-primary-strongest: #b2d9ff;
+  --accent-positive-dimmest: #044a10;
+  --accent-positive-dimmer: #046113;
+  --accent-positive-default: #009118;
+  --accent-positive-stronger: #6cd97e;
+  --accent-positive-strongest: #bfffca;
+  --accent-negative-dimmest: #660000;
+  --accent-negative-dimmer: #a60808;
+  --accent-negative-default: #e52222;
+  --accent-negative-stronger: #ff6666;
+  --accent-negative-strongest: #ffcfcf;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--background-root);
+  color: var(--foreground-default);
+}
+
+.header {
+  display: flex;
+  padding: 8px;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border-bottom: solid 1px var(--background-higher);
+}
+
+.button {
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--accent-primary-dimmer);
+  color: var(--foreground-default);
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.25s;
+  font-size: 14px;
+}
+
+.button:hover {
+  background: var(--accent-primary-default);
+}
+
+.button:active, .button:focus {
+  box-shadow: 0 0 0 1px var(--accent-primary-strongest)
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button.small {
+  padding: 4px;
+  font-size: 12px;
+}
+
+.test {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  padding: 4px;
+}
+
+.test-icon {
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 12px;
+  color: var(--foreground-default);
+  background: var(--background-higher);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.test-icon.passed {
+  background: var(--accent-positive-dimmer);
+}
+
+.test-icon.failed {
+  background: var(--accent-negative-dimmer);
+}
+
+.test-icon.loading > * {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.test-text {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 8px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.test-time {
+  color: var(--foreground-dimmest);
+  font-size: 12px;
+}
+
+.testGroup {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  border: solid 1px var(--background-higher);
+  margin-bottom: 8px;
+}
+
+.testGroup-header {
+  padding: 8px;
+  display: flex;
+  background: var(--background-higher);
+  align-content: center;
+  align-items: center;
+}
+
+.testGroup-title {
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.dropdown-toggle {
+  padding: 6px;
+  margin-left: 8px;
+}
+
+.testGroupTests > .test {
+  border-bottom: 1px solid var(--background-higher);
+}
+
+.testGroupTests > .test:last-of-type {
+  border-bottom: none;
+}
+
+.logs {
+  
+}
+
+.logs-head {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  justify-content: space-between;
+  border-top: 1px solid var(--background-higher);
+}
+
+.logs-scroll {
+  padding: 8px;
+  background: var(--background-root);
+  min-height: 128px;
+  max-height: 128px;
+  overflow: auto;
+  border-top: solid 1px var(--background-higher);
+  font-family: monospace;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.test-stats {
+  font-size: 12px;
+}
+
+#passed {
+  color: var(--accent-primary-default);
+}
+
+#failed {
+  color: var(--accent-negative-default);
+}
