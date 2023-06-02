@@ -49,7 +49,7 @@ export default function Header() {
         </button>
         <button
           className="button"
-          id="runTestsRequired"
+          id="runAllTests"
           style={{ marginRight: 8 }}
           onClick={() => {
             setTestQueue(
