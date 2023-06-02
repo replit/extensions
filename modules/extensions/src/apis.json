@@ -93,7 +93,8 @@
       "ThemeValuesEditor",
       "ThemeValues",
       "ThemeVersion",
-      "DisposerFunction"
+      "DisposerFunction",
+      "OnThemeChangeListener"
     ]
   },
   {
