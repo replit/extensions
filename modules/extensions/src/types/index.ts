@@ -128,9 +128,11 @@ export type ExtensionPortAPI = {
 
   // replDb Module
   setReplDbValue: (key: string, value: string) => Promise<void>;
-  getReplDbValue: (key: string) => {
-    error: string | null;
-  };
+  getReplDbValue: (key: string) =>
+    | {
+        error: string | null;
+      }
+    | string;
   listReplDbKeys: (prefix: string) => Promise<
     | { keys: string[] }
     | {

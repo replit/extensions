@@ -3,7 +3,7 @@ import {
   assertFileContents,
   randomString,
 } from "./assertions";
-import { fs } from "@replit/extensions";
+import { fs, replDb } from "@replit/extensions";
 import { assert } from "chai";
 
 // Create the test directory if it doesn't exist
@@ -78,4 +78,27 @@ export async function createTestDir(dirName: string) {
   };
 
   return { dirName, dispose };
+}
+
+// Create a random replDB key
+export async function createReplDBKey(val?: string) {
+  const keyName = "extension_key_" + Date.now();
+  const value = val || randomString();
+
+  await replDb.set({
+    key: keyName,
+    value: value || randomString(),
+  });
+
+  const dispose = async () => {
+    await replDb.del({
+      key: keyName,
+    });
+  };
+
+  return {
+    keyName,
+    value,
+    dispose,
+  };
 }

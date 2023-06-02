@@ -49,7 +49,7 @@ export const UnitTest = ({
             ),
           ])
             .then(() => {
-              addLog(`${key}: ✅ [PASS]`);
+              addLog(`${key}: ✅`);
               setStatus("passed");
               finishTest(t);
             })

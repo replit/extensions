@@ -5,11 +5,15 @@ import { assert } from "chai";
 const { editor } = experimental;
 
 const tests: TestObject = {
-  getPreferences: async () => {
+  "getPreferences returns the current editor preferences": async (log) => {
     const res = await editor.getPreferences();
 
     assert.isObject(res);
     assert.isNumber(res.fontSize);
+
+    for (const [key, value] of Object.entries(res)) {
+      log(`${key}: ${value}`);
+    }
   },
 };
 

@@ -133,6 +133,7 @@ export interface ReplCommentConnection {
  * Editor Preferences
  */
 export interface EditorPreferences {
+  __typename: string;
   fontSize: number;
   indentIsSpaces: boolean;
   indentSize: number;
