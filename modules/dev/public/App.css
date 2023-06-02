@@ -204,4 +204,14 @@ main {
   position: relative;
 }
 
+.test-stats {
+  font-size: 12px;
+}
 
+#passed {
+  color: var(--accent-primary-default);
+}
+
+#failed {
+  color: var(--accent-negative-default);
+}

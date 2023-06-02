@@ -37,4 +37,10 @@ export interface AppState {
   >;
   logs: Array<string>;
   setLogs: React.Dispatch<React.SetStateAction<Array<string>>>;
+  passedTests: number | null;
+  setPassedTests: React.Dispatch<React.SetStateAction<number | null>>;
+  failedTests: number | null;
+  setFailedTests: React.Dispatch<React.SetStateAction<number | null>>;
+  totalTests: number | null;
+  setTotalTests: React.Dispatch<React.SetStateAction<number | null>>;
 }

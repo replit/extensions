@@ -6,11 +6,15 @@ import { useAppState } from "./StateContext";
 
 export default function TestGroup({ module }: { module: Module }) {
   const [open, setOpen] = useState(true);
-  const { tests, setTestQueue } = useAppState();
+  const { tests, setTestQueue, setFailedTests, setPassedTests, setTotalTests } =
+    useAppState();
 
   const moduleTests = tests.filter((t) => t.module === module);
 
   const runModuleTests = () => {
+    setFailedTests(0);
+    setPassedTests(0);
+    setTotalTests(moduleTests.length);
     setTestQueue(
       moduleTests.map((t) => ({
         key: t.key,

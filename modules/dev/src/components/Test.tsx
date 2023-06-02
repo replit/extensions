@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check, X, Loader, Circle } from "react-feather";
-import { Module, Test } from "../types";
+import { Module } from "../types";
 import { useAppState } from "./StateContext";
 import UnitTests from "../tests";
 
@@ -11,7 +11,15 @@ export const UnitTest = ({
   k: keyof (typeof UnitTests)[Module];
   module: Module;
 }) => {
-  const { tests, testQueue, setTestQueue, logs, setLogs } = useAppState();
+  const {
+    tests,
+    testQueue,
+    setTestQueue,
+    setLogs,
+    passedTests,
+    setPassedTests,
+    setFailedTests,
+  } = useAppState();
   const [time, setTime] = useState(0);
   const [status, setStatus] = useState<
     "passed" | "failed" | "loading" | "idle"
@@ -51,21 +59,25 @@ export const UnitTest = ({
             .then(() => {
               addLog(`${key}: ✅`);
               setStatus("passed");
+              setPassedTests((p) => (p || 0) + 1);
               finishTest(t);
             })
             .catch((err) => {
               addLog(`${key}: ❌ ${err.message}`);
               setStatus("failed");
+              setFailedTests((f) => (f || 0) + 1);
               finishTest(t);
             });
         } catch (err) {
           addLog(`${key}: ❌ ${String(err)}`);
           setStatus("failed");
+          setFailedTests((f) => (f || 0) + 1);
           finishTest(t);
         }
       } else {
         addLog(`${key}: ❌ No test function found`);
         setStatus("failed");
+        setFailedTests((f) => (f || 0) + 1);
         finishTest(t);
       }
     } else if (testQueue.some((t) => t.key === key && t.module === module)) {
@@ -84,7 +96,9 @@ export const UnitTest = ({
 
       <span className="test-text">{key}</span>
 
-      <span className="test-time">{time ? `${time}ms` : "--"}</span>
+      <span className="test-time">
+        {time && status !== "loading" && status !== "idle" ? `${time}ms` : "--"}
+      </span>
     </div>
   ) : null;
 };

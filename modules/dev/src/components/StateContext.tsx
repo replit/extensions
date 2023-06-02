@@ -38,6 +38,9 @@ export default function AppStateProvider({
     Array<Pick<Test, "module" | "key">>
   >([]);
   const [logs, setLogs] = React.useState<Array<string>>([]);
+  const [passedTests, setPassedTests] = React.useState<number | null>(null);
+  const [failedTests, setFailedTests] = React.useState<number | null>(null);
+  const [totalTests, setTotalTests] = React.useState<number | null>(null);
 
   return (
     <StateContext.Provider
@@ -47,6 +50,12 @@ export default function AppStateProvider({
         setTestQueue,
         logs,
         setLogs,
+        passedTests,
+        setPassedTests,
+        failedTests,
+        setFailedTests,
+        totalTests,
+        setTotalTests,
       }}
     >
       {children}
