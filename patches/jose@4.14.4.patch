@@ -1,16 +1,11 @@
-diff --git a/dist/browser/runtime/is_key_like.js b/dist/browser/runtime/is_key_like.js
-index 8d35fdc84c4f2642dd144004a8faffca7efba578..cc8a9cd40940b65ab8c75bb854ab6432d70cf922 100644
---- a/dist/browser/runtime/is_key_like.js
-+++ b/dist/browser/runtime/is_key_like.js
-@@ -1,5 +1,18 @@
--import { isCryptoKey } from './webcrypto.js';
-+import { isCryptoKey } from "./webcrypto.js";
- export default (key) => {
--    return isCryptoKey(key);
-+  if (isCryptoKey(key)) {
-+    return true;
-+  }
-+
+diff --git a/dist/browser/runtime/webcrypto.js b/dist/browser/runtime/webcrypto.js
+index f9e1e915390c4ebf7cf0581f4b183cae253ae402..b0b94ae6ae35f36fb187b1d316d5a4eab880531d 100644
+--- a/dist/browser/runtime/webcrypto.js
++++ b/dist/browser/runtime/webcrypto.js
+@@ -1,2 +1,13 @@
+ export default crypto;
+-export const isCryptoKey = (key) => key instanceof CryptoKey;
++export const isCryptoKey = (key) => {
 +  if (
 +    "type" in key &&
 +    "extractable" in key &&
@@ -20,7 +15,5 @@ index 8d35fdc84c4f2642dd144004a8faffca7efba578..cc8a9cd40940b65ab8c75bb854ab6432
 +    return true;
 +  }
 +
-+  return false;
- };
--export const types = ['CryptoKey'];
-+export const types = ["CryptoKey"];
++  return key instanceof CryptoKey;
++};

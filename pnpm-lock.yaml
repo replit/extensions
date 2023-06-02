@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 patchedDependencies:
   jose@4.14.4:
-    hash: o2ydbihrvtugezt3xwu4stgz3i
+    hash: huvwuedo4gdsbrz3c6b3a2uxty
     path: patches/jose@4.14.4.patch
 
 importers:
@@ -69,7 +69,7 @@ importers:
       '@replit/extensions-react': link:../extensions-react
       '@vitejs/plugin-react': 4.0.0_vite@4.3.5
       chai: 4.3.7
-      jose: 4.14.4_o2ydbihrvtugezt3xwu4stgz3i
+      jose: 4.14.4_huvwuedo4gdsbrz3c6b3a2uxty
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-feather: 2.0.10_react@18.2.0
@@ -93,7 +93,7 @@ importers:
     dependencies:
       '@codemirror/state': 6.2.0
       comlink: 4.4.1
-      jose: 4.14.4_o2ydbihrvtugezt3xwu4stgz3i
+      jose: 4.14.4_huvwuedo4gdsbrz3c6b3a2uxty
     devDependencies:
       esbuild: 0.15.18
       prettier: 2.8.8
@@ -4074,7 +4074,7 @@ packages:
       - ts-node
     dev: true
 
-  /jose/4.14.4_o2ydbihrvtugezt3xwu4stgz3i:
+  /jose/4.14.4_huvwuedo4gdsbrz3c6b3a2uxty:
     resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
     dev: false
     patched: true
