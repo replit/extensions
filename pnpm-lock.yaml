@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  jose@4.14.4:
+    hash: o2ydbihrvtugezt3xwu4stgz3i
+    path: patches/jose@4.14.4.patch
+
 importers:
 
   .:
@@ -64,7 +69,7 @@ importers:
       '@replit/extensions-react': link:../extensions-react
       '@vitejs/plugin-react': 4.0.0_vite@4.3.5
       chai: 4.3.7
-      jose: 4.14.4
+      jose: 4.14.4_o2ydbihrvtugezt3xwu4stgz3i
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-feather: 2.0.10_react@18.2.0
@@ -88,7 +93,7 @@ importers:
     dependencies:
       '@codemirror/state': 6.2.0
       comlink: 4.4.1
-      jose: 4.14.4
+      jose: 4.14.4_o2ydbihrvtugezt3xwu4stgz3i
     devDependencies:
       esbuild: 0.15.18
       prettier: 2.8.8
@@ -1325,7 +1330,6 @@ packages:
 
   /@types/node/20.2.3:
     resolution: {integrity: sha512-pg9d0yC4rVNWQzX8U7xb4olIOFuuVL9za3bzMT2pu2SU0SNEi66i2qrvhE2qt0HvkhuCaWJu7pLNOt/Pj8BIrw==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -1398,7 +1402,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.21.0_@babel+core@7.21.8
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.21.8
       react-refresh: 0.14.0
-      vite: 4.3.5
+      vite: 4.3.5_@types+node@20.2.3
     transitivePeerDependencies:
       - supports-color
 
@@ -4070,9 +4074,10 @@ packages:
       - ts-node
     dev: true
 
-  /jose/4.14.4:
+  /jose/4.14.4_o2ydbihrvtugezt3xwu4stgz3i:
     resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
     dev: false
+    patched: true
 
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -5865,6 +5870,7 @@ packages:
       rollup: 3.21.5
     optionalDependencies:
       fsevents: 2.3.2
+    dev: false
 
   /vite/4.3.5_@types+node@20.2.3:
     resolution: {integrity: sha512-0gEnL9wiRFxgz40o/i/eTBwm+NEbpUeTWhzKrZDSdKm6nplj+z4lKz8ANDgildxHm47Vg8EUia0aicKbawUVVA==}
@@ -5897,7 +5903,6 @@ packages:
       rollup: 3.21.5
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /vscode-oniguruma/1.7.0:
     resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}

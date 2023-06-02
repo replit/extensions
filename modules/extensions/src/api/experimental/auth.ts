@@ -30,7 +30,7 @@ export async function verifyAuthToken(token: string) {
     `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`
   );
 
-  const publicKey = await res.text();
+  const { value: publicKey } = await res.json();
 
   const importedPublicKey = await jose.importSPKI(publicKey, "RS256");
 
