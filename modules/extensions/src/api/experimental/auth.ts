@@ -1,9 +1,8 @@
 import { extensionPort } from "../../util/comlink";
 import * as jose from "jose";
-import { Ed25519Algorithm, polyfillEd25519, ponyfillEd25519 } from "@yoursunny/webcrypto-ed25519";
+import { polyfillEd25519 } from "../../polyfills/ed25519";
 
 polyfillEd25519();
-window.jose = jose;
 
 /**
  * Returns a unique JWT token that can be used to verify that an extension has been loaded on Replit by a particular user
@@ -36,9 +35,7 @@ export async function verifyAuthToken(token: string) {
 
   const { value: publicKey } = await res.json();
 
-  console.log(publicKey);
-
-  const importedPublicKey = await jose.importSPKI(publicKey, "RS256");
+  const importedPublicKey = await jose.importSPKI(publicKey, "EdDSA");
 
   const decodedToken = await jose.jwtVerify(token, importedPublicKey);
 
