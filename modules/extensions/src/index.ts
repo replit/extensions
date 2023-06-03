@@ -52,7 +52,6 @@ export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
 
   try {
     if (window) {
-      window.replit = replit;
       await windowIsReady();
     }
 
