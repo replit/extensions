@@ -7,13 +7,19 @@ const tests: TestObject = {
     const res = await themes.getCurrentTheme();
 
     assert.isObject(res);
-    assert.isNumber(res.id);
     assert.isTrue(
-      res.customTheme?.colorScheme === "dark" ||
-        res.customTheme?.colorScheme === "light"
+      typeof res.id === "number" ||
+        ["replitDark", "replitLight"].includes(res.id)
     );
-    assert.isString(res.customTheme?.title);
-    assert.isString(res.customTheme?.author.username);
+
+    if (res.customTheme) {
+      assert.isTrue(
+        res.customTheme?.colorScheme === "dark" ||
+          res.customTheme?.colorScheme === "light"
+      );
+      assert.isString(res.customTheme?.title);
+      assert.isString(res.customTheme?.author.username);
+    }
 
     log(
       `Theme: ${res.customTheme?.title} by ${res.customTheme?.author.username} (${res.customTheme?.colorScheme})`
