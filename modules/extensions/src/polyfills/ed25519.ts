@@ -237,13 +237,26 @@ class Ponyfill implements Record<keyof SubtleCrypto, Function> {
 }
 interface Ponyfill extends Record<keyof SubtleCrypto, Function> {}
 
-export function ponyfillEd25519(subtle = crypto.subtle): SubtleCrypto {
+export function ponyfillEd25519(subtle = crypto.subtle): SubtleCrypto | null {
+  if (!subtle) {
+    console.warn(`polyfill ed25519: crypto.subtle is not available`);
+    return null;
+  }
+
   return new Ponyfill(subtle) as unknown as SubtleCrypto;
 }
 
-export function polyfillEd25519(): void {
+export function polyfillEd25519(): boolean {
+  const ponyfill = ponyfillEd25519();
+
+  if (!ponyfill) {
+    return false;
+  }
+
   Object.defineProperty(globalThis.crypto, "subtle", {
-    value: ponyfillEd25519(),
+    value: ponyfill,
     configurable: true,
   });
+
+  return true;
 }
