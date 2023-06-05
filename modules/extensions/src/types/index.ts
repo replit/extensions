@@ -63,7 +63,9 @@ export type DisposerFunction = () => void;
  * The Extension Port
  */
 export type ExtensionPortAPI = {
-  handshake: () => { success: true };
+  handshake: (handshakeArgs: { clientName: string; clientVersion: string }) => {
+    success: true;
+  };
 
   // fs Module
   readFile: (

@@ -8,7 +8,9 @@ export { extensionPort, proxy };
 export * from "./types";
 import * as replit from ".";
 
-export { version } from "../package.json";
+import { version } from "../package.json";
+
+export { version };
 
 function promiseWithTimeout<T>(promise: Promise<T>, timeout: number) {
   return Promise.race([
@@ -55,7 +57,13 @@ export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
       await windowIsReady();
     }
 
-    await promiseWithTimeout(extensionPort.handshake(), args?.timeout || 2000);
+    await promiseWithTimeout(
+      extensionPort.handshake({
+        clientName: "@replit/extensions",
+        clientVersion: version,
+      }),
+      args?.timeout || 2000
+    );
 
     setHandshakeStatus(HandshakeStatus.Ready);
 
