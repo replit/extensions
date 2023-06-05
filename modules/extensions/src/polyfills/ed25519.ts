@@ -239,6 +239,8 @@ interface Ponyfill extends Record<keyof SubtleCrypto, Function> {}
 
 export function ponyfillEd25519(subtle = crypto.subtle): SubtleCrypto | null {
   if (!subtle) {
+    // This is for JSDOM compatibility, since that environment doesn't support the crypto.subtle API at all.
+    // It shouldn't happen on a real browser
     console.warn(`polyfill ed25519: crypto.subtle is not available`);
     return null;
   }
