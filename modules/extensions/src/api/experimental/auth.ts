@@ -1,5 +1,13 @@
 import { extensionPort } from "../../util/comlink";
 import * as jose from "jose";
+import { polyfillEd25519 } from "../../polyfills/ed25519";
+
+const success = polyfillEd25519();
+if (!success) {
+  console.warn(
+    "Failed to polyfill ed25519: crypto.subtle is not available in the environment. This will cause issues with the auth API."
+  );
+}
 
 /**
  * Returns a unique JWT token that can be used to verify that an extension has been loaded on Replit by a particular user
@@ -30,9 +38,9 @@ export async function verifyAuthToken(token: string) {
     `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`
   );
 
-  const publicKey = await res.text();
+  const { value: publicKey } = await res.json();
 
-  const importedPublicKey = await jose.importSPKI(publicKey, "RS256");
+  const importedPublicKey = await jose.importSPKI(publicKey, "EdDSA");
 
   const decodedToken = await jose.jwtVerify(token, importedPublicKey);
 

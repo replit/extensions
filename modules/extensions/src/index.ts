@@ -6,6 +6,7 @@ export * from "./api";
 export * from "./util/log";
 export { extensionPort, proxy };
 export * from "./types";
+import * as replit from ".";
 
 export { version } from "../package.json";
 
