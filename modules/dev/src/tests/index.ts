@@ -7,6 +7,7 @@ import replDb from "./replDb";
 import themes from "./themes";
 import editor from "./editor";
 import exec from "./exec";
+import actionRequired from "./actionRequired";
 import { Module, TestNamespace } from "../types";
 
 const UnitTests: Record<Module, TestNamespace> = {
@@ -19,6 +20,7 @@ const UnitTests: Record<Module, TestNamespace> = {
   editor,
   exec,
   data,
+  actionRequired,
 };
 
 export default UnitTests;

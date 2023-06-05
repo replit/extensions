@@ -10,7 +10,8 @@ export type Module =
   | "messages"
   | "replDb"
   | "session"
-  | "themes";
+  | "themes"
+  | "actionRequired";
 
 export interface Test {
   module: Module;

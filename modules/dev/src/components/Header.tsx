@@ -27,19 +27,42 @@ export default function Header() {
         </span>
       </div>
 
-      <button
-        className="button"
-        onClick={() => {
-          setTestQueue(
-            tests.map((test) => ({ key: test.key, module: test.module }))
-          );
-          setFailedTests(0);
-          setPassedTests(0);
-          setTotalTests(tests.length);
-        }}
-      >
-        Run All Tests
-      </button>
+      <div style={{ display: "flex" }}>
+        <button
+          className="button"
+          id="runTestsRequired"
+          style={{ marginRight: 8 }}
+          onClick={() => {
+            setTestQueue(
+              tests
+                .filter((t) => t.module !== "actionRequired")
+                .map((test) => ({ key: test.key, module: test.module }))
+            );
+            setFailedTests(0);
+            setPassedTests(0);
+            setTotalTests(
+              tests.filter((t) => t.module !== "actionRequired").length
+            );
+          }}
+        >
+          Run Required
+        </button>
+        <button
+          className="button"
+          id="runAllTests"
+          style={{ marginRight: 8 }}
+          onClick={() => {
+            setTestQueue(
+              tests.map((test) => ({ key: test.key, module: test.module }))
+            );
+            setFailedTests(0);
+            setPassedTests(0);
+            setTotalTests(tests.length);
+          }}
+        >
+          Run All
+        </button>
+      </div>
     </div>
   );
 }

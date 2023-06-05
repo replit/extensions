@@ -16,7 +16,6 @@ export const UnitTest = ({
     testQueue,
     setTestQueue,
     setLogs,
-    passedTests,
     setPassedTests,
     setFailedTests,
   } = useAppState();

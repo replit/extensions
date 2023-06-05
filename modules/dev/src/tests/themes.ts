@@ -25,31 +25,6 @@ const tests: TestObject = {
     assert.isObject(res);
     assert.isTrue(Object.values(res).every((t) => typeof t === "string"));
   },
-  "onThemeChange fires when the theme changes": async (log) => {
-    log("⚠️ Please change your theme to run this test ⚠️");
-
-    await new Promise<void>(async (resolve) => {
-      const dispose = await themes.onThemeChange(() => {
-        dispose();
-        resolve();
-      });
-    });
-  },
-  "onThemeChangeValues fires when the theme changes": async (log) => {
-    log("⚠️ Please change your theme to run this test ⚠️");
-
-    await new Promise<void>(async (resolve) => {
-      const dispose = await themes.onThemeChangeValues((values) => {
-        assert.isObject(values);
-        assert.isTrue(
-          Object.values(values).every((t) => typeof t === "string")
-        );
-
-        dispose();
-        resolve();
-      });
-    });
-  },
 };
 
 const ThemeTests: TestNamespace = {
