@@ -115,7 +115,6 @@
       "BaseSpawnOptions",
       "OutputStrCallback"
     ],
-    "experimental": true
   },
   {
     "name": "editor",
