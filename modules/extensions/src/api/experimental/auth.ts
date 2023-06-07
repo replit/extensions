@@ -38,11 +38,37 @@ export async function verifyAuthToken(token: string) {
     `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`
   );
 
-  const { value: publicKey } = await res.json();
+  const { ok, value: publicKey } = await res.json();
 
-  const importedPublicKey = await jose.importSPKI(publicKey, "EdDSA");
+  if (!ok) {
+    throw new Error("Extension Auth: Failed to fetch public key");
+  }
 
-  const decodedToken = await jose.jwtVerify(token, importedPublicKey);
+  try {
+    const importedPublicKey = await jose.importSPKI(publicKey, "EdDSA");
 
-  return decodedToken;
+    const decodedToken = await jose.jwtVerify(token, importedPublicKey);
+
+    return decodedToken;
+  } catch (e) {
+    throw new Error("Extension Auth: Failed to verify token");
+  }
+}
+
+/**
+ * Performs authentication and returns the user and installation information
+ */
+export async function authenticate() {
+  const token = await getAuthToken();
+  const decodedToken = await verifyAuthToken(token);
+
+  return {
+    user: {
+      id: decodedToken.payload.userId,
+    },
+    installation: {
+      id: decodedToken.payload.installationId,
+      extensionId: decodedToken.payload.extensionId,
+    },
+  };
 }
