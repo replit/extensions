@@ -179,6 +179,23 @@ export type ExtensionPortAPI = {
 
   experimental: ExperimentalAPI;
   internal: InternalAPI;
+
+  exec: (args: {
+    splitStderr?: boolean;
+    args: Array<string>;
+    env?: {
+      [key: string]: string;
+    };
+    onOutput: (output: string) => void;
+    onStdErr: (stderr: string) => void;
+    onError: (error: string) => void;
+  }) => Promise<{
+    dispose: () => void;
+    promise: Promise<{
+      exitCode: number;
+      error: string | null;
+    }>;
+  }>;
 };
 
 export type ExperimentalAPI = {

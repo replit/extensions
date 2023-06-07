@@ -3,14 +3,13 @@ import {
   SpawnOptions,
   SpawnOutput,
   SpawnResult,
-} from "../../types/exec";
-import { extensionPort, proxy } from "../../util/comlink";
+} from "../types/exec";
+import { extensionPort, proxy } from "../util/comlink";
 
 /**
  * Spawns a command, with given arguments and environment variables. Takes in callbacks,
  * and returns an object containing a promise that resolves when the command exits, and
  * a dispose function to kill the process
- * @deprecated since version 1.5.0; use `exec.spawn` instead of `experimental.exec.spawn`
  */
 function spawn(options: SpawnOptions): SpawnOutput {
   let execResult = extensionPort.exec(
@@ -59,7 +58,6 @@ function spawn(options: SpawnOptions): SpawnOutput {
 
 /**
  * Executes a command in the shell, with given arguments and environment variables
- * @deprecated since version 1.5.0; use `exec.exec` instead of `experimental.exec.exec`
  */
 async function exec(
   command: string,
