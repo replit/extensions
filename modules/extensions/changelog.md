@@ -1,3 +1,8 @@
+## 1.5.0
+
+ - `exec` moves out of experimental
+ - Experimental APIs are now a permission
+
 ## 1.2.0 - 1.5.0-beta.0
 
  - Experimenting with `exec` API.

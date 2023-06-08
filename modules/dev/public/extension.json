@@ -29,6 +29,10 @@
     {
       "name": "repldb:write",
       "reason": "Required to run and test the `replDb` API module."
+    },
+    {
+      "name": "experimental-api",
+      "reason": "Required to run and test experimental APIs"
     }
   ]
 }
