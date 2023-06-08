@@ -114,8 +114,7 @@
       "CombinedStderrSpawnOptions",
       "BaseSpawnOptions",
       "OutputStrCallback"
-    ],
-    "experimental": true
+    ]
   },
   {
     "name": "editor",

@@ -179,9 +179,7 @@ export type ExtensionPortAPI = {
 
   experimental: ExperimentalAPI;
   internal: InternalAPI;
-};
 
-export type ExperimentalAPI = {
   exec: (args: {
     splitStderr?: boolean;
     args: Array<string>;
@@ -198,7 +196,9 @@ export type ExperimentalAPI = {
       error: string | null;
     }>;
   }>;
+};
 
+export type ExperimentalAPI = {
   editor: {
     getPreferences: () => Promise<EditorPreferences>;
   };

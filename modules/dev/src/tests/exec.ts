@@ -1,9 +1,7 @@
 import { TestNamespace, TestObject } from "../types";
-import { experimental, fs } from "@replit/extensions";
+import { exec, fs } from "@replit/extensions";
 import { assert } from "chai";
 import { assertFileExists, createTestDirIfNotExists } from "../utils/tests";
-
-const { exec } = experimental;
 
 const tests: TestObject = {
   "exec should run a bash command": async () => {

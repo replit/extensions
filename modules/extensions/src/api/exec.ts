@@ -3,8 +3,8 @@ import {
   SpawnOptions,
   SpawnOutput,
   SpawnResult,
-} from "../../types/exec";
-import { extensionPort, proxy } from "../../util/comlink";
+} from "../types/exec";
+import { extensionPort, proxy } from "../util/comlink";
 
 /**
  * Spawns a command, with given arguments and environment variables. Takes in callbacks,
@@ -12,7 +12,7 @@ import { extensionPort, proxy } from "../../util/comlink";
  * a dispose function to kill the process
  */
 function spawn(options: SpawnOptions): SpawnOutput {
-  let execResult = extensionPort.experimental.exec(
+  let execResult = extensionPort.exec(
     proxy({
       args: options.args,
       env: options.env || {},
