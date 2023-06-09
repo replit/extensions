@@ -7,7 +7,7 @@ export interface BaseSpawnOptions {
   env?: Record<string, string>;
   /** whether to keep stdout and standard error outputs separate */
   splitStderr?: boolean;
-};
+}
 
 export interface SplitStderrSpawnOptions extends BaseSpawnOptions {
   splitStderr: true;
@@ -15,27 +15,27 @@ export interface SplitStderrSpawnOptions extends BaseSpawnOptions {
   onStdOut?: OutputStrCallback;
   /* callback that's triggered when stderr is written to */
   onStdErr?: OutputStrCallback;
-};
+}
 
 export interface CombinedStderrSpawnOptions extends BaseSpawnOptions {
   splitStderr?: false;
   /* callback that's triggered when stdout or stderr are written to */
   onOutput?: (output: string) => void;
-};
+}
 
 export type SpawnOptions = SplitStderrSpawnOptions | CombinedStderrSpawnOptions;
 
-export type SpawnResult = {
+export interface SpawnResult {
   exitCode: number;
   error: string | null;
-};
+}
 
-export type SpawnOutput = {
+export interface SpawnOutput {
   dispose: () => void;
   resultPromise: Promise<SpawnResult>;
-};
+}
 
-export type ExecResult = {
+export interface ExecResult {
   output: string;
   exitCode: number;
-};
+}
