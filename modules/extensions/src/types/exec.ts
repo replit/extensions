@@ -1,6 +1,6 @@
 export type OutputStrCallback = (output: string) => void;
 
-export type BaseSpawnOptions = {
+export interface BaseSpawnOptions {
   /** The command and arguments, as an array. This does not spawn with a shell */
   args: string[];
   /** any environment variables to add to the execution context */
@@ -9,7 +9,7 @@ export type BaseSpawnOptions = {
   splitStderr?: boolean;
 };
 
-export type SplitStderrSpawnOptions = BaseSpawnOptions & {
+export interface SplitStderrSpawnOptions extends BaseSpawnOptions {
   splitStderr: true;
   /* callback that's triggered when stdout is written to */
   onStdOut?: OutputStrCallback;
@@ -17,7 +17,7 @@ export type SplitStderrSpawnOptions = BaseSpawnOptions & {
   onStdErr?: OutputStrCallback;
 };
 
-export type CombinedStderrSpawnOptions = BaseSpawnOptions & {
+export interface CombinedStderrSpawnOptions extends BaseSpawnOptions {
   splitStderr?: false;
   /* callback that's triggered when stdout or stderr are written to */
   onOutput?: (output: string) => void;
