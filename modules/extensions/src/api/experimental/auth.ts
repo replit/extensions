@@ -1,7 +1,7 @@
 import { extensionPort } from "../../util/comlink";
 import * as jose from "jose";
 import { polyfillEd25519 } from "../../polyfills/ed25519";
-import { AuthenticateResult, VerifyResult } from "../../types";
+import { AuthenticateResult, JWTVerifyResult } from "../../types";
 
 const success = polyfillEd25519();
 if (!success) {
@@ -20,7 +20,7 @@ export async function getAuthToken() {
 /**
  * Verifies a provided JWT token and returns the decoded token.
  */
-export async function verifyAuthToken(token: string): VerifyResult {
+export async function verifyAuthToken(token: string): Promise<JWTVerifyResult> {
   const tokenHeaders = jose.decodeProtectedHeader(token);
 
   if (tokenHeaders.typ !== "JWT") {

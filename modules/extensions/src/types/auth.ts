@@ -1,6 +1,4 @@
-import { JWTVerifyResult, JWTHeaderParameters, JWTPayload } from "jose";
-
-export type VerifyResult = Promise<JWTVerifyResult>;
+import { JWTVerifyResult, JWTHeaderParameters, JWTPayload, JWK } from "jose";
 
 export interface AuthenticatedInstallation {
   id: string;
@@ -16,4 +14,4 @@ export interface AuthenticateResult {
   installation: AuthenticatedInstallation;
 }
 
-export type { JWTVerifyResult, JWTHeaderParameters, JWTPayload };
+export type { JWTVerifyResult, JWTHeaderParameters, JWTPayload, JWK };
