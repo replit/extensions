@@ -28,6 +28,7 @@ export * from "./themes";
 export * from "./data";
 export * from "./session";
 export * from "./exec";
+export * from "./auth";
 
 /**
  * An enumerated set of values for the Handshake between the workspace and an extension

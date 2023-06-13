@@ -1,7 +1,7 @@
 import { extensionPort } from "../../util/comlink";
 import * as jose from "jose";
 import { polyfillEd25519 } from "../../polyfills/ed25519";
-import { AuthenticateResult, VerifyResult } from ".";
+import { AuthenticateResult, VerifyResult } from "../../types";
 
 const success = polyfillEd25519();
 if (!success) {
