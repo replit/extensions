@@ -59,11 +59,9 @@ export async function verifyAuthToken(token: string): VerifyResult {
 /**
  * Performs authentication and returns the user and installation information
  */
-export async function authenticate(): AuthenticateResult {
+export async function authenticate(): Promise<AuthenticateResult> {
   const token = await getAuthToken();
   const decodedToken = await verifyAuthToken(token);
-
-  console.log(decodedToken.payload);
 
   if (
     typeof decodedToken.payload.userId !== "number" ||

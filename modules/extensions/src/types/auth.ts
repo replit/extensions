@@ -1,12 +1,17 @@
 import * as jose from "jose";
 
 export type VerifyResult = Promise<jose.JWTVerifyResult>;
-export type AuthenticateResult = Promise<{
-  user: {
-    id: number;
-  };
-  installation: {
-    id: string;
-    extensionId: string;
-  };
-}>;
+
+export interface AuthenticatedInstallation {
+  id: string;
+  extensionId: string;
+}
+
+export interface AuthenticatedUser {
+  id: number;
+}
+
+export interface AuthenticateResult {
+  user: AuthenticatedUser;
+  installation: AuthenticatedInstallation;
+}
