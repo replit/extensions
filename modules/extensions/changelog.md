@@ -1,3 +1,7 @@
+## 1.6.0
+
+ - `auth` API namespace has been released
+
 ## 1.5.0
 
  - `exec` moves out of experimental
