@@ -1,6 +1,7 @@
 import { extensionPort } from "../../util/comlink";
 import * as jose from "jose";
 import { polyfillEd25519 } from "../../polyfills/ed25519";
+import { AuthenticateResult, VerifyResult } from ".";
 
 const success = polyfillEd25519();
 if (!success) {
@@ -19,7 +20,7 @@ export async function getAuthToken() {
 /**
  * Verifies a provided JWT token and returns the decoded token.
  */
-export async function verifyAuthToken(token: string) {
+export async function verifyAuthToken(token: string): VerifyResult {
   const tokenHeaders = jose.decodeProtectedHeader(token);
 
   if (tokenHeaders.typ !== "JWT") {
@@ -58,9 +59,19 @@ export async function verifyAuthToken(token: string) {
 /**
  * Performs authentication and returns the user and installation information
  */
-export async function authenticate() {
+export async function authenticate(): AuthenticateResult {
   const token = await getAuthToken();
   const decodedToken = await verifyAuthToken(token);
+
+  console.log(decodedToken.payload);
+
+  if (
+    typeof decodedToken.payload.userId !== "number" ||
+    typeof decodedToken.payload.installationId !== "string" ||
+    typeof decodedToken.payload.extensionId !== "string"
+  ) {
+    throw new Error("Failed to authenticate");
+  }
 
   return {
     user: {
