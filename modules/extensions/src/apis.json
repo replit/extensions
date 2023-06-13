@@ -126,6 +126,6 @@
     "name": "auth",
     "description": "The `auth` api module allows you to securely authenticate a Replit user if they use your extension.",
     "experimental": true,
-    "typeNames": []
+    "typeNames": ["VerifyResult", "AuthenticateResult"]
   }
 ]
