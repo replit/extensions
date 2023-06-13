@@ -130,7 +130,10 @@
       "VerifyResult",
       "AuthenticateResult",
       "AuthenticatedUser",
-      "AuthenticateResult"
+      "AuthenticateResult",
+      "JWTPayload",
+      "JWTHeaderParameters",
+      "JWTVerifyResult"
     ]
   }
 ]
