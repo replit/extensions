@@ -24,7 +24,9 @@ const tests: TestObject = {
       },
     });
 
-    await resultPromise;
+    const out = await resultPromise;
+
+    console.log(out, Date.now());
 
     // Cleanup
     dispose();
