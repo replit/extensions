@@ -6,7 +6,8 @@
     "dev": "vite",
     "lint": "npx prettier --write src/*",
     "lint:check": "npx prettier -l src/*",
-    "type:check": "tsc --noEmit"
+    "type:check": "tsc --noEmit",
+    "build": "vite build"
   },
   "author": "lunaroyster",
   "license": "MIT",

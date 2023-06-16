@@ -16,8 +16,9 @@ npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
 
 [extension]
 isExtension = true
-buildCommand = "cd modules/react-example && npm run build"
-outputDirectory = "modules/example/dist"
+buildCommand = "cd modules/dev && pnpm build"
+outputDirectory = "modules/dev/dist"
+extensionID = "b99141f4-09df-43de-ad74-26c5685a55d1"
 
 [unitTest]
 language = "nodejs"

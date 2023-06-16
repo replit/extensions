@@ -1,10 +1,17 @@
 {
   "name": "Extensions API Tester",
-  "description": "Runs all the available Replit Extension APIs, confirming that each one works.",
+  "description": "Runs all the available Replit Extension APIs, confirming that each API works.",
   "version": "0",
   "tags": ["extensions", "replit", "tester"],
   "website": "https://github.com/replit/extensions",
-  "coverImages": [],
+  "coverImages": [
+
+    {
+      path: "./cover.png",
+      label: "preview of extension"
+    }
+
+  ],
   "icon": "./icon.png",
   "tools": [
     {
@@ -34,5 +41,6 @@
       "name": "experimental-api",
       "reason": "Required to run and test experimental APIs"
     }
-  ]
+  ],
+  longDescription: "The Extensions API Tester runs all of the available Extension APIs including experimental ones.  If a required test fails, that usually means we broke something either in the Extensions client or on Replit's side.\n\nIf you are contributing to the [main repository](https://github.com/replit/extensions), all required tests need to pass before we merge your Pull Request.\n\nIf something is broken, please let us know by making a post on the [Ask Forum](https://ask.replit.com/c/extensions)"
 }
