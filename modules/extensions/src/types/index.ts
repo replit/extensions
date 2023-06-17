@@ -44,7 +44,6 @@ export enum HandshakeStatus {
  */
 export interface ReplitInitArgs {
   timeout?: number;
-  debug?: boolean;
 }
 
 /**
@@ -180,6 +179,7 @@ export type ExtensionPortAPI = {
 
   experimental: ExperimentalAPI;
   internal: InternalAPI;
+  debug: DebugAPI;
 
   exec: (args: {
     splitStderr?: boolean;
@@ -208,6 +208,26 @@ export type ExperimentalAPI = {
     getAuthToken: () => Promise<string>;
   };
 };
+
+export type DebugAPI = {
+  info: (message: string, data?: Data) => Promise<void>;
+  warn: (message: string, data?: Data) => Promise<void>;
+  error: (message: string, data?: Data) => Promise<void>;
+};
+
+export type Primitive = string | boolean | number | null | undefined | never;
+
+export interface ObjectType {
+  [n: string | number]: Serializable;
+}
+
+export interface NumericIndexType {
+  [n: number]: Serializable;
+}
+
+export type Serializable = ObjectType | Primitive | NumericIndexType;
+
+export type Data = Record<string, Serializable>;
 
 export type InternalAPI = {};
 

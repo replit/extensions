@@ -8,6 +8,7 @@ import * as session from "./session";
 import * as experimental from "./experimental";
 import * as internal from "./internal";
 import * as exec from "./exec";
+import * as debug from "./debug";
 
 export {
   fs,
@@ -20,7 +21,5 @@ export {
   experimental,
   internal,
   exec,
+  debug,
 };
-
-// deprecate this after migrating existing extensions
-export * from "./fs";

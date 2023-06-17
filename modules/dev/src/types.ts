@@ -11,7 +11,8 @@ export type Module =
   | "replDb"
   | "session"
   | "themes"
-  | "actionRequired";
+  | "actionRequired"
+  | "debug";
 
 export interface Test {
   module: Module;
