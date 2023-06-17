@@ -1,3 +1,7 @@
+## 1.7.0
+
+ - `debug` API module
+
 ## 1.6.0
 
  - `auth` API namespace has been released
