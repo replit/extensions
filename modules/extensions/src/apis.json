@@ -135,5 +135,11 @@
       "JWTHeaderParameters",
       "JWTVerifyResult"
     ]
+  },
+  {
+    "name": "debug",
+    "description": "The `debug` api module allows you to log data to the Extension Devtools",
+    "experimental": true,
+    "typeNames": ["Primitive", "ObjectType", "NumericindexType", "Data"]
   }
 ]

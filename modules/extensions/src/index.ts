@@ -1,9 +1,7 @@
-import { setDebugMode } from "./util/log";
 import { HandshakeStatus, ReplitInitArgs, ReplitInitOutput } from "./types";
 import { extensionPort, proxy } from "./util/comlink";
 import { getHandshakeStatus, setHandshakeStatus } from "./util/handshake";
 export * from "./api";
-export * from "./util/log";
 export { extensionPort, proxy };
 export * from "./types";
 import * as replit from ".";
@@ -41,8 +39,6 @@ export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
   if (extensionPort === null) {
     throw new Error("Extension must be initialized in a browser context");
   }
-
-  setDebugMode(args?.debug || false);
 
   const onExtensionClick = () => {
     extensionPort.activatePane();
