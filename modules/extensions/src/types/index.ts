@@ -22,7 +22,7 @@ import {
 } from "./themes";
 import { OnActiveFileChangeListener } from "./session";
 import Comlink from "comlink";
-import { Data } from '../api/debug';
+import { Data } from "../api/debug";
 
 export * from "./fs";
 export * from "./themes";
@@ -215,7 +215,6 @@ export type DebugAPI = {
   warn: (message: string, data?: Data) => Promise<void>;
   error: (message: string, data?: Data) => Promise<void>;
 };
-
 
 export type InternalAPI = {};
 
