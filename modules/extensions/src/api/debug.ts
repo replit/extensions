@@ -1,5 +1,18 @@
 import { extensionPort } from "../util/comlink";
-import { Data } from "../types";
+
+export type Primitive = string | boolean | number | null | undefined | never;
+
+export interface ObjectType {
+  [n: string | number]: Serializable;
+}
+
+export interface NumericIndexType {
+  [n: number]: Serializable;
+}
+
+export type Serializable = ObjectType | Primitive | NumericIndexType;
+
+export type Data = Record<string, Serializable>;
 
 /**
  * Logs information to the Extension Devtools

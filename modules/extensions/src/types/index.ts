@@ -22,6 +22,7 @@ import {
 } from "./themes";
 import { OnActiveFileChangeListener } from "./session";
 import Comlink from "comlink";
+import { Data } from '../api/debug';
 
 export * from "./fs";
 export * from "./themes";
@@ -215,19 +216,6 @@ export type DebugAPI = {
   error: (message: string, data?: Data) => Promise<void>;
 };
 
-export type Primitive = string | boolean | number | null | undefined | never;
-
-export interface ObjectType {
-  [n: string | number]: Serializable;
-}
-
-export interface NumericIndexType {
-  [n: number]: Serializable;
-}
-
-export type Serializable = ObjectType | Primitive | NumericIndexType;
-
-export type Data = Record<string, Serializable>;
 
 export type InternalAPI = {};
 
