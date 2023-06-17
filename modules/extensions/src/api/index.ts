@@ -23,3 +23,6 @@ export {
   exec,
   debug,
 };
+
+// deprecate this after migrating existing extensions
+export * from "./fs";
