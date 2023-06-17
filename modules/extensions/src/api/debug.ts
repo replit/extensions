@@ -47,4 +47,7 @@ async function error(message: string, data?: Data) {
   return await extensionPort.debug.error(message, data);
 }
 
-export { info, warn, error };
+// Log is just an alias for info for now
+const log = info;
+
+export { info, warn, error, log };
