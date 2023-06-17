@@ -45,7 +45,7 @@ export async function verifyAuthToken(token: string): Promise<JWTVerifyResult> {
     );
   } else {
     const fetch = await import("@replit/node-fetch");
-    res = await fetch(
+    res = (await fetch.default(
       `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`,
       {
         headers: {
@@ -55,7 +55,7 @@ export async function verifyAuthToken(token: string): Promise<JWTVerifyResult> {
           "User-Agent": "Mozilla/5.0 (@replit/extensions)",
         },
       }
-    );
+    )) as Response;
   }
 
   const { ok, value: publicKey } = await res.json();
