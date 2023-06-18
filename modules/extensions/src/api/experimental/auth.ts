@@ -3,11 +3,13 @@ import * as jose from "jose";
 import { polyfillEd25519 } from "../../polyfills/ed25519";
 import { AuthenticateResult, JWTVerifyResult } from "../../types";
 
-const success = polyfillEd25519();
-if (!success) {
-  console.warn(
-    "Failed to polyfill ed25519: crypto.subtle is not available in the environment. This will cause issues with the auth API."
-  );
+if (typeof window !== "undefined") {
+  const success = polyfillEd25519();
+  if (!success) {
+    console.warn(
+      "Failed to polyfill ed25519: crypto.subtle is not available in the environment. This will cause issues with the auth API."
+    );
+  }
 }
 
 /**
@@ -35,9 +37,26 @@ export async function verifyAuthToken(token: string): Promise<JWTVerifyResult> {
     throw new Error("Expected `kid` to be defined");
   }
 
-  const res = await fetch(
-    `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`
-  );
+  let res: Response;
+
+  if (typeof window !== "undefined") {
+    res = await fetch(
+      `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`
+    );
+  } else {
+    const fetch = await import("@replit/node-fetch");
+    res = (await fetch.default(
+      `https://replit.com/data/extensions/publicKey/${tokenHeaders.kid}`,
+      {
+        headers: {
+          Referrer: "https://replit.com/",
+          Origin: "https://replit.com/",
+          "X-Requested-With": "XMLHttpRequest",
+          "User-Agent": "Mozilla/5.0 (@replit/extensions)",
+        },
+      }
+    )) as Response;
+  }
 
   const { ok, value: publicKey } = await res.json();
 
