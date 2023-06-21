@@ -165,7 +165,7 @@ export interface ThemeEditorSyntaxHighlighting {
  * Editor Theme Values, an array of ThemeEditorSyntaxHighlighting
  */
 export interface ThemeValuesEditor {
-  editor: Array<ThemeEditorSyntaxHighlighting>;
+  syntaxHighlighting: Array<ThemeEditorSyntaxHighlighting>;
 }
 
 /**
