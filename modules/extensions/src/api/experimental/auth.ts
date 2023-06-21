@@ -3,7 +3,7 @@ import * as jose from "jose";
 import { polyfillEd25519 } from "../../polyfills/ed25519";
 import { AuthenticateResult, JWTVerifyResult } from "../../types";
 
-const success = polyfillEd25519();
+const success = typeof window !== "undefined" ? polyfillEd25519() : false;
 if (!success) {
   console.warn(
     "Failed to polyfill ed25519: crypto.subtle is not available in the environment. This will cause issues with the auth API."
