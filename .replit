@@ -1,10 +1,5 @@
 run = "pnpm dev:docs"
-hidden = [".config"]
-entrypoint = "modules/example/App.tsx"
-
-[[hints]]
-regex = "Error \\[ERR_REQUIRE_ESM\\]"
-message = "We see that you are using require(...) inside your code. We currently do not support this syntax. Please use 'import' instead when using external modules. (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)"
+hidden = [".config", ".git"]
 
 [nix]
 channel = "stable-22_11"
@@ -20,26 +15,11 @@ buildCommand = "cd modules/dev && pnpm build"
 outputDirectory = "modules/dev/dist"
 extensionID = "b99141f4-09df-43de-ad74-26c5685a55d1"
 
-[unitTest]
-language = "nodejs"
-
 [languages.javascript]
 pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
 
   [languages.javascript.languageServer]
   start = [ "typescript-language-server", "--stdio" ]
 
-[packager]
-language = "nodejs"
-
-[packager.features]
-enabledForHosting = false
-packageSearch = true
-guessImports = false
-
 [gitHubImport]
 requiredFiles = [".replit", "replit.nix", ".config"]
-
-[[ports]]
-localPort = 3001
-externalPort = 3000
