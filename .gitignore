@@ -2,6 +2,7 @@ node_modules/
 build/
 dist/
 .breakpoints
-docs/
 .turbo
 extension_tester/
+.next/
+.swc/
