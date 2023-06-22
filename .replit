@@ -1,4 +1,4 @@
-run = "pnpm dev"
+run = "pnpm dev:docs"
 hidden = [".config"]
 entrypoint = "modules/example/App.tsx"
 
