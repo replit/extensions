@@ -6,3 +6,4 @@ dist/
 extension_tester/
 .next/
 .swc/
+*.draw
