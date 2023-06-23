@@ -1,6 +1,6 @@
 run = "pnpm dev:docs"
 
-hidden = [".config", ".git"]
+hidden = [".config", ".git", "**/.next", "**/.swc", "**/.eslintrc.json", "**/*.d.ts", "**/*.config.js", "**/node_modules", "**/*.turbo", "**/*dist"]
 
 [nix]
 channel = "stable-22_11"
