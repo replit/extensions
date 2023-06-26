@@ -5,7 +5,24 @@
 import fs from 'fs';
 import { globSync } from 'glob';
 
-const files = globSync("**/*.{md,mdx}");
+function getRouterPath(rawPath: string): string {
+  const routerPath = rawPath.replace(/^docs/, '').replace(/\.mdx?$/, '');
+  if (routerPath.endsWith('/index')) {
+    return routerPath.slice(0, -6);
+  }
+  return routerPath;
+}
+
+function getFileExtension(rawPath: string): string {
+  return rawPath.split('.').pop() || '';
+}
+
+const globFiles = globSync("**/*.{md,mdx}");
+const files = globFiles.map((rawPath) => {
+  const fileName = getRouterPath(rawPath);
+  const extension = getFileExtension(rawPath);
+  return [rawPath, fileName, extension];
+});
 
 interface Section {
   header: string;
@@ -26,7 +43,6 @@ function splitMarkdownIntoSections(markdown: string, path: string): Section[] {
   const lines = markdown.split('\n');
   const sections: Section[] = [];
   let currentSection: Section | null = null;
-  const cleanedPath = path.replace(/^docs\//, '').replace(/\.mdx?$/, '');
 
   for (const line of lines) {
     if (line.startsWith('#')) {
@@ -38,7 +54,7 @@ function splitMarkdownIntoSections(markdown: string, path: string): Section[] {
       const level = line.match(/#+/)?.[0].length || 1;
       const header = line.replace(/#+\s*/, '');
       const id = generateID(header);
-      currentSection = { header, id, level, content: '', path: cleanedPath };
+      currentSection = { header, id, level, content: '', path };
     } else if (currentSection) {
       currentSection.content += line + '\n';
     }
@@ -54,14 +70,17 @@ function splitMarkdownIntoSections(markdown: string, path: string): Section[] {
 
 const output: Array<Section> = [];
 
-for(const file of files) {
-  const content = fs.readFileSync(file, 'utf8');
-  const sections = splitMarkdownIntoSections(content, file);
+for (const [rawPath, path, ext] of files) {
+  console.log(rawPath, path, ext)
+  if (files.filter(x => x[0] !== rawPath).some(f => f[1] === path)) {
+    throw new Error("Conflicting path found: " + path);
+  }
 
-  console.log("Indexed", file, "Successfully")
+  const content = fs.readFileSync(rawPath, 'utf8');
+  const sections = splitMarkdownIntoSections(content, path);
 
-  for(const section of sections) {
-    output.push(section)
+  for (const section of sections) {
+    output.push(section);
   }
 }
 

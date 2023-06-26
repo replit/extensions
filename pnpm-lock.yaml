@@ -84,7 +84,6 @@ importers:
     specifiers:
       '@mdx-js/loader': ^2.3.0
       '@mdx-js/react': ^2.3.0
-      '@next/mdx': ^13.4.7
       '@replit/extensions': workspace:1.7.2
       '@replit/extensions-react': workspace:0.3.0-beta
       '@types/mdx': ^2.0.5
@@ -106,7 +105,6 @@ importers:
     dependencies:
       '@mdx-js/loader': 2.3.0_webpack@5.88.0
       '@mdx-js/react': 2.3.0_react@18.2.0
-      '@next/mdx': 13.4.7_msthxdjvrhmdkfpqqalumiidgq
       '@replit/extensions': link:../extensions
       '@replit/extensions-react': link:../extensions-react
       '@types/mdx': 2.0.5
@@ -1381,22 +1379,6 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
-
-  /@next/mdx/13.4.7_msthxdjvrhmdkfpqqalumiidgq:
-    resolution: {integrity: sha512-btb4ym4Gz72ACQjSlK+AsJRx5IYcS9O0FgUWK4/+9AJxLQtr5XNOAfpy1ioLqXG7REVvwWAea4z6Hp0agwc+Vg==}
-    peerDependencies:
-      '@mdx-js/loader': '>=0.15.0'
-      '@mdx-js/react': '>=0.15.0'
-    peerDependenciesMeta:
-      '@mdx-js/loader':
-        optional: true
-      '@mdx-js/react':
-        optional: true
-    dependencies:
-      '@mdx-js/loader': 2.3.0_webpack@5.88.0
-      '@mdx-js/react': 2.3.0_react@18.2.0
-      source-map: 0.7.4
-    dev: false
 
   /@next/swc-android-arm-eabi/12.2.0:
     resolution: {integrity: sha512-hbneH8DNRB2x0Nf5fPCYoL8a0osvdTCe4pvOc9Rv5CpDsoOlf8BWBs2OWpeP0U2BktGvIsuUhmISmdYYGyrvTw==}

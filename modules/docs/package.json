@@ -13,7 +13,6 @@
   "dependencies": {
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
-    "@next/mdx": "^13.4.7",
     "@replit/extensions": "workspace:1.7.2",
     "@replit/extensions-react": "workspace:0.3.0-beta",
     "@types/mdx": "^2.0.5",
