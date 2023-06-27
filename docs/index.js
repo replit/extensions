@@ -1,11 +1,7 @@
-/** 
- * Runs on build, creates a file with all the markdown files so the Search can index it.
- */
+const fs = require('fs');
+const { globSync } = require('glob');
 
-import fs from 'fs';
-import { globSync } from 'glob';
-
-function getRouterPath(rawPath: string): string {
+function getRouterPath(rawPath) {
   const routerPath = rawPath.replace(/^docs/, '').replace(/\.mdx?$/, '');
   if (routerPath.endsWith('/index')) {
     return routerPath.slice(0, -6);
@@ -13,36 +9,28 @@ function getRouterPath(rawPath: string): string {
   return routerPath;
 }
 
-function getFileExtension(rawPath: string): string {
+function getFileExtension(rawPath) {
   return rawPath.split('.').pop() || '';
 }
 
-const globFiles = globSync("**/*.{md,mdx}");
+const globFiles = globSync("docs/**/*.{md,mdx}");
 const files = globFiles.map((rawPath) => {
   const fileName = getRouterPath(rawPath);
   const extension = getFileExtension(rawPath);
   return [rawPath, fileName, extension];
 });
 
-interface Section {
-  header: string;
-  id: string;
-  level: number;
-  content: string;
-  path: string;
-}
-
-function generateID(header: string): string {
+function generateID(header) {
   return header
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^\w-]+/g, '');
 }
 
-function splitMarkdownIntoSections(markdown: string, path: string): Section[] {
+function splitMarkdownIntoSections(markdown, path) {
   const lines = markdown.split('\n');
-  const sections: Section[] = [];
-  let currentSection: Section | null = null;
+  const sections = [];
+  let currentSection = null;
 
   for (const line of lines) {
     if (line.startsWith('#')) {
@@ -51,7 +39,7 @@ function splitMarkdownIntoSections(markdown: string, path: string): Section[] {
         sections.push(currentSection);
       }
 
-      const level = line.match(/#+/)?.[0].length || 1;
+      const level = (line.match(/#+/) || [])[0].length || 1;
       const header = line.replace(/#+\s*/, '');
       const id = generateID(header);
       currentSection = { header, id, level, content: '', path };
@@ -68,11 +56,11 @@ function splitMarkdownIntoSections(markdown: string, path: string): Section[] {
   return sections;
 }
 
-const output: Array<Section> = [];
+const output = [];
 
 for (const [rawPath, path, ext] of files) {
-  console.log(rawPath, path, ext)
-  if (files.filter(x => x[0] !== rawPath).some(f => f[1] === path)) {
+  console.log(rawPath);
+  if (files.filter((x) => x[0] !== rawPath).some((f) => f[1] === path)) {
     throw new Error("Conflicting path found: " + path);
   }
 
@@ -84,4 +72,9 @@ for (const [rawPath, path, ext] of files) {
   }
 }
 
-fs.writeFileSync("build/index.json", JSON.stringify(output, null, 2));
+if (fs.existsSync("build/index.json")) {
+  fs.writeFileSync("build/index.json", JSON.stringify(output, null, 2));
+} else {
+  fs.mkdirSync("build");
+  fs.writeFileSync("build/index.json", JSON.stringify(output, null, 2));
+}
