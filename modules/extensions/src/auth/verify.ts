@@ -1,6 +1,8 @@
 import { ponyfillEd25519 } from "./ed25519";
 import * as base64 from "./base64";
 
+const TOLERANCE = 60;
+
 export function decodeComponentToJSON(component: string) {
   try {
     return JSON.parse(decoder.decode(base64.decode(component)));
@@ -51,15 +53,21 @@ export async function verifyJWTAndDecode(token: string, key: string) {
     typeof payload !== "string" ||
     typeof signature !== "string"
   ) {
-    throw new Error("Invalid JWT. JWT must have 3 parts");
+    throw new Error("Invalid Token. Token must have 3 parts");
   }
 
+  // 1. Check header for alg and typ
   let parsedProt = decodeComponentToJSON(protectedHeader);
 
-  // TODO: disjoint stuff?
-  // TODO: validate crit
+  const { alg, typ } = parsedProt;
 
-  const { alg } = parsedProt;
+  if (!typ || typeof typ !== "string") {
+    throw new Error("Invalid Token. Missing typ in protected header");
+  }
+
+  if (typ !== "JWT") {
+    throw new Error("Invalid JWT. Expected typ to be JWT");
+  }
 
   if (!alg || typeof alg !== "string") {
     throw new Error("Invalid JWT. Missing alg in protected header");
@@ -69,6 +77,7 @@ export async function verifyJWTAndDecode(token: string, key: string) {
     throw new Error("Invalid JWT. Expected alg to be EdDSA");
   }
 
+  // 2. Validate the signature
   const data = concat(
     encoder.encode(protectedHeader ?? ""),
     encoder.encode("."),
@@ -82,6 +91,27 @@ export async function verifyJWTAndDecode(token: string, key: string) {
   }
 
   let parsedPayload = decodeComponentToJSON(payload);
+
+  // 3. Validate claims in the payload
+  const now = Math.floor(Date.now() / 1000);
+
+  let iat = parsedPayload.iat;
+  if (typeof iat !== "number") {
+    throw new Error("Invalid JWT. Missing claim iat in payload");
+  }
+
+  if (iat > now + TOLERANCE) {
+    throw new Error("Invalid JWT. iat claim must be in the past");
+  }
+
+  let exp = parsedPayload.exp;
+  if (typeof exp !== "number") {
+    throw new Error("Invalid JWT. Missing claim exp in payload");
+  }
+
+  if (exp < now + TOLERANCE) {
+    throw new Error("Expired JWT. exp claim must be in the future");
+  }
 
   return {
     protectedHeader: parsedProt,
