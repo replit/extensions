@@ -1,14 +1,6 @@
 import { extensionPort } from "../../util/comlink";
-import * as jose from "jose";
-import { polyfillEd25519 } from "../../polyfills/ed25519";
-import { AuthenticateResult, JWTVerifyResult } from "../../types";
-
-const success = typeof window !== "undefined" ? polyfillEd25519() : false;
-if (!success) {
-  console.warn(
-    "Failed to polyfill ed25519: crypto.subtle is not available in the environment. This will cause issues with the auth API."
-  );
-}
+import { AuthenticateResult } from "../../types";
+import { verifyJWTAndDecode, decodeProtectedHeader } from "../../auth/verify";
 
 /**
  * Returns a unique JWT token that can be used to verify that an extension has been loaded on Replit by a particular user
@@ -20,8 +12,10 @@ export async function getAuthToken() {
 /**
  * Verifies a provided JWT token and returns the decoded token.
  */
-export async function verifyAuthToken(token: string): Promise<JWTVerifyResult> {
-  const tokenHeaders = jose.decodeProtectedHeader(token);
+export async function verifyAuthToken(
+  token: string
+): Promise<{ payload: any; protectedHeader: any }> {
+  const tokenHeaders = decodeProtectedHeader(token);
 
   if (tokenHeaders.typ !== "JWT") {
     throw new Error("Expected typ: JWT");
@@ -46,9 +40,7 @@ export async function verifyAuthToken(token: string): Promise<JWTVerifyResult> {
   }
 
   try {
-    const importedPublicKey = await jose.importSPKI(publicKey, "EdDSA");
-
-    const decodedToken = await jose.jwtVerify(token, importedPublicKey);
+    const decodedToken = await verifyJWTAndDecode(token, publicKey);
 
     return decodedToken;
   } catch (e) {
