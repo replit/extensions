@@ -1,4 +1,4 @@
-const nextMdx = require('@next/mdx');
+const nextMdx = require("@next/mdx");
 
 const withMDX = nextMdx({
   extension: /\.mdx?$/,
@@ -6,12 +6,13 @@ const withMDX = nextMdx({
     remarkPlugins: [],
     rehypePlugins: [],
   },
-})
- 
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
- 
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  reactStrictMode: true
+};
+
 // Merge MDX config with Next.js config
-module.exports = withMDX(nextConfig)
+module.exports = withMDX(nextConfig);

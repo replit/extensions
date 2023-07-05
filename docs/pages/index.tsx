@@ -1,7 +1,7 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   return (
@@ -13,12 +13,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to Next.js on Replit!
-        </h1>
+        <h1 className={styles.title}>Welcome to Next.js on Replit!</h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -47,18 +45,15 @@ const Home: NextPage = () => {
           >
             <h2>Deploy &rarr;</h2>
             <p>
-              This website automatically deployed on Replit by hitting the run button!
+              This website automatically deployed on Replit by hitting the run
+              button!
             </p>
           </a>
         </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="/__repl"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="/__repl" target="_blank" rel="noopener noreferrer">
           Built on
           <span className={styles.logo}>
             <Image src="/replit.svg" alt="Replit Logo" width={20} height={18} />
@@ -67,7 +62,7 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
