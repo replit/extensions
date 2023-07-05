@@ -72,24 +72,20 @@ export type ExtensionPortAPI = {
   readFile: (
     path: string,
     encoding: "utf8" | "binary" | null
-  ) => Promise<
-    | { content: string }
-    | {
-        error: string;
-      }
-  >;
+  ) => Promise<{
+    content: string | null;
+    error: string | null;
+  }>;
   writeFile: (
     path: string,
     content: string | Blob
-  ) => Promise<
-    | { success: boolean }
-    | {
-        error: string;
-      }
-  >;
+  ) => Promise<{
+    success: boolean;
+    error: string | null;
+  }>;
   readDir: (path: string) => Promise<{
-    children: Array<DirectoryChildNode>;
-    error: string;
+    children: Array<DirectoryChildNode> | null;
+    error: string | null;
   }>;
   createDir: (path: string) => Promise<{
     success: boolean;
