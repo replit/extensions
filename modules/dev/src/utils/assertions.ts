@@ -3,12 +3,12 @@ import { assert } from "chai";
 // Makes sure a file's contents is a string and that no errors have occured.
 export function assertFileContents(
   file:
-    | {
-        content: string;
-      }
-    | { error: string }
+    {
+      content: string | null;
+      error: string | null;
+    }
 ) {
-  if ("content" in file) {
+  if (file.content !== null) {
     assert.isString(file.content);
 
     return file.content;
