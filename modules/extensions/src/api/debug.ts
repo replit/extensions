@@ -19,7 +19,12 @@ export type Data = Record<string, Serializable>;
  */
 async function info(message: string, data?: Data) {
   if (typeof message !== "string") {
-    throw new Error("Message must be a string");
+    console.info(message, data);
+    extensionPort.debug.warn(
+      "Attempted to log non-serializable message. See your browser devtools to access the logged object."
+    );
+
+    return;
   }
 
   return await extensionPort.debug.info(message, data);
@@ -30,7 +35,12 @@ async function info(message: string, data?: Data) {
  */
 async function warn(message: string, data?: Data) {
   if (typeof message !== "string") {
-    throw new Error("Message must be a string");
+    console.warn(message, data);
+    extensionPort.debug.warn(
+      "Attempted to log non-serializable message. See your browser devtools to access the logged object."
+    );
+
+    return;
   }
 
   return await extensionPort.debug.warn(message, data);
@@ -41,7 +51,12 @@ async function warn(message: string, data?: Data) {
  */
 async function error(message: string, data?: Data) {
   if (typeof message !== "string") {
-    throw new Error("Message must be a string");
+    console.error(message, data);
+    extensionPort.debug.warn(
+      "Attempted to log non-serializable message. See your browser devtools to access the logged object."
+    );
+
+    return;
   }
 
   return await extensionPort.debug.error(message, data);
