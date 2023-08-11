@@ -1,3 +1,13 @@
+## 1.8.0
+
+- improve logging:
+  - non serializable logs lead to warnings in the console
+  - numbers, booleans, nulls, and undefined work now
+
+## 1.8.0-beta.0
+
+- fix Auth API bug
+
 ## 1.7.0
 
  - `debug` API module
