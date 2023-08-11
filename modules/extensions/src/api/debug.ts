@@ -19,7 +19,7 @@ export type Data = Record<string, Serializable>;
  */
 async function info(message: string, data?: Data) {
   if (typeof message !== "string") {
-    console.info(message, data);
+    // if someone uses console.info / console.log, the wrapper defined in index.ts will log the object to the console.
     extensionPort.debug.warn(
       "Attempted to log non-serializable message. See your browser devtools to access the logged object."
     );
@@ -35,7 +35,7 @@ async function info(message: string, data?: Data) {
  */
 async function warn(message: string, data?: Data) {
   if (typeof message !== "string") {
-    console.warn(message, data);
+    // if someone uses console.warn, the wrapper defined in index.ts will log the object to the console.
     extensionPort.debug.warn(
       "Attempted to log non-serializable message. See your browser devtools to access the logged object."
     );
@@ -51,7 +51,7 @@ async function warn(message: string, data?: Data) {
  */
 async function error(message: string, data?: Data) {
   if (typeof message !== "string") {
-    console.error(message, data);
+    // if someone uses console.error, the wrapper defined in index.ts will log the object to the console.
     extensionPort.debug.warn(
       "Attempted to log non-serializable message. See your browser devtools to access the logged object."
     );
