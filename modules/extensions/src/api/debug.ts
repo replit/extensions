@@ -14,16 +14,16 @@ export type Serializable = ObjectType | Primitive | NumericIndexType;
 
 export type Data = Record<string, Serializable>;
 
-function isSerializable(thing) {
+function isSerializable(thing: any): thing is Serializable {
   if (["string", "number", "boolean", "undefined"].includes(typeof thing)) {
-    return true
+    return true;
   }
 
   if (thing === null) {
     return true;
   }
 
-  return false
+  return false;
 }
 
 /**
