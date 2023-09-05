@@ -22,7 +22,7 @@ const applyTheme = (css: string) => {
  * @param setCssVariables If true, will add themed tokens as CSS variables to the :root selector.
  */
 export default function useThemeValues({
-  setCssVariables = true,
+  setCssVariables,
 }: {
   /** If true, will add themed tokens as CSS variables to the :root selector */
   setCssVariables?: boolean;

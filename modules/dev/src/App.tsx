@@ -12,17 +12,9 @@ export default function App() {
   const { logs, setLogs } = useAppState();
   const logRef = useRef<HTMLDivElement>(null);
 
-  const tokens = useThemeValues();
-
-  const mappedThemeValues = tokens
-    ? Object.entries(tokens).map(
-        ([key, val]) =>
-          `--${key.replace(
-            /[A-Z]/g,
-            (c) => "-" + c.toLowerCase()
-          )}: ${val} !important;`
-      )
-    : [];
+  const tokens = useThemeValues({
+    setCssVariables: true,
+  });
 
   useEffect(() => {
     logRef?.current?.scrollTo({
@@ -61,9 +53,6 @@ export default function App() {
           color: tokens?.foregroundDefault,
         }}
       >
-        <style>{`:root {
-${mappedThemeValues.join("\n")}
-        }`}</style>
         <Header />
 
         <div style={{ flexGrow: 1, position: "relative" }}>
