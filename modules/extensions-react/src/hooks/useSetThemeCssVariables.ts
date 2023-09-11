@@ -24,14 +24,29 @@ export default function useSetThemeCssVariables() {
   const [values, setValues] = useState<ThemeValuesGlobal | null>(null);
 
   useReplitEffect(async ({ themes }) => {
-    const themeValues = await themes.getCurrentThemeValues();
+    let themeDispose: null | (() => void) = null;
 
-    setValues(themeValues);
+    let dispose = () => {
+      if (themeDispose) {
+        themeDispose();
+        themeDispose = null;
+      }
+    };
 
-    const css = buildCssString(themeValues);
-    applyTheme(css);
+    (async () => {
+      const themeValues = await themes.getCurrentThemeValues();
 
-    await themes.onThemeChangeValues(setValues);
+      setValues(themeValues);
+
+      const css = buildCssString(themeValues);
+      applyTheme(css);
+
+      await themes.onThemeChangeValues(setValues);
+
+      themeDispose = await themes.onThemeChangeValues(setValues);
+    })();
+
+    return dispose;
   }, []);
 
   return values;
