@@ -12,9 +12,7 @@ export default function App() {
   const { logs, setLogs } = useAppState();
   const logRef = useRef<HTMLDivElement>(null);
 
-  const tokens = useThemeValues({
-    setCssVariables: true,
-  });
+  const tokens = useThemeValues();
 
   useEffect(() => {
     logRef?.current?.scrollTo({
