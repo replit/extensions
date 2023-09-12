@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeValuesGlobal } from "@replit/extensions";
 import useReplitEffect from "./useReplitEffect";
 
@@ -38,9 +38,6 @@ export default function useSetThemeCssVariables() {
 
       setValues(themeValues);
 
-      const css = buildCssString(themeValues);
-      applyTheme(css);
-
       await themes.onThemeChangeValues(setValues);
 
       themeDispose = await themes.onThemeChangeValues(setValues);
@@ -48,6 +45,13 @@ export default function useSetThemeCssVariables() {
 
     return dispose;
   }, []);
+
+  useEffect(() => {
+    if (values) {
+      const css = buildCssString(values);
+      applyTheme(css);
+    }
+  }, [values]);
 
   return values;
 }
