@@ -1,5 +1,9 @@
 import { HandshakeStatus } from "@replit/extensions";
-import { useReplit, useThemeValues } from "@replit/extensions-react";
+import {
+  useReplit,
+  useSetThemeCssVariables,
+  useThemeValues,
+} from "@replit/extensions-react";
 import { useEffect, useRef } from "react";
 import "./App.css";
 import Header from "./components/Header";
@@ -12,17 +16,11 @@ export default function App() {
   const { logs, setLogs } = useAppState();
   const logRef = useRef<HTMLDivElement>(null);
 
+  // Access theme values directly
   const tokens = useThemeValues();
 
-  const mappedThemeValues = tokens
-    ? Object.entries(tokens).map(
-        ([key, val]) =>
-          `--${key.replace(
-            /[A-Z]/g,
-            (c) => "-" + c.toLowerCase()
-          )}: ${val} !important;`
-      )
-    : [];
+  // Apply theme CSS variables
+  useSetThemeCssVariables();
 
   useEffect(() => {
     logRef?.current?.scrollTo({
@@ -61,9 +59,6 @@ export default function App() {
           color: tokens?.foregroundDefault,
         }}
       >
-        <style>{`:root {
-${mappedThemeValues.join("\n")}
-        }`}</style>
         <Header />
 
         <div style={{ flexGrow: 1, position: "relative" }}>
