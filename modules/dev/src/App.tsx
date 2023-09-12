@@ -1,5 +1,9 @@
 import { HandshakeStatus } from "@replit/extensions";
-import { useReplit, useSetThemeCssVariables, useThemeValues } from "@replit/extensions-react";
+import {
+  useReplit,
+  useSetThemeCssVariables,
+  useThemeValues,
+} from "@replit/extensions-react";
 import { useEffect, useRef } from "react";
 import "./App.css";
 import Header from "./components/Header";
@@ -12,7 +16,10 @@ export default function App() {
   const { logs, setLogs } = useAppState();
   const logRef = useRef<HTMLDivElement>(null);
 
+  // Access theme values directly
   const tokens = useThemeValues();
+
+  // Apply theme CSS variables
   useSetThemeCssVariables();
 
   useEffect(() => {
