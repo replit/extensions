@@ -1,5 +1,5 @@
 import { HandshakeStatus } from "@replit/extensions";
-import { useReplit, useThemeValues } from "@replit/extensions-react";
+import { useReplit, useSetThemeCssVariables, useThemeValues } from "@replit/extensions-react";
 import { useEffect, useRef } from "react";
 import "./App.css";
 import Header from "./components/Header";
@@ -13,6 +13,7 @@ export default function App() {
   const logRef = useRef<HTMLDivElement>(null);
 
   const tokens = useThemeValues();
+  useSetThemeCssVariables();
 
   useEffect(() => {
     logRef?.current?.scrollTo({
