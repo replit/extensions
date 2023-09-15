@@ -1,0 +1,43 @@
+{
+  "name": "Extensions API Dev Environment",
+  "description": "Dev env for testing @replit/extensions",
+  "tags": ["extensions", "replit", "tester"],
+  "website": "https://github.com/replit/extensions",
+  "coverImages": [
+
+    {
+      path: "./cover.png",
+      label: "preview of extension"
+    }
+  ],
+  "icon": "./icon.png",
+  "tools": [
+    {
+      "name": "Extensions API Dev",
+      "handler": "/",
+      "icon": "./icon.png"
+    }
+  ],
+  "scopes": [
+    {
+      "name": "read",
+      "reason": "Required to run and test the `fs` API module."
+    },
+    {
+      "name": "write-exec",
+      "reason": "Required to run and test the `fs` and `exec` API modules."
+    },
+    {
+      "name": "repldb:read",
+      "reason": "Required to run and test the `replDb` API module."
+    },
+    {
+      "name": "repldb:write",
+      "reason": "Required to run and test the `replDb` API module."
+    },
+    {
+      "name": "experimental-api",
+      "reason": "Required to run and test experimental APIs"
+    }
+  ],
+}
