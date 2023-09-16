@@ -48,7 +48,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@types/react": "^18.0.28"
+    "@types/react": "^18.2.0"
   },
   "devDependencies": {
     "esbuild": "^0.15.18",
