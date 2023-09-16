@@ -1,5 +1,5 @@
-import React from 'react';
-import * as replit from '@replit/extensions';
+import React from "react";
+import * as replit from "@replit/extensions";
 import "./App.css";
 
 export default function App() {
@@ -10,14 +10,10 @@ export default function App() {
       (window as any).replit = replit;
       await replit.init();
       setConnected(true);
-      
+
       // your code here
-    })()
+    })();
   }, []);
 
-  return (
-    <div>
-      {connected ? 'Connected' : 'Not Connected'}
-    </div>
-  )
+  return <div>{connected ? "Connected" : "Not Connected"}</div>;
 }
