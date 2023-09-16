@@ -126,7 +126,7 @@ importers:
       '@replit/extensions': workspace:*
       '@replit/extensions-react': workspace:*
       '@types/chai': ^4.3.5
-      '@types/react': ^18.0.28
+      '@types/react': ^18.2.0
       '@types/react-dom': ^18.2.4
       '@vitejs/plugin-react': ^4.0.0
       chai: ^4.3.7
@@ -146,7 +146,7 @@ importers:
       vite: 4.3.5
     devDependencies:
       '@types/chai': 4.3.5
-      '@types/react': 18.2.6
+      '@types/react': 18.2.21
       '@types/react-dom': 18.2.4
       prettier: 2.8.8
 
@@ -2069,14 +2069,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
-
-  /@types/react/18.2.6:
-    resolution: {integrity: sha512-wRZClXn//zxCFW+ye/D2qY65UsYP1Fpex2YXorHc8awoNamkMZSvBxwxdYVInsHOZZd2Ppq8isnSzJL5Mpf8OA==}
-    dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.3
-      csstype: 3.1.2
-    dev: true
 
   /@types/root__asn1/1.0.2:
     resolution: {integrity: sha512-bsmhfl1SAnk2cD82UfWwFhtmh8zAkyeBsgnApiOkkdPRgcbA3odlSudr9RQN9ZxR5upxrRX7cg6oEjmEpsa/5A==}
