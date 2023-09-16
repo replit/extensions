@@ -7,7 +7,7 @@ export default function App() {
 
   React.useEffect(() => {
     (async () => {
-      window.replit = replit;
+      (window as any).replit = replit;
       await replit.init();
       setConnected(true);
       

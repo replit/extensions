@@ -49,7 +49,7 @@ importers:
       '@replit/extensions': workspace:*
       '@replit/extensions-react': workspace:*
       '@types/chai': ^4.3.5
-      '@types/react': ^18.0.28
+      '@types/react': ^18.2.0
       '@types/react-dom': ^18.2.4
       '@vitejs/plugin-react': ^4.0.0
       chai: ^4.3.7
@@ -69,7 +69,7 @@ importers:
       vite: 4.3.5
     devDependencies:
       '@types/chai': 4.3.5
-      '@types/react': 18.2.6
+      '@types/react': 18.2.21
       '@types/react-dom': 18.2.4
       prettier: 2.8.8
 
