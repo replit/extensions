@@ -2,12 +2,12 @@ import { HandshakeStatus, ReplitInitArgs, ReplitInitOutput } from "./types";
 import { extensionPort, proxy } from "./util/comlink";
 import { getHandshakeStatus, setHandshakeStatus } from "./util/handshake";
 export * from "./api";
-import * as debug from "./api/debug";
 export { extensionPort, proxy };
 export * from "./types";
 import * as replit from ".";
 
 import { version } from "../package.json";
+import { patchConsole } from "./util/patchConsole";
 
 export { version };
 
@@ -34,33 +34,6 @@ async function windowIsReady() {
 
     window.addEventListener("load", loadHandler);
   });
-}
-
-function patchConsole() {
-  const originalLog = console.log;
-  const originalWarn = console.warn;
-  const originalError = console.error;
-  const originalInfo = console.info;
-
-  console.log = (...args: any[]) => {
-    originalLog(...args);
-    debug.log(args[0], { args: args.slice(1) });
-  };
-
-  console.warn = (...args: any[]) => {
-    originalWarn(...args);
-    debug.warn(args[0], { args: args.slice(1) });
-  };
-
-  console.error = (...args: any[]) => {
-    originalError(...args);
-    debug.error(args[0], { args: args.slice(1) });
-  };
-
-  console.info = (...args: any[]) => {
-    originalInfo(...args);
-    debug.info(args[0], { args: args.slice(1) });
-  };
 }
 
 export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
