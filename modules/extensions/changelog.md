@@ -1,3 +1,8 @@
+## 1.9.0-beta.0
+
+- added Command function
+- fixed duplicate console patching
+
 ## 1.8.0
 
 - improve logging:
@@ -10,20 +15,20 @@
 
 ## 1.7.0
 
- - `debug` API module
+- `debug` API module
 
 ## 1.6.0
 
- - `auth` API namespace has been released
+- `auth` API namespace has been released
 
 ## 1.5.0
 
- - `exec` moves out of experimental
- - Experimental APIs are now a permission
+- `exec` moves out of experimental
+- Experimental APIs are now a permission
 
 ## 1.2.0 - 1.5.0-beta.0
 
- - Experimenting with `exec` API.
+- Experimenting with `exec` API.
 
 ## 1.1.2-beta.0
 
