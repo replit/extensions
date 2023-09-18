@@ -37,6 +37,7 @@ async function windowIsReady() {
 }
 
 export async function init(args?: ReplitInitArgs): Promise<ReplitInitOutput> {
+  window.replit = replit;
   if (extensionPort === null) {
     throw new Error("Extension must be initialized in a browser context");
   }
