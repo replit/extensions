@@ -4,13 +4,13 @@ import {
   statusAtom,
   connectionDisposeAtom,
   connectionErrorAtom,
-} from "src/state/connection";
+} from "../state/connection";
 import { useSet, useValue } from "../state/store";
 import React from "react";
-import { useFilePath } from "src/state/filePath";
+import { useFilePath } from "../state/filePath";
 
 /**
- * Returns the handshake status, connection error (if any), filePath, and Replit API wrapper.  Can only be used if wrapped in the <HandshakeProvider> component.
+ * Returns the handshake status, connection error (if any), filePath, and Replit API wrapper
  */
 export function useReplit() {
   const connect = useSet(connectAtom);
