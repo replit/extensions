@@ -4,7 +4,7 @@ import type * as replit from "@replit/extensions";
 export interface UseReplitReady {
   status: HandshakeStatus.Ready;
   error: null;
-  filePath: string;
+  filePath: string | null;
   replit: typeof replit;
 }
 
@@ -12,14 +12,14 @@ export interface UseReplitLoading {
   status: HandshakeStatus.Loading;
   error: null;
   filePath: null;
-  replit: null;
+  replit: typeof replit;
 }
 
 export interface UseReplitFailure {
   status: HandshakeStatus.Error;
   error: Error;
   filePath: null;
-  replit: null;
+  replit: typeof replit;
 }
 
 export enum UseWatchTextFileStatus {
