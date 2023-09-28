@@ -5,7 +5,7 @@ export * from "./api";
 import * as debug from "./api/debug";
 export { extensionPort, proxy };
 export * from "./types";
-export * from './commands';
+export * from "./commands";
 import * as replit from ".";
 
 import { version } from "../package.json";
