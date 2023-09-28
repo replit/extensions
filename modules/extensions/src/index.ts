@@ -4,6 +4,7 @@ import { getHandshakeStatus, setHandshakeStatus } from "./util/handshake";
 export * from "./api";
 export { extensionPort, proxy };
 export * from "./types";
+export * from "./commands";
 import * as replit from ".";
 
 import { version } from "../package.json";
