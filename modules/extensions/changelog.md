@@ -1,3 +1,7 @@
+## 1.9.0
+
+- Add commands API
+
 ## 1.9.0-beta.0
 
 - added Command function
