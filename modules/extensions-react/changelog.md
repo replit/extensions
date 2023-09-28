@@ -1,3 +1,11 @@
+### 0.5.0
+
+- Add useSetThemeCssVariables hook
+
+### Note
+
+We're going back to 0.x releases because the package isn't in a good shape
+
 ### 1.1.1
 
 - Fix a dependency tie-up
