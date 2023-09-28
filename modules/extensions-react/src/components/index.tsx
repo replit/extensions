@@ -1,1 +1,1 @@
-export * from "./HandshakeProvider";
+export { HandshakeProvider } from "./HandshakeProvider";

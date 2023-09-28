@@ -17,15 +17,19 @@ export default function useReplitEffect(
 
   return useEffect(
     () => {
-      if (replit && status === HandshakeStatus.Ready) {
-        const dispose = callback(replit);
-
-        if (typeof dispose === "function") {
-          return () => {
-            dispose();
-          };
-        }
+      if (!replit || status === HandshakeStatus.Ready) {
+        return;
       }
+
+      const dispose = callback(replit);
+
+      if (typeof dispose !== "function") {
+        return;
+      }
+
+      return () => {
+        dispose();
+      };
     },
     dependencies ? [...dependencies, replit, status] : undefined
   );

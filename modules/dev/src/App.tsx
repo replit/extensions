@@ -1,19 +1,11 @@
-import React from "react";
-import * as replit from "@replit/extensions";
+import { HandshakeStatus } from "@replit/extensions";
+import { useReplit } from "@replit/extensions-react";
 import "./App.css";
 
 export default function App() {
-  const [connected, setConnected] = React.useState(false);
+  const { replit, status } = useReplit();
 
-  React.useEffect(() => {
-    (async () => {
-      (window as any).replit = replit;
-      await replit.init();
-      setConnected(true);
-
-      // your code here
-    })();
-  }, []);
+  const connected = status === HandshakeStatus.Ready;
 
   return <div>{connected ? "Connected" : "Not Connected"}</div>;
 }
