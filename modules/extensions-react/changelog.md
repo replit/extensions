@@ -1,3 +1,7 @@
+### 0.6.0
+
+- Removed handshake provider
+
 ### 0.5.0
 
 - Add useSetThemeCssVariables hook
