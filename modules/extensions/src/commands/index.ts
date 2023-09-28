@@ -1,4 +1,4 @@
-import { proxy } from '../util/comlink';
+import { proxy } from "../util/comlink";
 
 export type Data = Record<string, any>;
 export type Commands = () => Promise<Array<ReturnType<typeof Command>>>;
@@ -8,7 +8,7 @@ export type CommandArgs = {
   data: Data;
   commands?: Commands;
   run?: Run;
-}
+};
 
 export function Command({ data, commands, run }: CommandArgs) {
   let wsCmd: CommandArgs = {
