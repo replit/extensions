@@ -23,6 +23,7 @@ import {
 import { OnActiveFileChangeListener } from "./session";
 import Comlink from "comlink";
 import { Data } from "../api/debug";
+import { Command } from "../commands";
 
 export * from "./fs";
 export * from "./themes";
@@ -207,6 +208,10 @@ export type ExperimentalAPI = {
 
   auth: {
     getAuthToken: () => Promise<string>;
+  };
+
+  commands: {
+    registerCommand: (command: Command) => void;
   };
 };
 
