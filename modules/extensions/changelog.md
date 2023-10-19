@@ -1,3 +1,7 @@
+## 1.10.0
+
+- Simplified commands API
+
 ## 1.9.0
 
 - Add commands API
