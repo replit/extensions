@@ -1,15 +1,30 @@
 import { proxy } from "../util/comlink";
 
-export type Data = Record<string, any>;
 export type CommandFnArgs = {
+  /**
+   * Whether the command is currently active. That is, the user has selected this command in the command bar.
+   *
+   * Subcommands are computed even if the command is not active, so that the command bar can show people helpful suggestions of what they can do next
+   */
   active: boolean;
+
+  /**
+   * The current search query. This is the text that the user has typed into the command bar.
+   */
   search: string;
+
+  /**
+   * The current path. This is the path of commands that the user has selected in the command bar.
+   *
+   * The first element of the array is the "root" which contains contextual information about the command. It varies depending on the contribution point.
+   */
   path: SerializableValue[];
 };
-export type CommandsFn = (
-  args: CommandFnArgs
-) => Promise<Array<ReturnType<typeof Command>>>;
-export type Run = () => Promise<void>;
+export type CommandsFn = (args: CommandFnArgs) => Promise<Array<CommandProxy>>;
+
+export type CreateCommand = (args: CommandFnArgs) => Promise<CommandProxy>;
+
+export type Run = () => any;
 
 type SerializableValue =
   | string
@@ -20,10 +35,41 @@ type SerializableValue =
   | SerializableValue[]
   | { [key: string]: SerializableValue };
 
-export type CommandArgs = {
-  commands?: CommandsFn;
-  run?: Run;
-} & { [key: string]: SerializableValue };
+export type BaseCommandArgs = {
+  /**
+   * The command's label. This is the primary text that represents your command in the Commandbar.
+   */
+  label: string;
+
+  /**
+   * The command's description. This is the secondary text that appears next to the label in the Commandbar.
+   */
+  description?: string;
+
+  /**
+   * The command's icon. This is a relative path to the icon that will be displayed next to the label in the Commandbar.
+   *
+   * For example, if `public` is your statically served directory and you have an icon at `./public/icons/cmd.svg`, you would set this to `/icons/cmd.svg`
+   */
+  icon?: string;
+};
+
+export type ActionCommandArgs = BaseCommandArgs & {
+  /**
+   * The function that will be called when someone choses to run this command.
+   */
+  run: Run;
+};
+
+export type ContextCommandArgs = BaseCommandArgs & {
+  /**
+   * The function that will be called to compute 'subcommands' for this command. The subcommands can be any number of commands,
+   * and even computed dynamically in response to the different arguments passed to this function or some other external state.
+   */
+  commands: CommandsFn;
+};
+
+export type CommandArgs = ActionCommandArgs | ContextCommandArgs;
 
 /**
  * This validates a command. We make sure that exactly one of `commands` or `run` is defined, and every other argument is serializable.
@@ -77,22 +123,29 @@ function validateCommand(cmdArgs: unknown): asserts cmdArgs is CommandArgs {
 
 export function Command(cmdArgs: CommandArgs) {
   validateCommand(cmdArgs);
-  const { commands, run, ...props } = cmdArgs;
 
-  let wsCmd = {
-    data: {
-      ...props,
-      type: commands ? "context" : "action",
-    },
-    commands: commands
-      ? async (args: CommandFnArgs) => {
-          return proxy(await commands(args));
-        }
-      : undefined,
-    run: run ? run : undefined,
-  };
+  if ("commands" in cmdArgs) {
+    const { commands, ...props } = cmdArgs;
+    return proxy({
+      data: {
+        ...props,
+        type: "context",
+      },
+      commands: async (args: CommandFnArgs) => {
+        return proxy(await commands(args));
+      },
+    });
+  } else {
+    const { run, ...props } = cmdArgs;
 
-  return proxy(wsCmd);
+    return proxy({
+      data: {
+        ...props,
+        type: "action",
+      },
+      run,
+    });
+  }
 }
 
-export type Command = ReturnType<typeof Command>;
+export type CommandProxy = ReturnType<typeof Command>;
