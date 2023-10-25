@@ -19,12 +19,12 @@ interface AddCommandArgs {
   /**
    * The command's unique identifier. This is used to identify the command in Replit's command system
    */
-  id: string,
+  id: string;
 
   /**
    * The surfaces that this command should appear in. This is an array of strings
    */
-  contributions: Array<string>,
+  contributions: Array<string>;
 
   /**
    * A Command, or, a function that returns a Command.
@@ -32,11 +32,7 @@ interface AddCommandArgs {
   command: CommandProxy | CreateCommand;
 }
 
-export function add({
-  id,
-  contributions,
-  command,
-}: AddCommandArgs) {
+export function add({ id, contributions, command }: AddCommandArgs) {
   if (typeof command === "function") {
     registerCreate({ commandId: id, contributions }, command);
   } else {
