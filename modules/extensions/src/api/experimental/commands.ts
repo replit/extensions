@@ -1,6 +1,6 @@
 import { extensionPort } from "../../util/comlink";
-import { Command } from "../../commands";
+import { CommandProxy } from "../../commands";
 
-export function register(command: Command): void {
+export function register(command: CommandProxy): void {
   extensionPort.experimental.commands.registerCommand(command);
 }

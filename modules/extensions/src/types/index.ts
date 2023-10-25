@@ -23,7 +23,7 @@ import {
 import { OnActiveFileChangeListener } from "./session";
 import Comlink from "comlink";
 import { Data } from "../api/debug";
-import { Command } from "../commands";
+import { Command, CommandProxy } from "../commands";
 
 export * from "./fs";
 export * from "./themes";
@@ -211,7 +211,7 @@ export type ExperimentalAPI = {
   };
 
   commands: {
-    registerCommand: (command: Command) => void;
+    registerCommand: (command: CommandProxy) => void;
   };
 };
 
