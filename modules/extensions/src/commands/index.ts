@@ -20,9 +20,12 @@ export type CommandFnArgs = {
    */
   path: SerializableValue[];
 };
+
 export type CommandsFn = (args: CommandFnArgs) => Promise<Array<CommandProxy>>;
 
-export type CreateCommand = (args: CommandFnArgs) => Promise<CommandProxy>;
+export type CreateCommand = (
+  args: CommandFnArgs
+) => CommandProxy | Promise<CommandProxy>;
 
 export type Run = () => any;
 
