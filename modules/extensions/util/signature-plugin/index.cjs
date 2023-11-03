@@ -90,9 +90,21 @@ exports.load = function (app) {
     },
     priority: 0,
     toObject: (x, obj) => {
-      obj.stringifiedInterface = `interface ${x.name} {\n${x.children
-        .map((c) => `    ${c.name}: ${c.type.toString()},`)
-        .join("\n")}\n}`;
+      const childrenParts = (x.children ?? []).map(
+        (c) => `    ${c.name}: ${c.type.toString()},`
+      );
+      const indexSigParts = x.indexSignature?.parameters?.length
+        ? x.indexSignature.parameters.map(
+            (p) =>
+              `    [${p.name}: ${p.type.toString()}]: ${
+                x.indexSignature.type.name
+              }`
+          )
+        : "";
+
+      const partsString = [...childrenParts, ...indexSigParts].join("\n");
+      obj.stringifiedInterface = `interface ${x.name} {\n${partsString}\n}`;
+
       return obj;
     },
   });
