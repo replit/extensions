@@ -56,5 +56,4 @@ jobs:
         with:
           version: 7.29.1
       - run: pnpm install
-      - run: cd modules/extensions
-      - run: pnpm generate:docs
+      - run: pnpm -C modules/extensions generate:docs
