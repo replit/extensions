@@ -45,3 +45,16 @@ jobs:
           version: 7.29.1
       - run: pnpm install
       - run: pnpm test:build
+  test-generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.29.1
+      - run: pnpm install
+      - run: cd modules/extensions
+      - run: pnpm generate:docs
