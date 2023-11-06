@@ -145,7 +145,7 @@ export function isCommandProxy(cmd: object): cmd is CommandProxy {
 
 /**
  * This function validates a command and wraps it in a proxy so that it can be sent over the wire
- * 
+ *
  * It:
  * - Validates the command's arguments, separates serializable and non-serializable arguments
  * - Wraps the command in a proxy so that it can be sent over the wire
@@ -156,7 +156,7 @@ export function Command(cmdArgs: CommandArgs): CommandProxy {
   // If the command is already wrapped, just return it.
   // This is to prevent accidental double-wrapping
   if (isCommandProxy(cmdArgs)) {
-    throw new Error('Command is already wrapped')
+    throw new Error("Command is already wrapped");
   }
 
   // Validate the command's arguments
