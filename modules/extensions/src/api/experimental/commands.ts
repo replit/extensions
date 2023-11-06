@@ -15,7 +15,7 @@ export function registerCreate(
   );
 }
 
-interface AddCommandArgs {
+export interface AddCommandArgs {
   /**
    * The command's unique identifier. This is used to identify the command in Replit's command system
    */

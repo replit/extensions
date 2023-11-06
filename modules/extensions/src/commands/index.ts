@@ -29,7 +29,7 @@ export type CreateCommand = (
 
 export type Run = () => any;
 
-type SerializableValue =
+export type SerializableValue =
   | string
   | number
   | boolean

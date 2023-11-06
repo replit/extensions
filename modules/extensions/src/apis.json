@@ -155,7 +155,8 @@
       "ActionCommandArgs",
       "ContextCommandArgs",
       "CommandArgs",
-      "CommandProxy"
+      "CommandProxy",
+      "AddCommandArgs"
     ]
   }
 ]
