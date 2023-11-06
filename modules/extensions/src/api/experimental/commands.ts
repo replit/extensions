@@ -39,6 +39,10 @@ export function add({ id, contributions, command }: AddCommandArgs) {
     let createCommand = async (cmdFnArgs: CommandFnArgs) => {
       const cmd = await command(cmdFnArgs);
 
+      if (!cmd) {
+        return null;
+      }
+
       return isCommandProxy(cmd) ? cmd : Command(cmd);
     };
 
@@ -71,8 +75,17 @@ export function registerCreate(
   data: { commandId: string; contributions: Array<string> },
   createCommand: CreateCommand
 ): void {
+
   extensionPort.experimental.commands.registerCreateCommand(
     data,
-    createCommand
+    async (args: CommandFnArgs) => {
+      const cmd = await createCommand(args)
+
+      if (!cmd) {
+        return null
+      }
+
+      return isCommandProxy(cmd) ? cmd : Command(cmd);
+    }
   );
 }

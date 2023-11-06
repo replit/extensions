@@ -38,7 +38,7 @@ export type CommandsFn = (
 
 export type CreateCommand = (
   args: CommandFnArgs
-) => CommandProxy | Promise<CommandProxy> | CommandArgs | Promise<CommandArgs>;
+) => CommandProxy | Promise<CommandProxy> | CommandArgs | Promise<CommandArgs> | null;
 
 export type Run = () => any;
 
@@ -214,25 +214,21 @@ export function Command(cmdArgs: CommandArgs): CommandProxy {
 export type CommandProxy =
   | ({
       data: {
-        type: string;
+        type: "action";
         label: string;
         description?: string;
         icon?: string;
       };
       run?: Run;
-      commands?: (
-        args: CommandFnArgs
-      ) => Promise<Array<CommandProxy | CommandArgs>>;
     } & ProxyMarked & { [CommandSymbol]: true })
   | ({
       data: {
-        type: string;
+        type: "context";
         label: string;
         description?: string;
         icon?: string;
       };
-      run?: Run;
       commands?: (
         args: CommandFnArgs
-      ) => Promise<Array<CommandProxy | CommandArgs>>;
-    } & ProxyMarked & { [CommandSymbol]: true })[];
+      ) => Promise<Array<CommandProxy>>;
+    } & ProxyMarked & { [CommandSymbol]: true });

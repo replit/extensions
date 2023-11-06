@@ -217,7 +217,7 @@ export type ExperimentalAPI = {
         commandId: string;
         contributions: Array<string>;
       },
-      create: CreateCommand
+      create: (createArgs: CommandFnArgs) => Promise<CommandProxy | null>
     ) => void;
   };
 };
