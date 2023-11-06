@@ -140,5 +140,23 @@
     "name": "debug",
     "description": "The `debug` api module allows you to log data to the Extension Devtools",
     "typeNames": ["Primitive", "ObjectType", "NumericindexType", "Data"]
+  },
+  {
+    "name": "commands",
+    "experimental": true,
+    "description": "The `commands` api module allows you to register commands that can be run from the CLUI command bar and other contribution points.",
+    "typeNames": [
+      "CommandFnArgs",
+      "CommandsFn",
+      "CreateCommand",
+      "Run",
+      "SerializableValue",
+      "BaseCommandArgs",
+      "ActionCommandArgs",
+      "ContextCommandArgs",
+      "CommandArgs",
+      "CommandProxy",
+      "AddCommandArgs"
+    ]
   }
 ]
