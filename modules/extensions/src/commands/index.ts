@@ -1,5 +1,15 @@
 import { proxy } from "../util/comlink";
 
+/**
+ * Surfaces that a command can appear in.
+ */
+export enum ContributionType {
+  CommandBar = 'commandbar',
+  FiletreeContextMenu = 'filetree-context-menu',
+  SidebarSearch = 'sidebar-search',
+  EditorContextMenu = 'editor-context-menu',
+}
+
 export type CommandFnArgs = {
   /**
    * Whether the command is currently active. That is, the user has selected this command in the command bar.
@@ -16,7 +26,7 @@ export type CommandFnArgs = {
   /**
    * The current path. This is the path of commands that the user has selected in the command bar.
    *
-   * The first element of the array is the "root" which contains contextual information about the command. It varies depending on the contribution point.
+   * The first element of the array is the "root" which contains contextual information about the command. It varies depending on the surface.
    */
   path: SerializableValue[];
 };
