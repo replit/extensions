@@ -1,5 +1,5 @@
 import { extensionPort } from "../../util/comlink";
-import { CreateCommand, CommandProxy, ContributionType } from "../../commands";
+import { CreateCommand, CommandProxy, ContributionType, Command, CommandFnArgs, CommandSymbol, CommandArgs, isCommandProxy } from "../../commands";
 
 export interface AddCommandArgs {
   /**
@@ -27,17 +27,19 @@ export interface AddCommandArgs {
  */
 export function add({ id, contributions, command }: AddCommandArgs) {
   if (typeof command === "function") {
-    extensionPort.experimental.commands.registerCreateCommand(
-      { commandId: id, contributions },
-      command
-    );
+
+    let createCommand = async (cmdFnArgs: CommandFnArgs) => {
+      const cmd = await command(cmdFnArgs);
+      
+      return isCommandProxy(cmd) ? cmd : Command(cmd);
+    };
+
+    extensionPort.experimental.commands.registerCreateCommand({ commandId: id, contributions }, createCommand);
   } else {
-    extensionPort.experimental.commands.registerCreateCommand(
-      { commandId: id, contributions },
-      async () => ({
-        ...command,
-      })
-    );
+    let createCommand = async () => {
+      return isCommandProxy(command) ? command : Command(command);
+    };
+    extensionPort.experimental.commands.registerCreateCommand({ commandId: id, contributions }, createCommand);
   }
 }
 

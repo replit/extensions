@@ -1,3 +1,4 @@
+import { ProxyMarked } from "comlink";
 import { proxy } from "../util/comlink";
 
 /**
@@ -31,11 +32,13 @@ export type CommandFnArgs = {
   path: SerializableValue[];
 };
 
-export type CommandsFn = (args: CommandFnArgs) => Promise<Array<CommandProxy>>;
+export type CommandsFn = (
+  args: CommandFnArgs
+) => Promise<Array<CommandProxy | CommandArgs>>;
 
 export type CreateCommand = (
   args: CommandFnArgs
-) => CommandProxy | Promise<CommandProxy>;
+) => CommandProxy | Promise<CommandProxy> | CommandArgs | Promise<CommandArgs>;
 
 export type Run = () => any;
 
@@ -85,9 +88,9 @@ export type ContextCommandArgs = BaseCommandArgs & {
 export type CommandArgs = ActionCommandArgs | ContextCommandArgs;
 
 /**
- * This validates a command. We make sure that exactly one of `commands` or `run` is defined, and every other argument is serializable.
+ * This validates a CommandArgs object. We make sure that exactly one of `commands` or `run` is defined, and every other argument is serializable.
  */
-function validateCommand(cmdArgs: unknown): asserts cmdArgs is CommandArgs {
+function validateCommandArgs(cmdArgs: unknown): asserts cmdArgs is CommandArgs {
   // Make sure cmdArgs is object
   if (typeof cmdArgs !== "object") {
     throw new Error("Command arguments must be an object");
@@ -134,31 +137,102 @@ function validateCommand(cmdArgs: unknown): asserts cmdArgs is CommandArgs {
   }
 }
 
-export function Command(cmdArgs: CommandArgs) {
-  validateCommand(cmdArgs);
+export const CommandSymbol = Symbol("Command");
+
+export function isCommandProxy(cmd: object): cmd is CommandProxy {
+  return CommandSymbol in cmd && cmd[CommandSymbol] === true;
+}
+
+/**
+ * This function validates a command and wraps it in a proxy so that it can be sent over the wire
+ * 
+ * It:
+ * - Validates the command's arguments, separates serializable and non-serializable arguments
+ * - Wraps the command in a proxy so that it can be sent over the wire
+ * - Wraps the command's `commands` function to ensure that all subcommands are also Command() wrapped
+ * - Adds a symbol to the command to identify a wrapped command
+ */
+export function Command(cmdArgs: CommandArgs): CommandProxy {
+  // If the command is already wrapped, just return it.
+  // This is to prevent accidental double-wrapping
+  if (isCommandProxy(cmdArgs)) {
+    throw new Error('Command is already wrapped')
+  }
+
+  // Validate the command's arguments
+  validateCommandArgs(cmdArgs);
 
   if ("commands" in cmdArgs) {
     const { commands, ...props } = cmdArgs;
-    return proxy({
+
+    let cmdProxy: CommandProxy = proxy({
       data: {
         ...props,
         type: "context",
       },
       commands: async (args: CommandFnArgs) => {
-        return proxy(await commands(args));
+        // Compute subcommands
+        let subCmds = await commands(args);
+
+        const commandProxyArray: Array<CommandProxy> = subCmds.map((subCmd) => {
+          // Subcommands can be either a CommandArgs or a CommandProxy.
+          // If it's already a wrapped command, just return it.
+          if (isCommandProxy(subCmd)) {
+            return subCmd;
+          }
+
+          // Otherwise, wrap it in Command()
+          return Command(subCmd);
+        });
+
+        // Return the subcommands as a proxy array
+        return proxy(commandProxyArray);
       },
+
+      // Attach CommandSymbol to identify a wrapped command
+      [CommandSymbol]: true,
     });
+
+    return cmdProxy;
   } else {
     const { run, ...props } = cmdArgs;
 
-    return proxy({
+    let cmdProxy: CommandProxy = proxy({
       data: {
         ...props,
         type: "action",
       },
       run,
+      // Attach CommandSymbol to identify a wrapped command
+      [CommandSymbol]: true,
     });
+
+    return cmdProxy;
   }
 }
 
-export type CommandProxy = ReturnType<typeof Command>;
+export type CommandProxy =
+  | ({
+      data: {
+        type: string;
+        label: string;
+        description?: string;
+        icon?: string;
+      };
+      run?: Run;
+      commands?: (
+        args: CommandFnArgs
+      ) => Promise<Array<CommandProxy | CommandArgs>>;
+    } & ProxyMarked & { [CommandSymbol]: true })
+  | ({
+      data: {
+        type: string;
+        label: string;
+        description?: string;
+        icon?: string;
+      };
+      run?: Run;
+      commands?: (
+        args: CommandFnArgs
+      ) => Promise<Array<CommandProxy | CommandArgs>>;
+    } & ProxyMarked & { [CommandSymbol]: true })[];
