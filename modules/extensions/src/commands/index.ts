@@ -4,10 +4,10 @@ import { proxy } from "../util/comlink";
  * Surfaces that a command can appear in.
  */
 export enum ContributionType {
-  CommandBar = 'commandbar',
-  FiletreeContextMenu = 'filetree-context-menu',
-  SidebarSearch = 'sidebar-search',
-  EditorContextMenu = 'editor-context-menu',
+  CommandBar = "commandbar",
+  FiletreeContextMenu = "filetree-context-menu",
+  SidebarSearch = "sidebar-search",
+  EditorContextMenu = "editor-context-menu",
 }
 
 export type CommandFnArgs = {
