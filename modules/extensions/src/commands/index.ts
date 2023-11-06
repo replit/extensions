@@ -38,7 +38,12 @@ export type CommandsFn = (
 
 export type CreateCommand = (
   args: CommandFnArgs
-) => CommandProxy | Promise<CommandProxy> | CommandArgs | Promise<CommandArgs> | null;
+) =>
+  | CommandProxy
+  | Promise<CommandProxy>
+  | CommandArgs
+  | Promise<CommandArgs>
+  | null;
 
 export type Run = () => any;
 
@@ -174,6 +179,11 @@ export function Command(cmdArgs: CommandArgs): CommandProxy {
         // Compute subcommands
         let subCmds = await commands(args);
 
+        // While we expect commands() to return an array, we don't want to throw an error if it doesn't.
+        if (!subCmds || !Array.isArray(subCmds)) {
+          return proxy([]);
+        }
+
         const commandProxyArray: Array<CommandProxy> = subCmds.map((subCmd) => {
           // Subcommands can be either a CommandArgs or a CommandProxy.
           // If it's already a wrapped command, just return it.
@@ -228,7 +238,5 @@ export type CommandProxy =
         description?: string;
         icon?: string;
       };
-      commands?: (
-        args: CommandFnArgs
-      ) => Promise<Array<CommandProxy>>;
+      commands?: (args: CommandFnArgs) => Promise<Array<CommandProxy>>;
     } & ProxyMarked & { [CommandSymbol]: true });
