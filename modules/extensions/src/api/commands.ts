@@ -1,4 +1,4 @@
-import { extensionPort, proxy } from "../../util/comlink";
+import { extensionPort, proxy } from "../util/comlink";
 import {
   CreateCommand,
   CommandProxy,
@@ -8,7 +8,7 @@ import {
   CommandSymbol,
   CommandArgs,
   isCommandProxy,
-} from "../../commands";
+} from "../commands";
 
 export interface AddCommandArgs {
   /**

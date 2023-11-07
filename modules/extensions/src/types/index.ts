@@ -179,6 +179,17 @@ export type ExtensionPortAPI = {
   watchActiveFile: (callback: OnActiveFileChangeListener) => DisposerFunction;
   getActiveFile: () => Promise<string | null>;
 
+  commands: {
+    registerCommand: (command: CommandProxy) => void;
+    registerCreateCommand: (
+      data: {
+        commandId: string;
+        contributions: Array<string>;
+      },
+      create: (createArgs: CommandFnArgs) => Promise<CommandProxy | null>
+    ) => void;
+  };
+
   experimental: ExperimentalAPI;
   internal: InternalAPI;
   debug: DebugAPI;
@@ -208,17 +219,6 @@ export type ExperimentalAPI = {
 
   auth: {
     getAuthToken: () => Promise<string>;
-  };
-
-  commands: {
-    registerCommand: (command: CommandProxy) => void;
-    registerCreateCommand: (
-      data: {
-        commandId: string;
-        contributions: Array<string>;
-      },
-      create: (createArgs: CommandFnArgs) => Promise<CommandProxy | null>
-    ) => void;
   };
 };
 
