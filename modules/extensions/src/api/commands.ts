@@ -46,7 +46,7 @@ export function add({ id, contributions, command }: AddCommandArgs) {
       return isCommandProxy(cmd) ? cmd : Command(cmd);
     });
 
-    extensionPort.experimental.commands.registerCreateCommand(
+    extensionPort.commands.registerCreateCommand(
       { commandId: id, contributions },
       createCommand
     );
@@ -55,7 +55,7 @@ export function add({ id, contributions, command }: AddCommandArgs) {
       return isCommandProxy(command) ? command : Command(command);
     });
 
-    extensionPort.experimental.commands.registerCreateCommand(
+    extensionPort.commands.registerCreateCommand(
       { commandId: id, contributions },
       createCommand
     );
@@ -66,7 +66,7 @@ export function add({ id, contributions, command }: AddCommandArgs) {
  * @deprecated Use `add` instead
  */
 export function register(command: CommandProxy): void {
-  extensionPort.experimental.commands.registerCommand(command);
+  extensionPort.commands.registerCommand(command);
 }
 
 /**
@@ -76,7 +76,7 @@ export function registerCreate(
   data: { commandId: string; contributions: Array<string> },
   createCommand: CreateCommand
 ): void {
-  extensionPort.experimental.commands.registerCreateCommand(
+  extensionPort.commands.registerCreateCommand(
     data,
     async (args: CommandFnArgs) => {
       const cmd = await createCommand(args);

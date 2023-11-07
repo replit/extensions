@@ -9,6 +9,7 @@ import * as experimental from "./experimental";
 import * as internal from "./internal";
 import * as exec from "./exec";
 import * as debug from "./debug";
+import * as commands from "./commands";
 
 export {
   fs,
@@ -22,6 +23,7 @@ export {
   internal,
   exec,
   debug,
+  commands,
 };
 
 // deprecate this after migrating existing extensions
