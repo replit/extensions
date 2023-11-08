@@ -34,7 +34,7 @@ export interface AddCommandArgs {
  * @param contributions The surfaces that this command should appear in. This is an array of strings
  * @param command A Command, or, a function that returns a Command.
  */
-function add({ id, contributions, command }: AddCommandArgs) {
+export function add({ id, contributions, command }: AddCommandArgs) {
   if (typeof command === "function") {
     let createCommand = proxy(async (cmdFnArgs: CommandFnArgs) => {
       const cmd = await command(cmdFnArgs);
@@ -61,5 +61,3 @@ function add({ id, contributions, command }: AddCommandArgs) {
     );
   }
 }
-
-export { add };
