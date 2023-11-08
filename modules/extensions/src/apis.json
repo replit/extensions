@@ -143,7 +143,6 @@
   },
   {
     "name": "commands",
-    "experimental": true,
     "description": "The `commands` api module allows you to register commands that can be run from the CLUI command bar and other contribution points.",
     "typeNames": [
       "CommandFnArgs",
